@@ -316,6 +316,168 @@ canvas{
 ${data.resultado.map((p,i)=>`
 <div class="card">
 <div class="title">👤 RESULTADO ${i+1}</div>
+function renderApp(data){
+
+function formatLabel(key){
+  return key
+    .replace(/_/g," ")
+    .replace(/\b\w/g,l=>l.toUpperCase())
+}
+
+// 🔥 transforma QUALQUER coisa em array
+function normalizeResults(res){
+  if (!res) return []
+  if (Array.isArray(res)) return res
+  if (typeof res === "object") return [res]
+  return [{ valor: res }]
+}
+
+// 🔥 flatten (resolve objetos dentro de objetos)
+function flatten(obj, prefix = ""){
+  let out = {}
+
+  for (let k in obj){
+    let val = obj[k]
+    let newKey = prefix ? `${prefix}_${k}` : k
+
+    if (val && typeof val === "object" && !Array.isArray(val)){
+      Object.assign(out, flatten(val, newKey))
+    } else {
+      out[newKey] = val
+    }
+  }
+
+  return out
+}
+
+// 🔥 remove lixo
+function cleanValue(v){
+  if (v === null || v === undefined) return "-"
+  if (typeof v === "string" && v.trim() === "") return "-"
+  return v
+}
+
+// 🔥 render dinâmico INTELIGENTE
+function renderFields(obj){
+
+  const flat = flatten(obj)
+
+  return Object.entries(flat)
+    .filter(([_,v]) => v !== null && v !== "" && v !== undefined)
+    .map(([k,v])=>`
+      • ${formatLabel(k)}: ${cleanValue(v)}
+    `)
+    .join("<br>")
+}
+
+// 🔥 aplica normalização
+const results = normalizeResults(data.resultado)
+
+return `
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Astro Search</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#020617;
+  color:#fff;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:15px;
+}
+
+.title{ font-size:18px; margin-bottom:10px }
+.small{ opacity:.6; font-size:13px }
+
+.btn{
+  display:inline-block;
+  padding:10px 16px;
+  border-radius:10px;
+  background:#6366f1;
+  color:#fff;
+  text-decoration:none;
+  margin-top:10px;
+}
+
+.copy{
+  float:right;
+  font-size:12px;
+  opacity:.6;
+  cursor:pointer;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box{
+  background:#0f172a;
+  padding:20px;
+  border-radius:12px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="container">
+
+<div class="card">
+<div class="title">🚀 Astro Search</div>
+<div class="small">Bot mais completo do Telegram</div>
+<a class="btn" href="https://t.me/consultasdedados_bot">💎 Adquirir VIP</a>
+</div>
+
+<div class="card">
+<div class="title">🔍 Resultado da Consulta
+<span class="copy" onclick="copyAll()">Copiar</span>
+</div>
+
+<div class="small">
+📂 Tipo: ${data.tipo || "consulta"}<br>
+🔎 Busca: ${data.query || "-"}<br>
+📊 Total: ${results.length}
+</div>
+</div>
+
+${results.map((p,i)=>`
+<div class="card">
+<div class="title">👤 RESULTADO ${i+1}</div>
 
 <div class="small">
 ${renderFields(p)}
@@ -326,14 +488,11 @@ ${renderFields(p)}
 
 </div>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-box">📋 Copiado!</div>
 </div>
 
 <script>
-
-// copiar
 function copyAll(){
   navigator.clipboard.writeText(document.body.innerText)
   let m=document.getElementById("modal")
@@ -376,13 +535,12 @@ function draw(){
 }
 
 draw()
-
 </script>
 
 </body>
 </html>
 `
-  }
+}
 
 function renderError(){
 return `
