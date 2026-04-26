@@ -360,13 +360,16 @@ function cleanValue(v){
 // 🔥 render dinâmico INTELIGENTE
 function renderFields(obj){
 
-  const flat = flatten(obj)
+  return Object.entries(obj)
+    .map(([k,v])=>{
 
-  return Object.entries(flat)
-    .filter(([_,v]) => v !== null && v !== "" && v !== undefined)
-    .map(([k,v])=>`
-      • ${formatLabel(k)}: ${cleanValue(v)}
-    `)
+      if(v === null || v === "" || v === undefined){
+        return ""
+      }
+
+      return `• ${formatLabel(k)}: ${v}`
+    })
+    .filter(Boolean)
     .join("<br>")
 }
 
