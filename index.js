@@ -458,18 +458,98 @@ canvas{
 <div class="container">
 
 <div class="card">
+function renderApp(data){
+
+// 🔥 helpers
+function formatLabel(key){
+  return key.replace(/_/g," ").replace(/\b\w/g,l=>l.toUpperCase())
+}
+
+function normalize(res){
+  if (!res) return []
+  if (Array.isArray(res)) return res
+  if (typeof res === "object") return [res]
+  return [{ valor: res }]
+}
+
+function flatten(obj, prefix=""){
+  let out={}
+  for(let k in obj){
+    let v=obj[k]
+    let nk = prefix ? prefix+"_"+k : k
+
+    if(v && typeof v==="object" && !Array.isArray(v)){
+      Object.assign(out, flatten(v,nk))
+    } else {
+      out[nk]=v
+    }
+  }
+  return out
+}
+
+function renderFields(obj){
+  const flat = flatten(obj)
+
+  return Object.entries(flat)
+    .filter(([_,v]) => v!==null && v!=="" && v!==undefined)
+    .map(([k,v])=>`• ${formatLabel(k)}: ${v}`)
+    .join("<br>")
+}
+
+// 🔥 normaliza resultado
+const results = normalize(data.resultado)
+
+return `
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astro Search</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter';background:#020617;color:#fff}
+canvas{position:fixed;inset:0;z-index:-1}
+
+.container{max-width:900px;margin:auto;padding:20px}
+
+.card{
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:18px;
+padding:20px;
+margin-bottom:15px;
+}
+
+.title{font-size:18px;margin-bottom:10px}
+.small{opacity:.6;font-size:13px}
+
+.copy{float:right;cursor:pointer;font-size:12px;opacity:.6}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="container">
+
+<div class="card">
 <div class="title">🚀 Astro Search</div>
-<div class="small">Bot mais completo do Telegram</div>
-<a class="btn" href="https://t.me/consultasdedados_bot">💎 Adquirir VIP</a>
+<div class="small">Bot mais completo</div>
 </div>
 
 <div class="card">
-<div class="title">🔍 Resultado da Consulta
+<div class="title">
+🔍 Resultado
 <span class="copy" onclick="copyAll()">Copiar</span>
 </div>
 
 <div class="small">
-📂 Tipo: ${data.tipo || "consulta"}<br>
+📂 Tipo: ${data.tipo || "-"}<br>
 🔎 Busca: ${data.query || "-"}<br>
 📊 Total: ${results.length}
 </div>
@@ -478,26 +558,15 @@ canvas{
 ${results.map((p,i)=>`
 <div class="card">
 <div class="title">👤 RESULTADO ${i+1}</div>
-
-<div class="small">
-${renderFields(p)}
-</div>
-
+<div class="small">${renderFields(p)}</div>
 </div>
 `).join("")}
 
 </div>
 
-<div class="modal" id="modal">
-  <div class="modal-box">📋 Copiado!</div>
-</div>
-
 <script>
 function copyAll(){
   navigator.clipboard.writeText(document.body.innerText)
-  let m=document.getElementById("modal")
-  m.style.display="flex"
-  setTimeout(()=>m.style.display="none",1200)
 }
 
 // partículas
@@ -508,14 +577,8 @@ c.width=innerWidth
 c.height=innerHeight
 
 let p=[]
-
-for(let i=0;i<60;i++){
-  p.push({
-    x:Math.random()*c.width,
-    y:Math.random()*c.height,
-    r:Math.random()*2,
-    d:Math.random()
-  })
+for(let i=0;i<50;i++){
+  p.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2})
 }
 
 function draw(){
@@ -526,8 +589,7 @@ function draw(){
     ctx.beginPath()
     ctx.arc(e.x,e.y,e.r,0,Math.PI*2)
     ctx.fill()
-
-    e.y+=e.d
+    e.y+=0.5
     if(e.y>c.height) e.y=0
   })
 
