@@ -177,21 +177,128 @@ canvas{
 <div class="card">
 <div class="title">🚀 Astro Search</div>
 <div class="small">Bot mais completo do Telegram</div>
+function renderApp(data){
+
+function formatLabel(key){
+  return key
+    .replace(/_/g," ")
+    .replace(/\b\w/g,l=>l.toUpperCase())
+}
+
+// 🔥 render dinâmico
+function renderFields(obj){
+  return Object.entries(obj).map(([k,v])=>`
+    • ${formatLabel(k)}: ${v || "-"}
+  `).join("<br>")
+}
+
+return `
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Astro Search</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#020617;
+  color:#fff;
+}
+
+/* partículas */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+
+/* layout */
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:15px;
+  transition:.3s;
+}
+
+.card:hover{ transform:translateY(-3px) }
+
+.title{ font-size:18px; margin-bottom:10px }
+.small{ opacity:.6; font-size:13px }
+
+.btn{
+  display:inline-block;
+  padding:10px 16px;
+  border-radius:10px;
+  background:#6366f1;
+  color:#fff;
+  text-decoration:none;
+  margin-top:10px;
+}
+
+.copy{
+  float:right;
+  font-size:12px;
+  opacity:.6;
+  cursor:pointer;
+}
+
+/* modal */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box{
+  background:#0f172a;
+  padding:20px;
+  border-radius:12px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="card">
+<div class="title">🚀 Astro Search</div>
+<div class="small">Bot mais completo do Telegram</div>
 
 <a class="btn" href="https://t.me/consultasdedados_bot">💎 Adquirir VIP</a>
 </div>
 
-<!-- 📢 UPDATES -->
+<!-- UPDATES -->
 <div class="card">
 <div class="title">✅ Consulta realizada com sucesso!</div>
-<div class="small">
-Entre no canal de atualizações para acompanhar novidades e melhorias.
-</div>
+<div class="small">Entre no canal para atualizações</div>
 
 <a class="btn" href="https://t.me/consultas24">📢 Acessar Updates</a>
 </div>
 
-<!-- RESULTADO -->
+<!-- INFO -->
 <div class="card">
 <div class="title">
 🔍 Resultado da Consulta
@@ -199,24 +306,19 @@ Entre no canal de atualizações para acompanhar novidades e melhorias.
 </div>
 
 <div class="small">
-👤 CONSULTA - NOME<br>
-• Total de resultados: ${data.resultado.length}
+📂 Tipo: ${data.tipo || "consulta"}<br>
+🔎 Busca: ${data.query}<br>
+📊 Total: ${data.resultado.length}
 </div>
 </div>
 
-<!-- LISTA -->
+<!-- RESULTADOS -->
 ${data.resultado.map((p,i)=>`
 <div class="card">
-
 <div class="title">👤 RESULTADO ${i+1}</div>
 
 <div class="small">
-• CPF: ${p.cpf || "-"}<br>
-• Nome: ${p.name || "-"}<br>
-• Nascimento: ${p.birth_date || "-"}<br>
-• Sexo: ${p.gender || "-"}<br>
-• Mãe: ${p.mother_name || "-"}<br>
-• Logradouro: ${p.address || "-"}<br>
+${renderFields(p)}
 </div>
 
 </div>
@@ -226,72 +328,61 @@ ${data.resultado.map((p,i)=>`
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-  <div class="modal-box">
-    <div>📋 Copiado com sucesso!</div>
-  </div>
+  <div class="modal-box">📋 Copiado!</div>
 </div>
 
 <script>
 
-// =======================
-// COPIAR TUDO
-// =======================
+// copiar
 function copyAll(){
-  let text = document.body.innerText;
-  navigator.clipboard.writeText(text);
-
-  let m = document.getElementById("modal");
-  m.style.display="flex";
-  setTimeout(()=>m.style.display="none",1500);
+  navigator.clipboard.writeText(document.body.innerText)
+  let m=document.getElementById("modal")
+  m.style.display="flex"
+  setTimeout(()=>m.style.display="none",1200)
 }
 
-// =======================
-// PARTICULAS SIMPLES
-// =======================
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+// partículas
+const c=document.getElementById("particles")
+const ctx=c.getContext("2d")
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+c.width=innerWidth
+c.height=innerHeight
 
-let particles = [];
+let p=[]
 
 for(let i=0;i<60;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
+  p.push({
+    x:Math.random()*c.width,
+    y:Math.random()*c.height,
     r:Math.random()*2,
     d:Math.random()
-  });
+  })
 }
 
 function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0,0,c.width,c.height)
+  ctx.fillStyle="rgba(99,102,241,0.5)"
 
-  ctx.fillStyle="rgba(99,102,241,0.5)";
+  p.forEach(e=>{
+    ctx.beginPath()
+    ctx.arc(e.x,e.y,e.r,0,Math.PI*2)
+    ctx.fill()
 
-  particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
+    e.y+=e.d
+    if(e.y>c.height) e.y=0
+  })
 
-    p.y += p.d;
-    if(p.y > canvas.height){
-      p.y = 0;
-    }
-  });
-
-  requestAnimationFrame(draw);
+  requestAnimationFrame(draw)
 }
 
-draw();
+draw()
 
 </script>
 
 </body>
 </html>
 `
-}
+  }
 
 function renderError(){
 return `
