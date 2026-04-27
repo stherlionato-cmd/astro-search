@@ -81,8 +81,6 @@ function renderApp(data){
       nome: obj.nome || obj.name || obj.nome_completo,
       cpf: obj.cpf || obj.doc || obj.documento,
       telefone: obj.telefone || obj.phone,
-      nascimento: obj.nascimento || obj.birth_date,
-      sexo: obj.sexo || obj.gender,
       cidade: obj.cidade || obj.city,
       estado: obj.uf || obj.state,
       ...obj
@@ -95,10 +93,19 @@ function renderApp(data){
 
   function renderFields(obj){
     const flat = flatten(obj)
+
     return Object.entries(flat)
       .filter(([_,v]) => v)
-      .map(([k,v]) => `<div class="field"><b>${formatLabel(k)}:</b> ${v}</div>`)
-      .join("")
+      .map(([k,v])=>{
+        const isSensitive = ["cpf","documento"].some(s=>k.toLowerCase().includes(s))
+
+        return `
+        <div class="field">
+          <span>${formatLabel(k)}</span>
+          <b class="${isSensitive ? "blur" : ""}">${v}</b>
+        </div>
+        `
+      }).join("")
   }
 
   const results = normalize(data.resultado)
@@ -109,30 +116,23 @@ function renderApp(data){
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Astro SaaS</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Astro</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:'Inter',sans-serif;
-  background:#020617;
-  color:#fff;
-  overflow-x:hidden;
-}
-
-/* partículas */
-canvas{
-  position:fixed;
-  top:0;left:0;
-  z-index:-1;
+  background:#0b0f1a;
+  color:#e5e7eb;
 }
 
 /* layout */
 .container{
-  max-width:1000px;
+  max-width:820px;
   margin:auto;
   padding:20px;
 }
@@ -142,81 +142,128 @@ canvas{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
+  margin-bottom:24px;
 }
 
 .logo{
-  font-size:22px;
-  font-weight:600;
+  font-size:18px;
+  font-weight:500;
 }
 
 .badge{
-  background:linear-gradient(45deg,#6366f1,#8b5cf6);
-  padding:6px 12px;
+  font-size:11px;
+  padding:5px 10px;
   border-radius:999px;
-  font-size:12px;
+  border:1px solid #1f2937;
+  color:#9ca3af;
 }
 
 /* card */
 .card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:15px;
-  transition:.3s;
+  background:#0f172a;
+  border:1px solid #1e293b;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:14px;
+  transition:.2s;
 }
 
 .card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 20px rgba(99,102,241,.2);
+  border-color:#334155;
+}
+
+/* title */
+.title{
+  font-size:15px;
+  font-weight:500;
+  margin-bottom:6px;
+}
+
+/* preview */
+.preview{
+  font-size:14px;
+  margin-bottom:10px;
+  color:#cbd5f5;
+}
+
+/* fields */
+.field{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  padding:4px 0;
+  border-bottom:1px dashed #1e293b;
+}
+
+.field span{
+  color:#6b7280;
+}
+
+/* blur premium */
+.blur{
+  filter:blur(5px);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.blur:hover{
+  filter:blur(0);
 }
 
 /* botão */
 .btn{
   display:inline-block;
-  padding:10px 16px;
-  border-radius:10px;
-  background:linear-gradient(45deg,#6366f1,#8b5cf6);
-  color:#fff;
+  padding:9px 14px;
+  border-radius:8px;
+  font-size:13px;
   text-decoration:none;
-  margin-top:10px;
-  margin-right:10px;
-  font-size:14px;
+  margin-right:8px;
+  border:1px solid #1f2937;
+  background:#111827;
+  color:#e5e7eb;
+  transition:.2s;
 }
 
-/* campos */
-.field{
-  margin-bottom:4px;
-  font-size:14px;
+.btn:hover{
+  background:#1f2937;
 }
 
-/* copiar */
+/* destaque */
+.btn-primary{
+  background:#2563eb;
+  border-color:#2563eb;
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:#1d4ed8;
+}
+
+/* copy */
 .copy{
   float:right;
   font-size:12px;
-  opacity:.6;
+  color:#6b7280;
   cursor:pointer;
 }
 
 /* modal */
 .modal{
   position:fixed;
-  top:0;left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.7);
+  inset:0;
+  background:rgba(0,0,0,.6);
   display:none;
   align-items:center;
   justify-content:center;
 }
 
-.modal-content{
-  background:#020617;
-  padding:30px;
-  border-radius:16px;
+.modal-box{
+  background:#0f172a;
+  border:1px solid #1e293b;
+  padding:25px;
+  border-radius:12px;
   text-align:center;
+  max-width:300px;
 }
 
 </style>
@@ -224,31 +271,33 @@ canvas{
 
 <body>
 
-<canvas id="bg"></canvas>
-
 <div class="container">
 
 <div class="header">
-  <div class="logo">🚀 Astro SaaS</div>
-  <div class="badge">💎 Premium</div>
+  <div class="logo">Astro</div>
+  <div class="badge">Premium</div>
 </div>
 
 <div class="card">
-<b>Tipo:</b> ${data.tipo || "-"}<br>
-<b>Busca:</b> ${data.query || "-"}<br>
-<b>Total:</b> ${results.length}
 
-<br><br>
+<div class="title">Consulta</div>
 
-<a class="btn" href="https://t.me/consutasdedados_bot" target="_blank">
-🤖 Adquirir Bot
+<div style="font-size:14px;color:#9ca3af;">
+${data.tipo || "-"} • ${data.query || "-"}<br>
+${results.length} resultado(s)
+</div>
+
+<br>
+
+<a class="btn btn-primary" href="https://t.me/consutasdedados_bot" target="_blank">
+Desbloquear completo
 </a>
 
 <a class="btn" href="https://t.me/consltas24" target="_blank">
-📢 Canal Oficial
+Canal oficial
 </a>
 
-<button class="btn" onclick="openModal()">⚡ Sobre</button>
+<button class="btn" onclick="openModal()">Sobre</button>
 
 </div>
 
@@ -257,19 +306,16 @@ ${results.map((p,i)=>{
 
   return `
 <div class="card">
-<div>
-<b>👤 Resultado ${i+1}</b>
+
+<div class="title">
+Resultado ${i+1}
 <span class="copy" onclick="copyCard(this)">Copiar</span>
 </div>
 
-<br>
-
-📱 ${mapped.telefone || "-"}<br>
-👤 ${mapped.nome || "-"}<br>
-🪪 ${mapped.cpf || "-"}<br>
-📍 ${(mapped.cidade || "-")} - ${(mapped.estado || "-")}
-
-<br><br>
+<div class="preview">
+${mapped.nome || "-"}<br>
+${mapped.telefone || "-"} • <span class="blur">${mapped.cpf || "-"}</span>
+</div>
 
 ${renderFields(mapped)}
 
@@ -281,68 +327,33 @@ ${renderFields(mapped)}
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-  <div class="modal-content">
-    <h2>🔥 Astro SaaS</h2>
-    <p>Sistema Premium de consultas avançadas</p>
+  <div class="modal-box">
+    <h3>Astro Premium</h3>
+    <p style="font-size:13px;color:#9ca3af;margin-top:8px;">
+    Desbloqueie dados completos, consultas ilimitadas e prioridade.
+    </p>
     <br>
+    <a class="btn btn-primary" href="https://t.me/consutasdedados_bot">Acessar bot</a>
+    <br><br>
     <button class="btn" onclick="closeModal()">Fechar</button>
   </div>
 </div>
 
 <script>
-// copiar
 function copyCard(el){
   const text = el.parentElement.parentElement.innerText
   navigator.clipboard.writeText(text)
-  el.innerText = "Copiado!"
+  el.innerText = "Copiado"
   setTimeout(()=>el.innerText="Copiar",1500)
 }
 
-// modal
 function openModal(){
   document.getElementById("modal").style.display="flex"
 }
+
 function closeModal(){
   document.getElementById("modal").style.display="none"
 }
-
-// partículas
-const canvas = document.getElementById("bg")
-const ctx = canvas.getContext("2d")
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
-
-let particles = []
-
-for(let i=0;i<60;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    vx:(Math.random()-.5)*1,
-    vy:(Math.random()-.5)*1
-  })
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height)
-
-  particles.forEach(p=>{
-    p.x+=p.vx
-    p.y+=p.vy
-
-    if(p.x<0||p.x>canvas.width) p.vx*=-1
-    if(p.y<0||p.y>canvas.height) p.vy*=-1
-
-    ctx.beginPath()
-    ctx.arc(p.x,p.y,1.5,0,Math.PI*2)
-    ctx.fillStyle="#6366f1"
-    ctx.fill()
-  })
-
-  requestAnimationFrame(animate)
-}
-
-animate()
 </script>
 
 </body>
