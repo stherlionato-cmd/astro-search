@@ -4,7 +4,7 @@ export default {
     const url = new URL(request.url)
 
     // =========================
-    // SALVAR RESULTADO
+    // 💾 SALVAR RESULTADO
     // =========================
     if (url.pathname === "/api/save") {
 
@@ -20,14 +20,14 @@ export default {
           ...body,
           created_at: Date.now()
         }),
-        { expirationTtl: 600 } // 10 min
+        { expirationTtl: 600 }
       )
 
       return new Response("OK")
     }
 
     // =========================
-    // VER RESULTADO
+    // 🔍 VER RESULTADO
     // =========================
     if (url.pathname.startsWith("/r/")) {
 
@@ -51,148 +51,70 @@ export default {
 }
 
 // =========================
-// HTML PREMIUM
+// 🧠 RENDER UNIVERSAL
 // =========================
 function renderApp(data){
 
-return `
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  // 🔥 normaliza qualquer retorno
+  function normalize(res){
+    if (!res) return []
+    if (Array.isArray(res)) return res
+    if (typeof res === "object") return [res]
+    return [{ valor: res }]
+  }
 
-<title>Astro Search</title>
+  // 🔥 achata objetos (nested)
+  function flatten(obj, prefix=""){
+    let out = {}
 
-<!-- Fonte -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    for(let k in obj){
+      let v = obj[k]
+      let nk = prefix ? prefix+"_"+k : k
 
-<style>
+      if(v && typeof v === "object" && !Array.isArray(v)){
+        Object.assign(out, flatten(v, nk))
+      } else {
+        out[nk] = v
+      }
+    }
 
-*{margin:0;padding:0;box-sizing:border-box}
+    return out
+  }
 
-body{
-  font-family:'Inter',sans-serif;
-  background:#020617;
-  color:#fff;
-  overflow-x:hidden;
-}
+  // 🔥 traduz campos automaticamente
+  function smartMap(obj){
+    return {
+      nome: obj.nome || obj.name || obj.nome_completo,
+      cpf: obj.cpf || obj.doc || obj.documento,
+      telefone: obj.telefone || obj.phone,
+      nascimento: obj.nascimento || obj.birth_date,
+      sexo: obj.sexo || obj.gender,
+      cidade: obj.cidade || obj.city,
+      estado: obj.uf || obj.state,
+      ...obj
+    }
+  }
 
-/* 🌌 PARTICULAS */
-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
-}
+  // 🔥 label bonita
+  function formatLabel(key){
+    return key
+      .replace(/_/g," ")
+      .replace(/\b\w/g,l=>l.toUpperCase())
+  }
 
-/* CONTAINER */
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
+  // 🔥 render automático
+  function renderFields(obj){
+    const flat = flatten(obj)
 
-/* CARD */
-.card{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:15px;
-  transition:.3s;
-}
+    return Object.entries(flat)
+      .filter(([_,v]) => v !== null && v !== "" && v !== undefined)
+      .map(([k,v]) => `<div><b>${formatLabel(k)}:</b> ${v}</div>`)
+      .join("")
+  }
 
-.card:hover{
-  transform:translateY(-3px);
-}
+  const results = normalize(data.resultado)
 
-/* TITULOS */
-.title{
-  font-size:18px;
-  margin-bottom:10px;
-  opacity:.9;
-}
-
-/* TEXTO */
-.small{
-  opacity:.6;
-  font-size:13px;
-}
-
-/* BOTÃO */
-.btn{
-  display:inline-block;
-  padding:10px 16px;
-  border-radius:10px;
-  background:#6366f1;
-  color:#fff;
-  text-decoration:none;
-  margin-top:10px;
-  font-size:14px;
-  transition:.3s;
-  cursor:pointer;
-}
-
-.btn:hover{
-  background:#4f46e5;
-}
-
-/* COPY */
-.copy{
-  float:right;
-  font-size:12px;
-  opacity:.6;
-  cursor:pointer;
-}
-
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-box{
-  background:#0f172a;
-  padding:25px;
-  border-radius:16px;
-  text-align:center;
-}
-
-</style>
-</head>
-
-<body>
-
-<canvas id="particles"></canvas>
-
-<div class="container">
-
-<!-- 🧠 ASTRO -->
-<div class="card">
-<div class="title">🚀 Astro Search</div>
-<div class="small">Bot mais completo do Telegram</div>
-function renderApp(data){
-
-function formatLabel(key){
-  return key
-    .replace(/_/g," ")
-    .replace(/\b\w/g,l=>l.toUpperCase())
-}
-
-// 🔥 render dinâmico
-function renderFields(obj){
-  return Object.entries(obj).map(([k,v])=>`
-    • ${formatLabel(k)}: ${v || "-"}
-  `).join("<br>")
-}
-
-return `
+  return `
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -210,13 +132,6 @@ body{
   font-family:'Inter',sans-serif;
   background:#020617;
   color:#fff;
-}
-
-/* partículas */
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:-1;
 }
 
 /* layout */
@@ -226,21 +141,28 @@ canvas{
   padding:20px;
 }
 
+/* card */
 .card{
-  background:rgba(255,255,255,0.04);
+  background:rgba(255,255,255,0.05);
   border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
-  border-radius:18px;
+  border-radius:16px;
   padding:20px;
   margin-bottom:15px;
-  transition:.3s;
 }
 
-.card:hover{ transform:translateY(-3px) }
+/* título */
+.title{
+  font-size:18px;
+  margin-bottom:10px;
+}
 
-.title{ font-size:18px; margin-bottom:10px }
-.small{ opacity:.6; font-size:13px }
+/* texto */
+.small{
+  opacity:.8;
+  font-size:14px;
+}
 
+/* botão */
 .btn{
   display:inline-block;
   padding:10px 16px;
@@ -251,305 +173,23 @@ canvas{
   margin-top:10px;
 }
 
+/* copiar */
 .copy{
   float:right;
   font-size:12px;
   opacity:.6;
   cursor:pointer;
 }
-
-/* modal */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-box{
-  background:#0f172a;
-  padding:20px;
-  border-radius:12px;
-}
 </style>
 </head>
 
 <body>
-
-<canvas id="particles"></canvas>
 
 <div class="container">
 
 <!-- HEADER -->
 <div class="card">
 <div class="title">🚀 Astro Search</div>
-<div class="small">Bot mais completo do Telegram</div>
-
-<a class="btn" href="https://t.me/consultasdedados_bot">💎 Adquirir VIP</a>
-</div>
-
-<!-- UPDATES -->
-<div class="card">
-<div class="title">✅ Consulta realizada com sucesso!</div>
-<div class="small">Entre no canal para atualizações</div>
-
-<a class="btn" href="https://t.me/consultas24">📢 Acessar Updates</a>
-</div>
-
-<!-- INFO -->
-<div class="card">
-<div class="title">
-🔍 Resultado da Consulta
-<span class="copy" onclick="copyAll()">Copiar</span>
-</div>
-
-<div class="small">
-📂 Tipo: ${data.tipo || "consulta"}<br>
-🔎 Busca: ${data.query}<br>
-📊 Total: ${data.resultado.length}
-</div>
-</div>
-
-<!-- RESULTADOS -->
-${data.resultado.map((p,i)=>`
-<div class="card">
-<div class="title">👤 RESULTADO ${i+1}</div>
-function renderApp(data){
-
-function formatLabel(key){
-  return key
-    .replace(/_/g," ")
-    .replace(/\b\w/g,l=>l.toUpperCase())
-}
-
-// 🔥 transforma QUALQUER coisa em array
-function normalizeResults(res){
-  if (!res) return []
-  if (Array.isArray(res)) return res
-  if (typeof res === "object") return [res]
-  return [{ valor: res }]
-}
-
-// 🔥 flatten (resolve objetos dentro de objetos)
-function flatten(obj, prefix = ""){
-  let out = {}
-
-  for (let k in obj){
-    let val = obj[k]
-    let newKey = prefix ? `${prefix}_${k}` : k
-
-    if (val && typeof val === "object" && !Array.isArray(val)){
-      Object.assign(out, flatten(val, newKey))
-    } else {
-      out[newKey] = val
-    }
-  }
-
-  return out
-}
-
-// 🔥 remove lixo
-function cleanValue(v){
-  if (v === null || v === undefined) return "-"
-  if (typeof v === "string" && v.trim() === "") return "-"
-  return v
-}
-
-// 🔥 render dinâmico INTELIGENTE
-function renderFields(obj){
-
-  return Object.entries(obj)
-    .map(([k,v])=>{
-
-      if(v === null || v === "" || v === undefined){
-        return ""
-      }
-
-      return `• ${formatLabel(k)}: ${v}`
-    })
-    .filter(Boolean)
-    .join("<br>")
-}
-
-// 🔥 aplica normalização
-const results = normalizeResults(data.resultado)
-
-return `
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Astro Search</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  font-family:'Inter',sans-serif;
-  background:#020617;
-  color:#fff;
-}
-
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:-1;
-}
-
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
-
-.card{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:15px;
-}
-
-.title{ font-size:18px; margin-bottom:10px }
-.small{ opacity:.6; font-size:13px }
-
-.btn{
-  display:inline-block;
-  padding:10px 16px;
-  border-radius:10px;
-  background:#6366f1;
-  color:#fff;
-  text-decoration:none;
-  margin-top:10px;
-}
-
-.copy{
-  float:right;
-  font-size:12px;
-  opacity:.6;
-  cursor:pointer;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-box{
-  background:#0f172a;
-  padding:20px;
-  border-radius:12px;
-}
-</style>
-</head>
-
-<body>
-
-<canvas id="particles"></canvas>
-
-<div class="container">
-
-<div class="card">
-function renderApp(data){
-
-// 🧠 normaliza qualquer resposta
-function normalize(res){
-  if (!res) return []
-  if (Array.isArray(res)) return res
-  if (typeof res === "object") return [res]
-  return [{ valor: res }]
-}
-
-// 🧠 transforma nested em plano (endereco.cidade → endereco_cidade)
-function flatten(obj, prefix=""){
-  let out = {}
-
-  for(let k in obj){
-    let v = obj[k]
-    let nk = prefix ? prefix+"_"+k : k
-
-    if(v && typeof v === "object" && !Array.isArray(v)){
-      Object.assign(out, flatten(v, nk))
-    } else {
-      out[nk] = v
-    }
-  }
-
-  return out
-}
-
-// 🧠 formata label bonitinho
-function formatLabel(key){
-  return key
-    .replace(/_/g," ")
-    .replace(/\b\w/g,l=>l.toUpperCase())
-}
-
-// 🧠 render automático
-function renderFields(obj){
-  const flat = flatten(obj)
-
-  return Object.entries(flat)
-    .filter(([_,v]) => v !== null && v !== "" && v !== undefined)
-    .map(([k,v])=>`• ${formatLabel(k)}: ${v}`)
-    .join("<br>")
-}
-
-// 🔥 aplica
-const results = normalize(data.resultado)
-
-return `
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<title>Astro Search</title>
-
-<style>
-body{
-  font-family:Arial;
-  background:#020617;
-  color:#fff;
-}
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
-.card{
-  background:#111;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:10px;
-}
-.title{
-  font-size:18px;
-  margin-bottom:10px;
-}
-.small{
-  opacity:.7;
-  font-size:13px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="card">
-<div class="title">🔍 Resultado</div>
 <div class="small">
 Tipo: ${data.tipo || "-"}<br>
 Busca: ${data.query || "-"}<br>
@@ -557,28 +197,62 @@ Total: ${results.length}
 </div>
 </div>
 
-${results.map((p,i)=>`
+<!-- RESULTADOS -->
+${results.map((p,i)=>{
+
+  const mapped = smartMap(p)
+
+  return `
 <div class="card">
-<div class="title">👤 Resultado ${i+1}</div>
+
+<div class="title">
+👤 Resultado ${i+1}
+<span class="copy" onclick="copyCard(this)">Copiar</span>
+</div>
+
 <div class="small">
-${renderFields(p)}
-</div>
-</div>
-`).join("")}
+
+<!-- preview estilo bot -->
+📱 ${mapped.telefone || "-"}<br>
+👤 ${mapped.nome || "-"}<br>
+🪪 ${mapped.cpf || "-"}<br>
+📍 ${(mapped.cidade || "-")} - ${(mapped.estado || "-")}
+
+<br><br>
+
+${renderFields(mapped)}
 
 </div>
+
+</div>
+`
+}).join("")}
+
+</div>
+
+<script>
+function copyCard(el){
+  const text = el.parentElement.parentElement.innerText
+  navigator.clipboard.writeText(text)
+  el.innerText = "Copiado!"
+  setTimeout(()=>el.innerText="Copiar",1500)
+}
+</script>
 
 </body>
 </html>
 `
 }
 
+// =========================
+// ❌ ERRO
+// =========================
 function renderError(){
-return `
-<html>
-<body style="background:#000;color:#fff;text-align:center;padding:50px">
-<h1>❌ Expirado ou inválido</h1>
-</body>
-</html>
-`
-  }
+  return `
+  <html>
+  <body style="background:#000;color:#fff;text-align:center;padding:50px">
+  <h1>❌ Expirado ou inválido</h1>
+  </body>
+  </html>
+  `
+}
