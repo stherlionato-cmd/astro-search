@@ -463,11 +463,7 @@ canvas{
 <div class="card">
 function renderApp(data){
 
-// 🔥 helpers
-function formatLabel(key){
-  return key.replace(/_/g," ").replace(/\b\w/g,l=>l.toUpperCase())
-}
-
+// 🧠 normaliza qualquer resposta
 function normalize(res){
   if (!res) return []
   if (Array.isArray(res)) return res
@@ -475,65 +471,7 @@ function normalize(res){
   return [{ valor: res }]
 }
 
-function flatten(obj, prefix=""){
-  let out={}
-  for(let k in obj){
-    let v=obj[k]
-    let nk = prefix ? prefix+"_"+k : k
-
-    if(v && typeof v==="object" && !Array.isArray(v)){
-      Object.assign(out, flatten(v,nk))
-    } else {
-      out[nk]=v
-    }
-  }
-  return out
-}
-
-function renderFields(obj){
-  const flat = flatten(obj)
-
-  return Object.entries(flat)
-    .filter(([_,v]) => v!==null && v!=="" && v!==undefined)
-    .map(([k,v])=>`• ${formatLabel(k)}: ${v}`)
-    .join("<br>")
-}
-
-// 🔥 normaliza resultado
-const results = normalize(data.resultado)
-
-return `
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Astro Search</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter';background:#020617;color:#fff}
-canvas{position:fixed;inset:0;z-index:-1}
-
-.container{max-width:900px;margin:auto;padding:20px}
-
-function renderApp(data){
-
-function formatLabel(key){
-  return key.replace(/_/g," ").replace(/\b\w/g,l=>l.toUpperCase())
-}
-
-// normaliza QUALQUER resposta
-function normalize(res){
-  if (!res) return []
-  if (Array.isArray(res)) return res
-  if (typeof res === "object") return [res]
-  return [{ valor: res }]
-}
-
-// achata objetos (resolve nested tipo endereco.cidade)
+// 🧠 transforma nested em plano (endereco.cidade → endereco_cidade)
 function flatten(obj, prefix=""){
   let out = {}
 
@@ -541,8 +479,8 @@ function flatten(obj, prefix=""){
     let v = obj[k]
     let nk = prefix ? prefix+"_"+k : k
 
-    if(v && typeof v==="object" && !Array.isArray(v)){
-      Object.assign(out, flatten(v,nk))
+    if(v && typeof v === "object" && !Array.isArray(v)){
+      Object.assign(out, flatten(v, nk))
     } else {
       out[nk] = v
     }
@@ -551,7 +489,14 @@ function flatten(obj, prefix=""){
   return out
 }
 
-// render dinâmico
+// 🧠 formata label bonitinho
+function formatLabel(key){
+  return key
+    .replace(/_/g," ")
+    .replace(/\b\w/g,l=>l.toUpperCase())
+}
+
+// 🧠 render automático
 function renderFields(obj){
   const flat = flatten(obj)
 
@@ -561,6 +506,7 @@ function renderFields(obj){
     .join("<br>")
 }
 
+// 🔥 aplica
 const results = normalize(data.resultado)
 
 return `
@@ -568,15 +514,33 @@ return `
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Astro Search</title>
 
 <style>
-body{font-family:Arial;background:#020617;color:#fff}
-.container{max-width:900px;margin:auto;padding:20px}
-.card{background:#111;padding:15px;border-radius:12px;margin-bottom:10px}
-.title{font-size:18px;margin-bottom:10px}
-.small{opacity:.7;font-size:13px}
+body{
+  font-family:Arial;
+  background:#020617;
+  color:#fff;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+.card{
+  background:#111;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+.title{
+  font-size:18px;
+  margin-bottom:10px;
+}
+.small{
+  opacity:.7;
+  font-size:13px;
+}
 </style>
 </head>
 
@@ -596,7 +560,9 @@ Total: ${results.length}
 ${results.map((p,i)=>`
 <div class="card">
 <div class="title">👤 Resultado ${i+1}</div>
-<div class="small">${renderFields(p)}</div>
+<div class="small">
+${renderFields(p)}
+</div>
 </div>
 `).join("")}
 
