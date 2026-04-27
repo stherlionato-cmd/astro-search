@@ -76,36 +76,8 @@ function renderApp(data){
     return out
   }
 
-  function smartMap(obj){
-    return {
-      nome: obj.nome || obj.name || obj.nome_completo,
-      cpf: obj.cpf || obj.doc || obj.documento,
-      telefone: obj.telefone || obj.phone,
-      cidade: obj.cidade || obj.city,
-      estado: obj.uf || obj.state,
-      ...obj
-    }
-  }
-
   function formatLabel(key){
     return key.replace(/_/g," ").replace(/\b\w/g,l=>l.toUpperCase())
-  }
-
-  function renderFields(obj){
-    const flat = flatten(obj)
-
-    return Object.entries(flat)
-      .filter(([_,v]) => v)
-      .map(([k,v])=>{
-        const isSensitive = ["cpf","documento"].some(s=>k.toLowerCase().includes(s))
-
-        return `
-        <div class="field">
-          <span>${formatLabel(k)}</span>
-          <b class="${isSensitive ? "blur" : ""}">${v}</b>
-        </div>
-        `
-      }).join("")
   }
 
   const results = normalize(data.resultado)
@@ -126,15 +98,49 @@ function renderApp(data){
 
 body{
   font-family:'Inter',sans-serif;
-  background:#0b0f1a;
-  color:#e5e7eb;
+  background:radial-gradient(circle at top,#0f172a,#020617);
+  color:#e2e8f0;
+  overflow-x:hidden;
 }
 
-/* layout */
+/* partículas */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:.4;
+}
+
+/* container */
 .container{
-  max-width:820px;
+  max-width:900px;
   margin:auto;
   padding:20px;
+}
+
+/* animação entrada */
+.fade{
+  animation:fade .6s ease;
+}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* card */
+.card{
+  background:rgba(15,23,42,.6);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:16px;
+  transition:.25s;
+}
+
+.card:hover{
+  border-color:#3b82f6;
+  box-shadow:0 10px 30px rgba(59,130,246,.1);
 }
 
 /* header */
@@ -142,46 +148,69 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:24px;
+  margin-bottom:20px;
 }
 
 .logo{
-  font-size:18px;
-  font-weight:500;
+  font-size:20px;
+  font-weight:600;
 }
 
 .badge{
-  font-size:11px;
-  padding:5px 10px;
+  font-size:12px;
+  padding:6px 12px;
   border-radius:999px;
-  border:1px solid #1f2937;
-  color:#9ca3af;
+  background:linear-gradient(45deg,#3b82f6,#6366f1);
+  color:#fff;
 }
 
-/* card */
-.card{
-  background:#0f172a;
-  border:1px solid #1e293b;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:14px;
+/* sucesso */
+.success{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.success-icon{
+  width:40px;height:40px;
+  border-radius:50%;
+  background:#22c55e22;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#22c55e;
+  font-size:18px;
+}
+
+/* botão */
+.btn{
+  padding:10px 14px;
+  border-radius:10px;
+  font-size:13px;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  color:#fff;
   transition:.2s;
+  cursor:pointer;
 }
 
-.card:hover{
-  border-color:#334155;
+.btn:hover{
+  background:rgba(255,255,255,.08);
 }
 
-/* title */
+.btn-primary{
+  background:linear-gradient(45deg,#3b82f6,#6366f1);
+  border:none;
+}
+
+/* resultado */
 .title{
-  font-size:15px;
   font-weight:500;
-  margin-bottom:6px;
+  margin-bottom:10px;
 }
 
-/* preview */
 .preview{
-  font-size:14px;
   margin-bottom:10px;
   color:#cbd5f5;
 }
@@ -191,59 +220,25 @@ body{
   display:flex;
   justify-content:space-between;
   font-size:13px;
-  padding:4px 0;
-  border-bottom:1px dashed #1e293b;
+  padding:6px 0;
+  border-bottom:1px dashed rgba(255,255,255,.05);
 }
 
 .field span{
-  color:#6b7280;
+  color:#94a3b8;
 }
 
-/* blur premium */
+/* blur */
 .blur{
-  filter:blur(5px);
+  filter:blur(6px);
   cursor:pointer;
-  transition:.2s;
-}
-
-.blur:hover{
-  filter:blur(0);
-}
-
-/* botão */
-.btn{
-  display:inline-block;
-  padding:9px 14px;
-  border-radius:8px;
-  font-size:13px;
-  text-decoration:none;
-  margin-right:8px;
-  border:1px solid #1f2937;
-  background:#111827;
-  color:#e5e7eb;
-  transition:.2s;
-}
-
-.btn:hover{
-  background:#1f2937;
-}
-
-/* destaque */
-.btn-primary{
-  background:#2563eb;
-  border-color:#2563eb;
-  color:#fff;
-}
-
-.btn-primary:hover{
-  background:#1d4ed8;
 }
 
 /* copy */
 .copy{
   float:right;
   font-size:12px;
-  color:#6b7280;
+  color:#64748b;
   cursor:pointer;
 }
 
@@ -251,61 +246,59 @@ body{
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.6);
+  background:rgba(0,0,0,.7);
   display:none;
   align-items:center;
   justify-content:center;
 }
 
 .modal-box{
-  background:#0f172a;
-  border:1px solid #1e293b;
-  padding:25px;
-  border-radius:12px;
+  background:#020617;
+  padding:30px;
+  border-radius:16px;
   text-align:center;
-  max-width:300px;
+  width:300px;
+  border:1px solid rgba(255,255,255,.08);
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<canvas id="bg"></canvas>
+
+<div class="container fade">
 
 <div class="header">
   <div class="logo">Astro</div>
   <div class="badge">Premium</div>
 </div>
 
-<div class="card">
+<div class="card fade">
 
-<div class="title">Consulta</div>
-
-<div style="font-size:14px;color:#9ca3af;">
-${data.tipo || "-"} • ${data.query || "-"}<br>
-${results.length} resultado(s)
+<div class="success">
+<div class="success-icon">✓</div>
+<div>
+<b>Consulta realizada com sucesso</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px;">
+Dados encontrados com alta precisão.
+</div>
+</div>
 </div>
 
 <br>
 
-<a class="btn btn-primary" href="https://t.me/consutasdedados_bot" target="_blank">
-Desbloquear completo
-</a>
-
-<a class="btn" href="https://t.me/consltas24" target="_blank">
-Canal oficial
-</a>
-
-<button class="btn" onclick="openModal()">Sobre</button>
+<button class="btn btn-primary" onclick="goBot()">Desbloquear completo</button>
+<button class="btn" onclick="goChannel()">Canal</button>
+<button class="btn" onclick="openModal()">Info</button>
 
 </div>
 
 ${results.map((p,i)=>{
-  const mapped = smartMap(p)
+  const flat = flatten(p)
 
   return `
-<div class="card">
+<div class="card fade">
 
 <div class="title">
 Resultado ${i+1}
@@ -313,11 +306,21 @@ Resultado ${i+1}
 </div>
 
 <div class="preview">
-${mapped.nome || "-"}<br>
-${mapped.telefone || "-"} • <span class="blur">${mapped.cpf || "-"}</span>
+${flat.nome || "-"}<br>
+${flat.telefone || "-"} • <span class="blur">${flat.cpf || "-"}</span>
 </div>
 
-${renderFields(mapped)}
+${Object.entries(flat).map(([k,v])=>{
+  if(!v) return ""
+  const isSensitive = k.includes("cpf")
+
+  return `
+  <div class="field">
+    <span>${formatLabel(k)}</span>
+    <b class="${isSensitive?"blur":""}">${v}</b>
+  </div>
+  `
+}).join("")}
 
 </div>
 `
@@ -325,34 +328,66 @@ ${renderFields(mapped)}
 
 </div>
 
-<!-- MODAL -->
+<!-- modal -->
 <div class="modal" id="modal">
   <div class="modal-box">
     <h3>Astro Premium</h3>
-    <p style="font-size:13px;color:#9ca3af;margin-top:8px;">
-    Desbloqueie dados completos, consultas ilimitadas e prioridade.
+    <p style="font-size:13px;color:#94a3b8;margin-top:6px;">
+    Acesso completo, sem limites e prioridade.
     </p>
     <br>
-    <a class="btn btn-primary" href="https://t.me/consutasdedados_bot">Acessar bot</a>
+    <button class="btn btn-primary" onclick="goBot()">Acessar</button>
     <br><br>
     <button class="btn" onclick="closeModal()">Fechar</button>
   </div>
 </div>
 
 <script>
+// partículas elegantes
+const c=document.getElementById("bg")
+const ctx=c.getContext("2d")
+c.width=innerWidth
+c.height=innerHeight
+
+let p=[]
+for(let i=0;i<40;i++){
+  p.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:.3,vy:.3})
+}
+
+function loop(){
+  ctx.clearRect(0,0,c.width,c.height)
+  p.forEach(d=>{
+    d.x+=d.vx
+    d.y+=d.vy
+    if(d.x>c.width||d.y>c.height){d.x=0;d.y=0}
+    ctx.beginPath()
+    ctx.arc(d.x,d.y,1.2,0,6.28)
+    ctx.fillStyle="#3b82f6"
+    ctx.fill()
+  })
+  requestAnimationFrame(loop)
+}
+loop()
+
 function copyCard(el){
-  const text = el.parentElement.parentElement.innerText
-  navigator.clipboard.writeText(text)
-  el.innerText = "Copiado"
+  navigator.clipboard.writeText(el.parentElement.parentElement.innerText)
+  el.innerText="Copiado"
   setTimeout(()=>el.innerText="Copiar",1500)
 }
 
 function openModal(){
   document.getElementById("modal").style.display="flex"
 }
-
 function closeModal(){
   document.getElementById("modal").style.display="none"
+}
+
+function goBot(){
+  window.open("https://t.me/consutasdedados_bot","_blank")
+}
+
+function goChannel(){
+  window.open("https://t.me/consltas24","_blank")
 }
 </script>
 
