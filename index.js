@@ -62,22 +62,92 @@ function renderApp(data){
     return [{ valor: res }]
   }
 
-  function flatten(obj, prefix=""){
-    let out = {}
-    for(let k in obj){
-      let v = obj[k]
-      let nk = prefix ? prefix+"_"+k : k
-      if(v && typeof v === "object" && !Array.isArray(v)){
-        Object.assign(out, flatten(v, nk))
-      } else {
-        out[nk] = v
-      }
-    }
-    return out
+  function formatLabel(key){
+    return key
+      .replace(/_/g," ")
+      .replace(/\b\w/g,l=>l.toUpperCase())
   }
 
-  function formatLabel(key){
-    return key.replace(/_/g," ").replace(/\b\w/g,l=>l.toUpperCase())
+  function renderFields(obj){
+
+    let html = ""
+
+    for(let key in obj){
+
+      let value = obj[key]
+      if(!value) continue
+
+      // =========================
+      // ARRAY
+      // =========================
+      if(Array.isArray(value)){
+
+        if(value.length === 0) continue
+
+        html += `
+        <div class="section">
+          <div class="section-title">${formatLabel(key)}</div>
+        `
+
+        value.forEach(item=>{
+
+          if(typeof item === "object"){
+            html += `<div class="sub-card">`
+
+            for(let k in item){
+              if(!item[k]) continue
+              html += `
+              <div class="field">
+                <span>${formatLabel(k)}</span>
+                <b>${item[k]}</b>
+              </div>`
+            }
+
+            html += `</div>`
+          } else {
+            html += `<div class="field"><b>${item}</b></div>`
+          }
+
+        })
+
+        html += `</div>`
+        continue
+      }
+
+      // =========================
+      // OBJETO
+      // =========================
+      if(typeof value === "object"){
+
+        html += `
+        <div class="section">
+          <div class="section-title">${formatLabel(key)}</div>
+        `
+
+        for(let k in value){
+          if(!value[k]) continue
+          html += `
+          <div class="field">
+            <span>${formatLabel(k)}</span>
+            <b>${value[k]}</b>
+          </div>`
+        }
+
+        html += `</div>`
+        continue
+      }
+
+      // =========================
+      // SIMPLES
+      // =========================
+      html += `
+      <div class="field">
+        <span>${formatLabel(key)}</span>
+        <b>${value}</b>
+      </div>`
+    }
+
+    return html
   }
 
   const results = normalize(data.resultado)
@@ -102,14 +172,12 @@ body{
   color:#e5e7eb;
 }
 
-/* layout */
 .container{
   max-width:820px;
   margin:auto;
   padding:20px;
 }
 
-/* header */
 .header{
   display:flex;
   justify-content:space-between;
@@ -130,34 +198,25 @@ body{
   color:#9ca3af;
 }
 
-/* card */
 .card{
   background:#0f172a;
   border:1px solid #1e293b;
   border-radius:16px;
   padding:18px;
   margin-bottom:14px;
-  transition:.2s;
 }
 
-.card:hover{
-  border-color:#334155;
-}
-
-/* título */
 .title{
   font-size:15px;
   font-weight:500;
   margin-bottom:6px;
 }
 
-/* texto */
 .muted{
   font-size:13px;
   color:#9ca3af;
 }
 
-/* botões */
 .actions{
   display:flex;
   gap:10px;
@@ -174,25 +233,18 @@ body{
   border:1px solid #1f2937;
   background:#111827;
   color:#e5e7eb;
-  transition:.2s;
 }
 
 .btn:hover{
   background:#1f2937;
 }
 
-/* botão principal */
 .btn-primary{
   background:#2563eb;
   border-color:#2563eb;
   color:#fff;
 }
 
-.btn-primary:hover{
-  background:#1d4ed8;
-}
-
-/* resultado */
 .result-header{
   display:flex;
   justify-content:space-between;
@@ -200,21 +252,18 @@ body{
   margin-bottom:10px;
 }
 
-/* copiar */
 .copy{
   font-size:12px;
   color:#6b7280;
   cursor:pointer;
 }
 
-/* preview */
 .preview{
   font-size:14px;
   margin-bottom:10px;
   color:#cbd5f5;
 }
 
-/* campos */
 .field{
   display:flex;
   justify-content:space-between;
@@ -225,6 +274,25 @@ body{
 
 .field span{
   color:#6b7280;
+}
+
+.section{
+  margin-top:16px;
+}
+
+.section-title{
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#cbd5f5;
+}
+
+.sub-card{
+  background:#020617;
+  border:1px solid #1e293b;
+  border-radius:10px;
+  padding:10px;
+  margin-bottom:8px;
 }
 </style>
 </head>
@@ -256,7 +324,6 @@ body{
 </div>
 
 ${results.map((p,i)=>{
-  const flat = flatten(p)
 
   return `
   <div class="card">
@@ -267,19 +334,11 @@ ${results.map((p,i)=>{
     </div>
 
     <div class="preview">
-      ${flat.nome || "-"}<br>
-      ${flat.telefone || "-"} • ${flat.cpf || "-"}
+      ${p.nome || "-"}<br>
+      ${p.telefone || "-"} • ${p.cpf || "-"}
     </div>
 
-    ${Object.entries(flat).map(([k,v])=>{
-      if(!v) return ""
-      return `
-        <div class="field">
-          <span>${formatLabel(k)}</span>
-          <b>${v}</b>
-        </div>
-      `
-    }).join("")}
+    ${renderFields(p)}
 
   </div>
   `
