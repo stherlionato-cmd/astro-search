@@ -77,11 +77,8 @@ function renderApp(data){
       let value = obj[key]
       if(!value) continue
 
-      // =========================
       // ARRAY
-      // =========================
       if(Array.isArray(value)){
-
         if(value.length === 0) continue
 
         html += `
@@ -105,7 +102,13 @@ function renderApp(data){
 
             html += `</div>`
           } else {
-            html += `<div class="field"><b>${item}</b></div>`
+            html += `
+            <div class="sub-card">
+              <div class="field">
+                <span>Valor</span>
+                <b>${item}</b>
+              </div>
+            </div>`
           }
 
         })
@@ -114,9 +117,7 @@ function renderApp(data){
         continue
       }
 
-      // =========================
       // OBJETO
-      // =========================
       if(typeof value === "object"){
 
         html += `
@@ -137,9 +138,7 @@ function renderApp(data){
         continue
       }
 
-      // =========================
       // SIMPLES
-      // =========================
       html += `
       <div class="field">
         <span>${formatLabel(key)}</span>
@@ -148,6 +147,48 @@ function renderApp(data){
     }
 
     return html
+  }
+
+  function renderPlans(){
+    return `
+    <div class="card">
+
+      <div class="title">💎 Acesso Premium</div>
+      <div class="muted">Desbloqueie todas as consultas avançadas</div>
+
+      <div class="plans">
+
+        <div class="plan">
+          <div>
+            <b>📅 Diário</b>
+            <span>R$14,90</span>
+          </div>
+        </div>
+
+        <div class="plan">
+          <div>
+            <b>📆 Semanal</b>
+            <span>R$24,90</span>
+          </div>
+        </div>
+
+        <div class="plan highlight">
+          <div>
+            <b>👑 Vitalício</b>
+            <span>R$20,90</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://t.me/consultasdedados_bot" target="_blank">
+          🚀 Ativar agora
+        </a>
+      </div>
+
+    </div>
+    `
   }
 
   const results = normalize(data.resultado)
@@ -159,7 +200,7 @@ function renderApp(data){
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Astro</title>
+<title>Astro • Resultado</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -168,21 +209,24 @@ function renderApp(data){
 
 body{
   font-family:'Inter',sans-serif;
-  background:#0b0f1a;
+  background: radial-gradient(circle at top, #0f172a, #020617);
   color:#e5e7eb;
+  display:flex;
+  justify-content:center;
 }
 
 .container{
-  max-width:820px;
-  margin:auto;
-  padding:20px;
+  width:100%;
+  max-width:860px;
+  padding:24px 16px;
 }
 
+/* HEADER */
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:24px;
+  margin-bottom:20px;
 }
 
 .logo{
@@ -192,20 +236,29 @@ body{
 
 .badge{
   font-size:11px;
-  padding:5px 10px;
+  padding:6px 12px;
   border-radius:999px;
-  border:1px solid #1f2937;
-  color:#9ca3af;
+  background: linear-gradient(90deg,#2563eb,#9333ea);
+  color:#fff;
 }
 
+/* CARD */
 .card{
-  background:#0f172a;
-  border:1px solid #1e293b;
-  border-radius:16px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:18px;
   padding:18px;
-  margin-bottom:14px;
+  margin-bottom:16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  transition:.2s;
 }
 
+.card:hover{
+  transform:translateY(-2px);
+}
+
+/* TEXTOS */
 .title{
   font-size:15px;
   font-weight:500;
@@ -217,38 +270,33 @@ body{
   color:#9ca3af;
 }
 
+/* BOTÕES */
 .actions{
   display:flex;
   gap:10px;
-  margin-top:12px;
+  margin-top:14px;
 }
 
 .btn{
   flex:1;
   text-align:center;
-  padding:10px;
+  padding:11px;
   border-radius:10px;
   font-size:13px;
   text-decoration:none;
-  border:1px solid #1f2937;
   background:#111827;
   color:#e5e7eb;
 }
 
-.btn:hover{
-  background:#1f2937;
-}
-
 .btn-primary{
-  background:#2563eb;
-  border-color:#2563eb;
+  background: linear-gradient(135deg,#2563eb,#1d4ed8);
   color:#fff;
 }
 
+/* RESULT */
 .result-header{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   margin-bottom:10px;
 }
 
@@ -260,22 +308,29 @@ body{
 
 .preview{
   font-size:14px;
-  margin-bottom:10px;
+  margin-bottom:12px;
   color:#cbd5f5;
 }
 
+/* CAMPOS ALINHADOS */
 .field{
-  display:flex;
-  justify-content:space-between;
-  font-size:13px;
-  padding:5px 0;
-  border-bottom:1px dashed #1e293b;
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
 .field span{
   color:#6b7280;
+  font-size:12px;
 }
 
+.field b{
+  word-break:break-word;
+}
+
+/* SEÇÕES */
 .section{
   margin-top:16px;
 }
@@ -283,16 +338,36 @@ body{
 .section-title{
   font-size:13px;
   font-weight:600;
-  margin-bottom:6px;
+  margin-bottom:8px;
   color:#cbd5f5;
 }
 
+/* SUB CARD */
 .sub-card{
+  background: rgba(2,6,23,0.7);
+  border:1px solid rgba(255,255,255,0.04);
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:10px;
+}
+
+/* PLANOS */
+.plans{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.plan{
   background:#020617;
-  border:1px solid #1e293b;
+  padding:12px;
   border-radius:10px;
-  padding:10px;
-  margin-bottom:8px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.plan.highlight{
+  border:1px solid #2563eb;
 }
 </style>
 </head>
@@ -315,13 +390,12 @@ body{
 
   <div class="actions">
     <a class="btn btn-primary" href="https://t.me/consultasdedados_bot" target="_blank">
-      Adquirir bot
-    </a>
-    <a class="btn" href="https://t.me/consultas24" target="_blank">
-      Canal oficial
+      🚀 Acessar bot
     </a>
   </div>
 </div>
+
+${renderPlans()}
 
 ${results.map((p,i)=>{
 
@@ -348,7 +422,7 @@ ${results.map((p,i)=>{
 
 <script>
 function copyCard(el){
-  navigator.clipboard.writeText(el.parentElement.parentElement.innerText)
+  navigator.clipboard.writeText(el.closest(".card").innerText)
   el.innerText="Copiado"
   setTimeout(()=>el.innerText="Copiar",1500)
 }
@@ -365,8 +439,37 @@ function copyCard(el){
 function renderError(){
   return `
   <html>
-  <body style="background:#000;color:#fff;text-align:center;padding:50px">
-  <h1>❌ Expirado ou inválido</h1>
+  <body style="
+    background: radial-gradient(circle at top,#0f172a,#020617);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+    font-family:Inter;
+    text-align:center;
+  ">
+
+  <div>
+    <h1>⏳ Resultado expirado</h1>
+    <p style="color:#9ca3af;margin:10px 0 20px">
+      Gere uma nova consulta ou desbloqueie acesso ilimitado
+    </p>
+
+    <a href="https://t.me/consultasdedados_bot"
+       style="
+       background:#2563eb;
+       padding:12px 20px;
+       border-radius:10px;
+       color:#fff;
+       text-decoration:none;
+       display:inline-block;
+       ">
+       🚀 Acessar agora
+    </a>
+
+  </div>
+
   </body>
   </html>
   `
