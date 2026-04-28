@@ -77,7 +77,6 @@ function renderApp(data){
       let value = obj[key]
       if(!value) continue
 
-      // ARRAY
       if(Array.isArray(value)){
         if(value.length === 0) continue
 
@@ -117,7 +116,6 @@ function renderApp(data){
         continue
       }
 
-      // OBJETO
       if(typeof value === "object"){
 
         html += `
@@ -138,7 +136,6 @@ function renderApp(data){
         continue
       }
 
-      // SIMPLES
       html += `
       <div class="field">
         <span>${formatLabel(key)}</span>
@@ -152,33 +149,13 @@ function renderApp(data){
   function renderPlans(){
     return `
     <div class="card">
-
       <div class="title">💎 Acesso Premium</div>
-      <div class="muted">Desbloqueie todas as consultas avançadas</div>
+      <div class="muted">Desbloqueie consultas ilimitadas</div>
 
       <div class="plans">
-
-        <div class="plan">
-          <div>
-            <b>📅 Diário</b>
-            <span>R$14,90</span>
-          </div>
-        </div>
-
-        <div class="plan">
-          <div>
-            <b>📆 Semanal</b>
-            <span>R$24,90</span>
-          </div>
-        </div>
-
-        <div class="plan highlight">
-          <div>
-            <b>👑 Vitalício</b>
-            <span>R$20,90</span>
-          </div>
-        </div>
-
+        <div class="plan"><b>📅 Diário</b><span>R$14,90</span></div>
+        <div class="plan"><b>📆 Semanal</b><span>R$24,90</span></div>
+        <div class="plan highlight"><b>👑 Vitalício</b><span>R$20,90</span></div>
       </div>
 
       <div class="actions">
@@ -186,7 +163,6 @@ function renderApp(data){
           🚀 Ativar agora
         </a>
       </div>
-
     </div>
     `
   }
@@ -215,7 +191,19 @@ body{
   justify-content:center;
 }
 
+/* PARTICULAS */
+#stars{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
 .container{
+  position:relative;
+  z-index:1;
   width:100%;
   max-width:860px;
   padding:24px 16px;
@@ -225,21 +213,16 @@ body{
 .header{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   margin-bottom:20px;
 }
 
-.logo{
-  font-size:18px;
-  font-weight:600;
-}
+.logo{font-size:18px;font-weight:600}
 
 .badge{
   font-size:11px;
   padding:6px 12px;
   border-radius:999px;
   background: linear-gradient(90deg,#2563eb,#9333ea);
-  color:#fff;
 }
 
 /* CARD */
@@ -247,50 +230,46 @@ body{
   background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(12px);
   border:1px solid rgba(255,255,255,0.05);
-  border-radius:18px;
-  padding:18px;
+  border-radius:20px;
+  padding:20px;
   margin-bottom:16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  transition:.2s;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+
+  opacity:0;
+  transform:translateY(10px);
+  animation:fadeUp .5s ease forwards;
 }
 
-.card:hover{
-  transform:translateY(-2px);
+.card:nth-child(2){animation-delay:.1s}
+.card:nth-child(3){animation-delay:.2s}
+.card:nth-child(4){animation-delay:.3s}
+
+@keyframes fadeUp{
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* TEXTOS */
-.title{
-  font-size:15px;
-  font-weight:500;
-  margin-bottom:6px;
-}
+/* TEXT */
+.title{font-size:15px;font-weight:500;margin-bottom:6px}
+.muted{font-size:13px;color:#9ca3af}
 
-.muted{
-  font-size:13px;
-  color:#9ca3af;
-}
-
-/* BOTÕES */
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:14px;
-}
+/* BUTTONS */
+.actions{display:flex;gap:10px;margin-top:14px}
 
 .btn{
   flex:1;
   text-align:center;
   padding:11px;
   border-radius:10px;
-  font-size:13px;
-  text-decoration:none;
   background:#111827;
-  color:#e5e7eb;
+  color:#fff;
+  text-decoration:none;
+  transition:.2s;
 }
+
+.btn:hover{transform:translateY(-1px)}
 
 .btn-primary{
   background: linear-gradient(135deg,#2563eb,#1d4ed8);
-  color:#fff;
 }
 
 /* RESULT */
@@ -300,39 +279,40 @@ body{
   margin-bottom:10px;
 }
 
-.copy{
-  font-size:12px;
-  color:#6b7280;
-  cursor:pointer;
+.copy{font-size:12px;color:#6b7280;cursor:pointer}
+.copy:hover{color:#3b82f6}
+
+/* PREVIEW */
+.preview-name{
+  font-size:16px;
+  font-weight:600;
 }
 
-.preview{
-  font-size:14px;
-  margin-bottom:12px;
-  color:#cbd5f5;
+.preview-sub{
+  font-size:13px;
+  color:#9ca3af;
+  margin-bottom:10px;
 }
 
-/* CAMPOS ALINHADOS */
+/* FIELD GRID */
 .field{
   display:grid;
-  grid-template-columns:140px 1fr;
-  gap:10px;
-  padding:8px 0;
-  border-bottom:1px solid rgba(255,255,255,0.05);
+  grid-template-columns:130px 1fr;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
 }
 
-.field span{
-  color:#6b7280;
-  font-size:12px;
-}
+.field:last-child{border:none}
 
-.field b{
-  word-break:break-word;
-}
+.field span{color:#6b7280;font-size:12px}
+.field b{word-break:break-word}
 
-/* SEÇÕES */
+/* SECTIONS */
 .section{
-  margin-top:16px;
+  margin-top:18px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,0.04);
 }
 
 .section-title{
@@ -360,6 +340,8 @@ body{
 }
 
 .plan{
+  display:flex;
+  justify-content:space-between;
   background:#020617;
   padding:12px;
   border-radius:10px;
@@ -373,6 +355,8 @@ body{
 </head>
 
 <body>
+
+<canvas id="stars"></canvas>
 
 <div class="container">
 
@@ -397,35 +381,76 @@ body{
 
 ${renderPlans()}
 
-${results.map((p,i)=>{
-
-  return `
-  <div class="card">
-
-    <div class="result-header">
-      <div class="title">Resultado ${i+1}</div>
-      <div class="copy" onclick="copyCard(this)">Copiar</div>
-    </div>
-
-    <div class="preview">
-      ${p.nome || "-"}<br>
-      ${p.telefone || "-"} • ${p.cpf || "-"}
-    </div>
-
-    ${renderFields(p)}
-
+${results.map((p,i)=>`
+<div class="card">
+  <div class="result-header">
+    <div class="title">Resultado ${i+1}</div>
+    <div class="copy" onclick="copyCard(this)">Copiar</div>
   </div>
-  `
-}).join("")}
+
+  <div class="preview-name">${p.nome || "-"}</div>
+  <div class="preview-sub">${p.telefone || "-"} • ${p.cpf || "-"}</div>
+
+  ${renderFields(p)}
+</div>
+`).join("")}
 
 </div>
 
 <script>
+// COPY
 function copyCard(el){
   navigator.clipboard.writeText(el.closest(".card").innerText)
   el.innerText="Copiado"
   setTimeout(()=>el.innerText="Copiar",1500)
 }
+
+// PARTICULAS
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+function createStars(){
+  stars = [];
+  for(let i=0;i<80;i++){
+    stars.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*1.5,
+      o: Math.random(),
+      speed: Math.random()*0.3
+    });
+  }
+}
+createStars();
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle = \`rgba(59,130,246,\${s.o})\`;
+    ctx.fill();
+
+    s.y += s.speed;
+    if(s.y > canvas.height){
+      s.y = 0;
+      s.x = Math.random()*canvas.width;
+    }
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
