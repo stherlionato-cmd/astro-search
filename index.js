@@ -350,10 +350,93 @@ body{
   padding:10px;
   margin-top:8px;
 }
+
+canvas{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ z-index:-1;
+}
+
+.plan-box{
+ margin:20px 0;
+}
+
+.plan{
+ margin-top:10px;
+ padding:12px;
+ border-radius:14px;
+ background:rgba(255,255,255,0.03);
+ border:1px solid rgba(255,255,255,0.05);
+ transition:.25s;
+}
+
+.plan:hover{
+ transform:translateY(-3px);
+ border-color:rgba(59,130,246,.4);
+}
+
+.plan-title{
+ font-size:13px;
+ font-weight:600;
+}
+
+.price{
+ font-size:16px;
+ font-weight:700;
+ margin:4px 0;
+}
+
+.old-price{
+ text-decoration:line-through;
+ opacity:.4;
+ font-size:12px;
+ margin-right:6px;
+}
+
+.features{
+ font-size:11px;
+ opacity:.7;
+ margin-bottom:8px;
+}
+
+.plan.highlight{
+ border:1px solid rgba(59,130,246,.5);
+ background:rgba(59,130,246,.08);
+}
+
+.plan.premium{
+ border:1px solid rgba(168,85,247,.5);
+ background:rgba(168,85,247,.06);
+ box-shadow:0 0 20px rgba(168,85,247,.15);
+}
+
+.tag{
+ font-size:9px;
+ padding:3px 6px;
+ border-radius:6px;
+ background:rgba(255,255,255,0.05);
+}
+
+.tag.offer{
+ color:#ef4444;
+}
+
+.tag.best{
+ color:#facc15;
+}
+
+.tag.lifetime{
+ color:#c4b5fd;
+}
 </style>
 </head>
 
 <body>
+
+<canvas id="bg"></canvas>
 
 <div class="container">
 
@@ -372,6 +455,87 @@ body{
   <a class="btn btn-primary" href="https://t.me/consultasdedados_bot" target="_blank">
     Abrir no bot
   </a>
+</div>
+
+<div class="plan-box">
+
+  <div style="font-size:13px; opacity:.7; margin-bottom:6px;">
+    Planos
+  </div>
+
+  <!-- Diário -->
+  <div class="plan">
+    <div class="plan-header">
+      <span class="tag offer">OFERTA</span>
+    </div>
+
+    <div class="plan-title">Diário</div>
+
+    <div class="price">
+      <span class="old-price">R$20</span>
+      <span class="new-price">R$14,99</span>
+    </div>
+
+    <div class="features">
+      <div>✔ Acesso por 24h</div>
+      <div>✔ Consultas básicas</div>
+    </div>
+
+    <a href="https://t.me/consultasdedados_bot" class="btn btn-primary">
+      Testar agora
+    </a>
+  </div>
+
+  <!-- Mensal -->
+  <div class="plan highlight">
+    <div class="plan-header">
+      <span class="tag offer">OFERTA</span>
+      <span class="tag best">MAIS VENDIDO</span>
+    </div>
+
+    <div class="plan-title">Mensal</div>
+
+    <div class="price">
+      <span class="old-price">R$30</span>
+      <span class="new-price">R$19,99</span>
+    </div>
+
+    <div class="features">
+      <div>✔ Acesso ilimitado</div>
+      <div>✔ Todas consultas</div>
+      <div>✔ Prioridade</div>
+    </div>
+
+    <a href="https://t.me/consultasdedados_bot" class="btn btn-primary">
+      Assinar agora
+    </a>
+  </div>
+
+  <!-- Vitalício -->
+  <div class="plan premium">
+    <div class="plan-header">
+      <span class="tag offer">OFERTA</span>
+      <span class="tag lifetime">VITALÍCIO</span>
+    </div>
+
+    <div class="plan-title">Vitalício</div>
+
+    <div class="price">
+      <span class="old-price">R$50</span>
+      <span class="new-price">R$29,99</span>
+    </div>
+
+    <div class="features">
+      <div>✔ Acesso vitalício</div>
+      <div>✔ Sem limites</div>
+      <div>✔ Tudo liberado</div>
+    </div>
+
+    <a href="https://t.me/consultasdedados_bot" class="btn btn-primary">
+      🚀 Desbloquear
+    </a>
+  </div>
+
 </div>
 
 ${results.map((p,i)=>`
@@ -401,6 +565,79 @@ function toggleSection(el){
   const section = el.parentElement
   section.classList.toggle("closed")
 }
+
+// ⭐ ESTRELAS PREMIUM
+const c = document.getElementById("bg");
+const ctx = c.getContext("2d");
+
+function resize(){
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+let stars = [];
+
+// 🔥 MUITAS ESTRELAS
+for(let i=0;i<220;i++){
+  stars.push({
+    x: Math.random()*c.width,
+    y: Math.random()*c.height,
+    speed: Math.random()*0.3 + 0.05,
+    size: Math.random()*1.5,
+    opacity: Math.random()
+  });
+}
+
+// ✨ PARTÍCULAS
+let particles = [];
+
+for(let i=0;i<80;i++){
+  particles.push({
+    x: Math.random()*c.width,
+    y: Math.random()*c.height,
+    size: Math.random()*2,
+    speed: Math.random()*0.15 + 0.05
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,c.width,c.height);
+
+  // ⭐ estrelas
+  stars.forEach(s=>{
+    s.y += s.speed;
+
+    if(s.y > c.height){
+      s.y = 0;
+      s.x = Math.random()*c.width;
+    }
+
+    ctx.fillStyle = `rgba(255,255,255,${0.2 + s.opacity})`;
+    ctx.fillRect(s.x, s.y, s.size, s.size);
+  });
+
+  // 🌫 partículas
+  particles.forEach(p=>{
+    p.y += p.speed;
+
+    if(p.y > c.height){
+      p.y = 0;
+      p.x = Math.random()*c.width;
+    }
+
+    ctx.fillStyle = "rgba(59,130,246,0.15)";
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
 </script>
 
 </body>
