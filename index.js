@@ -77,21 +77,19 @@ function renderApp(data){
       let value = obj[key]
       if(!value) continue
 
-      // ARRAY
       if(Array.isArray(value)){
         if(value.length === 0) continue
 
         html += `
-     <div class="section closed">
+        <div class="section closed">
           <div class="section-title" onclick="toggleSection(this)">
             ${formatLabel(key)}
-            <span class="arrow">▼</span>
+            <span class="arrow">›</span>
           </div>
           <div class="section-content">
         `
 
         value.forEach(item=>{
-
           if(typeof item === "object"){
             html += `<div class="sub-card">`
 
@@ -112,14 +110,13 @@ function renderApp(data){
         continue
       }
 
-      // OBJECT
       if(typeof value === "object"){
 
         html += `
-       <div class="section closed">
+        <div class="section closed">
           <div class="section-title" onclick="toggleSection(this)">
             ${formatLabel(key)}
-            <span class="arrow">▼</span>
+            <span class="arrow">›</span>
           </div>
           <div class="section-content">
         `
@@ -137,7 +134,6 @@ function renderApp(data){
         continue
       }
 
-      // NORMAL
       html += `
       <div class="field">
         <span>${formatLabel(key)}</span>
@@ -146,25 +142,6 @@ function renderApp(data){
     }
 
     return html
-  }
-
-  function renderPlans(){
-    return `
-    <div class="card premium">
-      <div class="title">Acesso Premium</div>
-      <div class="muted">Desbloqueie tudo sem limites</div>
-
-      <div class="plans">
-        <div class="plan"><b>Diário</b><span>R$14,90</span></div>
-        <div class="plan"><b>Semanal</b><span>R$24,90</span></div>
-        <div class="plan highlight"><b>Vitalício</b><span>R$20,90</span></div>
-      </div>
-
-      <a class="btn btn-primary" href="https://t.me/consultasdedados_bot" target="_blank">
-        Ativar acesso
-      </a>
-    </div>
-    `
   }
 
   const results = normalize(data.resultado)
@@ -176,7 +153,7 @@ function renderApp(data){
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Astro • Resultado</title>
+<title>Resultado</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -186,176 +163,170 @@ function renderApp(data){
 body{
   font-family:'Inter',sans-serif;
   background:
-    radial-gradient(circle at 20% 20%, rgba(59,130,246,0.12), transparent 40%),
-    radial-gradient(circle at 80% 0%, rgba(147,51,234,0.12), transparent 40%),
+    radial-gradient(circle at 10% 10%, rgba(59,130,246,0.08), transparent 40%),
+    radial-gradient(circle at 90% 0%, rgba(59,130,246,0.05), transparent 50%),
     #020617;
+
   color:#e5e7eb;
   display:flex;
   justify-content:center;
 
-  /* 👇 AQUI */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* CONTAINER */
 .container{
   width:100%;
-  max-width:900px;
-  padding:24px 16px;
+  max-width:820px;
+  padding:20px 14px;
 }
 
-/* HEADER */
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:24px;
+  margin-bottom:20px;
+
+  position:sticky;
+  top:0;
+  background:rgba(2,6,23,0.6);
+  backdrop-filter:blur(12px);
+  padding-bottom:10px;
+  z-index:10;
 }
 
 .logo{
-  font-size:20px;
-  font-weight:600;
-  letter-spacing:.8px;
+  font-size:15px;
+  font-weight:500;
+  opacity:.8;
 }
 
 .badge{
-  font-size:11px;
-  padding:6px 12px;
+  font-size:10px;
+  padding:5px 10px;
   border-radius:999px;
-  background: linear-gradient(135deg,#2563eb,#9333ea);
-  box-shadow:0 0 20px rgba(59,130,246,0.4);
+  background:rgba(59,130,246,0.15);
+  border:1px solid rgba(59,130,246,0.3);
 }
 
 /* CARD */
 .card{
-  background: rgba(15,23,42,0.6);
-  backdrop-filter: blur(16px);
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:16px;
-  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(15,23,42,0.55);
+  backdrop-filter: blur(20px);
 
-  transition:.25s;
-}
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:14px;
 
-.card{
-  position:relative;
-  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.05);
+
+  transition:.25s ease;
 }
 
 .card:hover{
-  transform:translateY(-6px) scale(1.01);
-  box-shadow:
-    0 25px 80px rgba(37,99,235,0.25),
-    0 0 0 1px rgba(59,130,246,0.2) inset;
-}
-
-.btn:active{
-  transform: scale(.97);
-}
-
-/* PREMIUM CARD */
-.card.premium{
-  position:relative;
-  border:1px solid rgba(59,130,246,0.5);
-  background: linear-gradient(
-    rgba(15,23,42,0.7),
-    rgba(15,23,42,0.7)
-  );
+  transform:translateY(-4px);
+  border-color:rgba(59,130,246,0.25);
 
   box-shadow:
-    0 0 50px rgba(59,130,246,0.2);
+    0 10px 40px rgba(0,0,0,0.6),
+    inset 0 0 20px rgba(59,130,246,0.05);
 }
 
 /* TEXT */
-.title{font-size:15px;font-weight:500;margin-bottom:6px}
-.muted{font-size:13px;color:#9ca3af}
+.title{font-size:14px;font-weight:500;margin-bottom:6px}
+.muted{font-size:12px;color:#94a3b8}
 
 /* BUTTON */
 .btn{
   display:block;
-  margin-top:14px;
+  margin-top:12px;
   text-align:center;
-  padding:12px;
+  padding:11px;
   border-radius:10px;
   text-decoration:none;
   color:#fff;
-  font-weight:500;
+  font-size:13px;
 }
 
 .btn-primary{
-  background: linear-gradient(90deg,#2563eb,#9333ea,#2563eb);
-  background-size:200%;
-  animation:gradientMove 4s linear infinite;
+  background: rgba(59,130,246,0.15);
+  border:1px solid rgba(59,130,246,0.35);
 }
 
-@keyframes gradientMove{
-  0%{background-position:0%}
-  100%{background-position:200%}
+.btn-primary:hover{
+  background: rgba(59,130,246,0.25);
 }
 
-/* RESULT */
+/* RESULT HEADER */
 .result-header{
   display:flex;
   justify-content:space-between;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .copy{
-  font-size:12px;
-  color:#6b7280;
+  font-size:11px;
+  opacity:.5;
   cursor:pointer;
 }
 
-.copy:hover{color:#3b82f6}
+.copy:hover{opacity:1}
 
 /* PREVIEW */
 .preview-name{
-  font-size:16px;
+  font-size:15px;
   font-weight:600;
 }
 
 .preview-sub{
-  font-size:13px;
-  color:#9ca3af;
+  font-size:12px;
+  color:#94a3b8;
   margin-bottom:10px;
 }
 
 /* FIELD */
 .field{
-  display:grid;
-  grid-template-columns:110px 1fr;
+  display:flex;
+  justify-content:space-between;
   gap:10px;
+
   padding:10px 0;
   border-bottom:1px solid rgba(255,255,255,0.04);
+
+  font-size:13px;
+}
+
+.field span{
+  opacity:.6;
 }
 
 .field b{
   font-weight:500;
-  color:#f1f5f9;
+  color:#f8fafc;
 }
 
 /* SECTION */
 .section{
-  margin-top:16px;
+  margin-top:12px;
 }
 
 .section-title{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  font-size:13px;
-  font-weight:600;
+
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  opacity:.6;
+
   cursor:pointer;
-  margin-bottom:6px;
 }
 
 .section-content{
-  max-height: 1000px;
-  overflow: hidden;
-  transition: max-height .35s ease, opacity .25s ease;
-  opacity:1;
+  max-height:1000px;
+  overflow:hidden;
+  transition:.3s;
 }
 
 .section.closed .section-content{
@@ -364,76 +335,21 @@ body{
 }
 
 .arrow{
-  font-size:10px;
-  opacity:.6;
+  font-size:14px;
+  transition:.3s;
+}
+
+.section.closed .arrow{
+  transform:rotate(-90deg);
 }
 
 /* SUBCARD */
 .sub-card{
-  background: rgba(2,6,23,0.7);
+  background:rgba(2,6,23,0.6);
   border-radius:12px;
   padding:10px;
-  margin-bottom:8px;
+  margin-top:8px;
 }
-
-/* PLANOS */
-.plans{
-  margin-top:12px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.plan{
-  display:flex;
-  justify-content:space-between;
-  padding:10px;
-  border-radius:10px;
-  background:#020617;
-  border:1px solid rgba(255,255,255,0.05);
-}
-
-.plan.highlight{
-  border:1px solid #2563eb;
-}
-
-.arrow{
-  transition: transform .3s ease;
-}
-
-.section.closed .arrow{
-  transform: rotate(-90deg);
-}
-
-.header{
-  position:sticky;
-  top:0;
-  backdrop-filter: blur(10px);
-  background: rgba(2,6,23,0.6);
-  padding-bottom:10px;
-  z-index:10;
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  height:100%;
-  width:2px;
-  background: linear-gradient(#2563eb,#9333ea);
-  opacity:.4;
-  border-radius:2px;
-}
-
-.section-title{
-  cursor:pointer;
-}
-
-.btn{
-  cursor:pointer;
-}
-
 </style>
 </head>
 
@@ -442,7 +358,7 @@ body{
 <div class="container">
 
 <div class="header">
-<div class="logo">Astro<span style="opacity:.5">.app</span></div>
+  <div class="logo">Consulta</div>
   <div class="badge">Premium</div>
 </div>
 
@@ -457,8 +373,6 @@ body{
     Abrir no bot
   </a>
 </div>
-
-${renderPlans()}
 
 ${results.map((p,i)=>`
 <div class="card">
@@ -478,32 +392,15 @@ ${results.map((p,i)=>`
 
 <script>
 function copyCard(el){
-navigator.clipboard.writeText(el.closest(".card").innerText).catch(()=>{})
-  el.innerText="Copiado ✓"
-  el.style.color="#22c55e"
-
-  setTimeout(()=>{
-    el.innerText="Copiar"
-    el.style.color=""
-  },1500)
+  navigator.clipboard.writeText(el.closest(".card").innerText).catch(()=>{})
+  el.innerText="Copiado"
+  setTimeout(()=> el.innerText="Copiar",1500)
 }
 
 function toggleSection(el){
   const section = el.parentElement
-  const content = section.querySelector(".section-content")
-
-  if(section.classList.contains("closed")){
-    section.classList.remove("closed")
-    content.style.maxHeight = content.scrollHeight + "px"
-  } else {
-    content.style.maxHeight = content.scrollHeight + "px"
-    setTimeout(()=>{
-      content.style.maxHeight = "0px"
-    },10)
-    section.classList.add("closed")
-  }
+  section.classList.toggle("closed")
 }
-
 </script>
 
 </body>
