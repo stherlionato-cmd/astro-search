@@ -627,7 +627,7 @@ function animate(){
       p.x = Math.random()*c.width;
     }
 
-    ctx.fillStyle = "rgba(59,130,246,0.15)";
+    ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
     ctx.fill();
