@@ -431,6 +431,23 @@ canvas{
 .tag.lifetime{
  color:#c4b5fd;
 }
+
+.card{
+  opacity:0;
+  transform: translate(var(--x,0), var(--y,0)) translateY(30px);
+}
+
+.card.show{
+  opacity:1;
+  transform: translate(var(--x,0), var(--y,0)) translateY(0);
+  transition:.6s ease;
+}
+
+.btn:active{
+  transform:scale(.95);
+  box-shadow:0 0 20px rgba(59,130,246,.6);
+}
+
 </style>
 </head>
 
@@ -566,20 +583,65 @@ function toggleSection(el){
   section.classList.toggle("closed")
 }
 
+const cards = document.querySelectorAll(".card");
+
+window.addEventListener("mousemove", e=>{
+  let x = (e.clientX / window.innerWidth - 0.5) * 20;
+  let y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+  cards.forEach(el=>{
+    el.style.setProperty("--x", x + "px");
+    el.style.setProperty("--y", y + "px");
+  });
+});
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+});
+
+document.querySelectorAll(".card").forEach(el=>{
+  observer.observe(el);
+});
+
+document.querySelectorAll(".btn").forEach(btn=>{
+  btn.addEventListener("mousemove", e=>{
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width/2;
+    const y = e.clientY - rect.top - rect.height/2;
+
+    btn.style.transform = `translate(${x*0.2}px, ${y*0.2}px)`;
+  });
+
+  btn.addEventListener("mouseleave", ()=>{
+    btn.style.transform = "translate(0,0)";
+  });
+});
+
 // ⭐ ESTRELAS PREMIUM
 const c = document.getElementById("bg");
 const ctx = c.getContext("2d");
 
 function resize(){
   c.width = window.innerWidth;
-  c.height = window.innerHeight;
+  c.height = document.body.scrollHeight;
 }
+let lastScroll = 0;
+
+window.addEventListener("scroll", ()=>{
+  lastScroll = window.scrollY;
+});
+
 resize();
 window.addEventListener("resize", resize);
 
 let stars = [];
+let particles = [];
 
-// 🔥 MUITAS ESTRELAS
+// 🔥 ESTRELAS
 for(let i=0;i<220;i++){
   stars.push({
     x: Math.random()*c.width,
@@ -591,8 +653,6 @@ for(let i=0;i<220;i++){
 }
 
 // ✨ PARTÍCULAS
-let particles = [];
-
 for(let i=0;i<80;i++){
   particles.push({
     x: Math.random()*c.width,
@@ -605,6 +665,8 @@ for(let i=0;i<80;i++){
 function animate(){
   ctx.clearRect(0,0,c.width,c.height);
 
+  c.style.top = lastScroll + "px";
+
   // ⭐ estrelas
   stars.forEach(s=>{
     s.y += s.speed;
@@ -614,7 +676,7 @@ function animate(){
       s.x = Math.random()*c.width;
     }
 
-ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
+    ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
     ctx.fillRect(s.x, s.y, s.size, s.size);
   });
 
@@ -627,7 +689,7 @@ ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
       p.x = Math.random()*c.width;
     }
 
-    ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
+    ctx.fillStyle = "rgba(255,255,255,0.2)";
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
     ctx.fill();
@@ -635,6 +697,9 @@ ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
 
   requestAnimationFrame(animate);
 }
+
+ctx.shadowBlur = 6;
+ctx.shadowColor = "white";
 
 animate();
 
