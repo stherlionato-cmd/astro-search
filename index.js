@@ -614,7 +614,7 @@ function animate(){
       s.x = Math.random()*c.width;
     }
 
-    ctx.fillStyle = `rgba(255,255,255,${0.2 + s.opacity})`;
+ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
     ctx.fillRect(s.x, s.y, s.size, s.size);
   });
 
