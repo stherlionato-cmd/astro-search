@@ -20,7 +20,7 @@ export default {
           ...body,
           created_at: Date.now()
         }),
-        { expirationTtl: 3600
+        { expirationTtl: 3600 }
       )
 
       return new Response("OK")
@@ -37,12 +37,12 @@ export default {
 
       if (!data) {
         return new Response(renderError(), {
-          headers: { "Content-Type": "text/html" }
+      headers: { "Content-Type": "text/html; charset=UTF-8" }
         })
       }
 
       return new Response(renderApp(JSON.parse(data)), {
-        headers: { "Content-Type": "text/html" }
+      headers: { "Content-Type": "text/html; charset=UTF-8" }
       })
     }
 
