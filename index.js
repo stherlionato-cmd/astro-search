@@ -490,7 +490,7 @@ canvas{
 
     <div class="price">
       <span class="old-price">R$20</span>
-      <span class="new-price">R$14,99</span>
+      <span class="new-price">R$14,90</span>
     </div>
 
     <div class="features">
@@ -514,7 +514,7 @@ canvas{
 
     <div class="price">
       <span class="old-price">R$30</span>
-      <span class="new-price">R$19,99</span>
+      <span class="new-price">R$24,90</span>
     </div>
 
     <div class="features">
@@ -539,7 +539,7 @@ canvas{
 
     <div class="price">
       <span class="old-price">R$50</span>
-      <span class="new-price">R$29,99</span>
+      <span class="new-price">R$20,90</span>
     </div>
 
     <div class="features">
