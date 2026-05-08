@@ -24,11 +24,12 @@ export default {
 )
 
 return new Response("OK")
+}
 
-    // =========================
-    // 🔍 VER RESULTADO
-    // =========================
-    if (url.pathname.startsWith("/r/")) {
+// =========================
+// 🔍 VER RESULTADO
+// =========================
+if (url.pathname.startsWith("/r/")) {
 
       const token = url.pathname.split("/r/")[1]
 
