@@ -14,17 +14,16 @@ export default {
         return new Response("Token obrigatório", { status: 400 })
       }
 
-      await env.RESULTS.put(
-        body.token,
-        JSON.stringify({
-          ...body,
-          created_at: Date.now()
-        }),
-        { expirationTtl: 3600 }
-      )
+ await env.RESULTS.put(
+  body.token,
+  JSON.stringify({
+    ...body,
+    created_at: Date.now()
+  }),
+  { expirationTtl: 86400 }
+)
 
-      return new Response("OK")
-    }
+return new Response("OK")
 
     // =========================
     // 🔍 VER RESULTADO
