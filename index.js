@@ -1362,24 +1362,21 @@ document.querySelectorAll(".plan").forEach(card=>{
     const rotateY = ((x / rect.width) - 0.5) * 10;
     const rotateX = ((y / rect.height) - 0.5) * -10;
 
-    card.style.transform = `
-      perspective(1200px)
-      rotateX(${rotateX}deg)
-      rotateY(${rotateY}deg)
-      translateY(-8px)
-    `;
+    card.style.transform =
+  "perspective(1200px) " +
+  "rotateX(" + rotateX + "deg) " +
+  "rotateY(" + rotateY + "deg) " +
+  "translateY(-8px)";
 
   });
 
   card.addEventListener("mouseleave", ()=>{
 
-    card.style.transform = `
-      perspective(1200px)
-      rotateX(0deg)
-      rotateY(0deg)
-      translateY(0px)
-    `;
-
+    card.style.transform =
+  "perspective(1200px) " +
+  "rotateX(0deg) " +
+  "rotateY(0deg) " +
+  "translateY(0px)";
   });
 
 });
