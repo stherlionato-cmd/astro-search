@@ -930,11 +930,21 @@ ctx.shadowColor = "white";
 
 const isVip = ${JSON.stringify(isVip)}
 
+// VIP = mais partículas
 if(isVip){
-  animate()
+
+  stars = stars.slice(0,220)
+  particles = particles.slice(0,80)
+
 }else{
-  c.remove()
+
+  // FREE = menos partículas
+  stars = stars.slice(0,150)
+  particles = particles.slice(0,35)
+
 }
+
+animate()
 
 </script>
 
