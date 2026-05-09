@@ -1258,17 +1258,11 @@ ${results.map((p,i)=>`
 
     <div>
 
-      <div class="plan-header">
-        <span class="tag offer">OFERTA</span>
-      </div>
-
       <div class="plan-title">
         Diário
       </div>
 
       <div class="price">
-        <span class="old-price">R$20</span>
-
         <span class="new-price">
           R$14,90
         </span>
@@ -1308,7 +1302,6 @@ ${results.map((p,i)=>`
     <div>
 
       <div class="plan-header">
-        <span class="tag offer">OFERTA</span>
         <span class="tag best">MAIS VENDIDO</span>
       </div>
 
@@ -1317,8 +1310,6 @@ ${results.map((p,i)=>`
       </div>
 
       <div class="price">
-        <span class="old-price">R$30</span>
-
         <span class="new-price">
           R$24,90
         </span>
