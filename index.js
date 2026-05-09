@@ -70,6 +70,54 @@ function renderApp(data){
 
 function renderFields(obj){
 
+  // FORMATO NOVO
+  if(obj.resultado && Array.isArray(obj.resultado)){
+
+    let html = ""
+
+    obj.resultado.forEach(secao=>{
+
+      html += `
+      <div class="result-block">
+
+        <div class="result-title">
+          ✦ ${secao.secao || "RESULTADO"}
+        </div>
+
+        <div class="result-lines">
+      `
+
+      if(secao.dados && Array.isArray(secao.dados)){
+
+        secao.dados.forEach(item=>{
+
+          html += `
+          <div class="premium-field">
+
+            <div class="premium-label">
+              ${item.campo || "INFO"}
+            </div>
+
+            <div class="premium-value">
+              ${item.valor || "NÃO ENCONTRADO"}
+            </div>
+
+          </div>
+          `
+        })
+
+      }
+
+      html += `
+        </div>
+      </div>
+      `
+    })
+
+    return html
+  }
+
+  // FORMATO ANTIGO
   if(obj.valor){
     return `
       <div class="raw-html">
