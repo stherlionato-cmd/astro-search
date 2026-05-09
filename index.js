@@ -398,20 +398,6 @@ inset 0 0 20px ${isVip
   transition:.25s ease;
 }
 
-.plan-header{
-  display:flex;
-  gap:6px;
-  margin-bottom:10px;
-}
-
-.plan{
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-
-  min-height:255px;
-}
-
 .btn-primary{
   background:${isVip
     ? "rgba(168,85,247,.14)"
@@ -534,130 +520,466 @@ canvas{
  z-index:-1;
 }
 
+/* =========================
+   💎 PLANS SECTION
+========================= */
+
 .plan-box{
- margin:20px 0;
+  margin-top:24px;
+
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
 }
+
+/* CARD */
 
 .plan{
-  margin-top:12px;
-  padding:16px;
-  min-height:260px;
+  position:relative;
+  overflow:hidden;
+
+  min-height:340px;
+
+  padding:22px;
+
+  border-radius:26px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15,23,42,.92),
+      rgba(2,6,23,.88)
+    );
+
+  border:1px solid rgba(255,255,255,.06);
+
+  backdrop-filter:blur(20px);
+
   display:flex;
   flex-direction:column;
-justify-content:space-between;
- border-radius:14px;
- background:rgba(255,255,255,0.03);
- border:1px solid rgba(255,255,255,0.05);
- transition:.25s;
+  justify-content:space-between;
+
+  transition:
+    transform .45s ease,
+    border-color .45s ease,
+    box-shadow .45s ease;
+
+  isolation:isolate;
 }
+
+/* glow */
+
+.plan::before{
+  content:"";
+
+  position:absolute;
+  inset:-1px;
+
+  border-radius:inherit;
+
+  background:
+    radial-gradient(
+      600px circle at var(--mx,50%) var(--my,50%),
+      rgba(255,255,255,.10),
+      transparent 40%
+    );
+
+  opacity:0;
+  transition:.4s;
+  z-index:0;
+}
+
+.plan:hover::before{
+  opacity:1;
+}
+
+/* animated border */
+
+.plan::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  border-radius:inherit;
+  padding:1px;
+
+  background:
+    linear-gradient(
+      130deg,
+      transparent,
+      rgba(255,255,255,.18),
+      transparent
+    );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+
+  opacity:.45;
+}
+
+/* hover */
 
 .plan:hover{
- transform:translateY(-3px);
- border-color:rgba(59,130,246,.4);
+  transform:
+    perspective(1200px)
+    rotateX(5deg)
+    rotateY(-5deg)
+    translateY(-10px);
+
+  border-color:rgba(255,255,255,.14);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.65),
+    0 0 50px rgba(59,130,246,.12);
 }
 
-.plan-title{
- font-size:20px;
- font-weight:700;
- margin-top:6px;
-}
-
-.price{
- font-size:28px;
- font-weight:700;
-
- margin:10px 0 14px;
-
- display:flex;
- align-items:end;
- gap:8px;
-}
-
-.old-price{
- text-decoration:line-through;
- opacity:.4;
- font-size:12px;
- margin-right:6px;
-}
-
-.features{
- font-size:11px;
- opacity:.7;
- margin-bottom:8px;
-}
+/* featured */
 
 .plan.highlight{
- border:1px solid rgba(59,130,246,.5);
- background:rgba(59,130,246,.08);
+  border-color:rgba(59,130,246,.35);
+
+  box-shadow:
+    0 0 40px rgba(59,130,246,.18),
+    inset 0 0 40px rgba(59,130,246,.05);
 }
 
+.plan.highlight:hover{
+  box-shadow:
+    0 0 60px rgba(59,130,246,.26),
+    0 30px 80px rgba(0,0,0,.7);
+}
+
+/* premium */
+
 .plan.premium{
- border:1px solid rgba(168,85,247,.5);
- background:rgba(168,85,247,.06);
- box-shadow:0 0 20px rgba(168,85,247,.15);
+
+  transform:scale(1.04);
+
+  border:1px solid rgba(168,85,247,.45);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(40,20,70,.96),
+      rgba(10,6,25,.96)
+    );
+
+  box-shadow:
+    0 0 70px rgba(168,85,247,.28),
+    inset 0 0 80px rgba(168,85,247,.08);
+}
+
+.plan.premium:hover{
+  box-shadow:
+    0 0 70px rgba(168,85,247,.32),
+    0 30px 80px rgba(0,0,0,.72);
+}
+
+/* particles */
+
+.plan-particles{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+}
+
+.plan-particles span{
+  position:absolute;
+
+  width:3px;
+  height:3px;
+
+  border-radius:50%;
+  background:rgba(255,255,255,.55);
+
+  animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+  from{
+    transform:translateY(120px);
+    opacity:0;
+  }
+
+  30%{
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-180px);
+    opacity:0;
+  }
+}
+
+/* content */
+
+.plan > *{
+  position:relative;
+  z-index:2;
+}
+
+.plan .aurora{
+  position:absolute;
+
+  top:-120px;
+  left:-40px;
+
+  width:240px;
+  height:240px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(59,130,246,.22),
+      transparent 70%
+    );
+
+  filter:blur(40px);
+
+  z-index:0;
+
+  animation:auroraMove 8s ease-in-out infinite;
+}
+
+.plan.premium .aurora{
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.28),
+      transparent 70%
+    );
+}
+
+@keyframes auroraMove{
+
+  0%{
+    transform:translate(0,0) scale(1);
+  }
+
+  50%{
+    transform:translate(40px,20px) scale(1.1);
+  }
+
+  100%{
+    transform:translate(0,0) scale(1);
+  }
+
+}
+
+/* tags */
+
+.plan-header{
+  display:flex;
+  gap:8px;
+  margin-bottom:12px;
 }
 
 .tag{
- font-size:9px;
- padding:3px 6px;
- border-radius:6px;
- background:rgba(255,255,255,0.05);
+  font-size:10px;
+  font-weight:600;
+
+  padding:5px 9px;
+
+  border-radius:999px;
+
+  backdrop-filter:blur(10px);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  background:rgba(255,255,255,.04);
 }
 
 .tag.offer{
- color:#ef4444;
+  color:#fca5a5;
 }
 
 .tag.best{
- color:#facc15;
+  color:#fde68a;
 }
 
 .tag.lifetime{
- color:#c4b5fd;
+  color:#d8b4fe;
 }
 
-.card{
-  opacity:0;
-  transform: translate(var(--x,0), var(--y,0)) translateY(30px);
+/* title */
+
+.plan-title{
+  font-size:28px;
+  font-weight:700;
+
+  margin-bottom:6px;
+
+  letter-spacing:-1px;
 }
 
-.card.show{
-  opacity:1;
-  transform: translate(var(--x,0), var(--y,0)) translateY(0);
-  transition:.6s ease;
+/* price */
+
+.price{
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+
+  margin:18px 0;
 }
 
-.btn:active{
-  transform:scale(.95);
-  box-shadow:0 0 20px rgba(59,130,246,.6);
+.old-price{
+  font-size:13px;
+  text-decoration:line-through;
+  opacity:.35;
 }
 
-@media(max-width:600px){
+.new-price{
+  font-size:42px;
+  line-height:1;
+  font-weight:800;
+  letter-spacing:-2px;
+}
 
-  .container{
-    padding:14px;
-  }
+.new-price small{
+  font-size:14px;
+  opacity:.6;
+}
 
-  .header{
-    padding:14px 16px;
-  }
+/* features */
 
-  .plan-name{
-    font-size:20px;
-  }
+.features{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 
-  .card{
-    padding:16px;
-    border-radius:18px;
-  }
+  margin-top:8px;
+}
+
+.features div{
+  font-size:13px;
+  color:#d1d5db;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* premium button */
+
+.plan .btn{
+  position:relative;
+  overflow:hidden;
+
+  margin-top:24px;
+
+  min-height:56px;
+
+  border-radius:16px;
+
+  font-weight:600;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(59,130,246,.22),
+      rgba(139,92,246,.22)
+    );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 10px 25px rgba(0,0,0,.35);
+}
+
+.plan .btn::before{
+  content:"";
+
+  position:absolute;
+  top:0;
+  left:-120%;
+
+  width:80%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.25),
+      transparent
+    );
+
+  transform:skewX(-25deg);
+
+  transition:.7s;
+}
+
+.plan:hover .btn::before{
+  left:150%;
+}
+
+.plan .btn:hover{
+  transform:translateY(-2px) scale(1.01);
+
+  box-shadow:
+    0 0 30px rgba(59,130,246,.25),
+    0 12px 30px rgba(0,0,0,.45);
+}
+
+@media(max-width:700px){
 
   .plan{
     min-height:auto;
   }
 
-  .btn{
-    min-height:48px;
-    font-size:13px;
+  .plan-title{
+    font-size:24px;
+  }
+
+  .new-price{
+    font-size:36px;
+  }
+
+}
+
+.plan{
+  opacity:0;
+  transform:
+    perspective(1200px)
+    translateY(60px)
+    scale(.92);
+
+  animation:planReveal .9s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.plan:nth-child(1){
+  animation-delay:.08s;
+}
+
+.plan:nth-child(2){
+  animation-delay:.18s;
+}
+
+.plan:nth-child(3){
+  animation-delay:.28s;
+}
+
+@keyframes planReveal{
+
+  to{
+    opacity:1;
+
+    transform:
+      perspective(1200px)
+      translateY(0)
+      scale(1);
   }
 
 }
@@ -717,84 +1039,161 @@ ${results.map((p,i)=>`
 
 <div class="plan-box">
 
-  <div style="font-size:13px; opacity:.7; margin-bottom:6px;">
-    Planos
-  </div>
-
-  <!-- Diário -->
+  <!-- =========================
+       💎 DIÁRIO
+  ========================= -->
   <div class="plan">
-    <div class="plan-header">
-      <span class="tag offer">OFERTA</span>
+  <div class="aurora"></div>
+
+    <div class="plan-particles">
+      <span style="left:8%;animation-duration:7s"></span>
+      <span style="left:18%;animation-duration:11s"></span>
+      <span style="left:32%;animation-duration:9s"></span>
+      <span style="left:48%;animation-duration:13s"></span>
+      <span style="left:66%;animation-duration:8s"></span>
+      <span style="left:82%;animation-duration:10s"></span>
     </div>
 
-    <div class="plan-title">Diário</div>
+    <div>
 
-    <div class="price">
-      <span class="old-price">R$20</span>
-      <span class="new-price">R$14,90</span>
+      <div class="plan-header">
+        <span class="tag offer">OFERTA</span>
+      </div>
+
+      <div class="plan-title">
+        Diário
+      </div>
+
+      <div class="price">
+        <span class="old-price">R$20</span>
+
+        <span class="new-price">
+          R$14,90
+        </span>
+      </div>
+
+      <div class="features">
+        <div>✦ Acesso por 24 horas</div>
+        <div>✦ Consultas básicas</div>
+        <div>✦ Liberação imediata</div>
+        <div>✦ Suporte rápido</div>
+      </div>
+
     </div>
 
-    <div class="features">
-      <div>✔ Acesso por 24h</div>
-      <div>✔ Consultas básicas</div>
-    </div>
-
-    <a href="https://t.me/consultasdedados_bot" class="btn btn-primary">
+    <a href="https://t.me/consultasdedados_bot"
+       target="_blank"
+       class="btn">
       Testar agora
     </a>
+
   </div>
 
-  <!-- Mensal -->
+  <!-- =========================
+       🚀 MENSAL
+  ========================= -->
   <div class="plan highlight">
-    <div class="plan-header">
-      <span class="tag offer">OFERTA</span>
-      <span class="tag best">MAIS VENDIDO</span>
+  <div class="aurora"></div>
+
+    <div class="plan-particles">
+      <span style="left:6%;animation-duration:6s"></span>
+      <span style="left:20%;animation-duration:9s"></span>
+      <span style="left:34%;animation-duration:7s"></span>
+      <span style="left:52%;animation-duration:11s"></span>
+      <span style="left:70%;animation-duration:8s"></span>
+      <span style="left:88%;animation-duration:10s"></span>
     </div>
 
-    <div class="plan-title">Mensal</div>
+    <div>
 
-    <div class="price">
-      <span class="old-price">R$30</span>
-      <span class="new-price">R$24,90</span>
+      <div class="plan-header">
+        <span class="tag offer">OFERTA</span>
+        <span class="tag best">MAIS VENDIDO</span>
+      </div>
+
+      <div class="plan-title">
+        Mensal
+      </div>
+
+      <div class="price">
+        <span class="old-price">R$30</span>
+
+        <span class="new-price">
+          R$24,90
+        </span>
+      </div>
+
+      <div class="features">
+        <div>✦ Consultas ilimitadas</div>
+        <div>✦ Todas APIs liberadas</div>
+        <div>✦ Prioridade no sistema</div>
+        <div>✦ Atualizações premium</div>
+        <div>✦ Melhor custo benefício</div>
+      </div>
+
     </div>
 
-    <div class="features">
-      <div>✔ Acesso ilimitado</div>
-      <div>✔ Todas consultas</div>
-      <div>✔ Prioridade</div>
-    </div>
-
-    <a href="https://t.me/consultasdedados_bot" class="btn btn-primary">
+    <a href="https://t.me/consultasdedados_bot"
+       target="_blank"
+       class="btn">
       Assinar agora
     </a>
+
   </div>
 
-  <!-- Vitalício -->
+  <!-- =========================
+       👑 VITALÍCIO
+  ========================= -->
   <div class="plan premium">
-    <div class="plan-header">
-      <span class="tag offer">OFERTA</span>
-      <span class="tag lifetime">VITALÍCIO</span>
+  <div class="aurora"></div>
+
+    <div class="plan-particles">
+      <span style="left:5%;animation-duration:8s"></span>
+      <span style="left:16%;animation-duration:12s"></span>
+      <span style="left:28%;animation-duration:7s"></span>
+      <span style="left:44%;animation-duration:10s"></span>
+      <span style="left:58%;animation-duration:9s"></span>
+      <span style="left:74%;animation-duration:13s"></span>
+      <span style="left:90%;animation-duration:8s"></span>
     </div>
 
-    <div class="plan-title">Vitalício</div>
+    <div>
 
-    <div class="price">
-      <span class="old-price">R$50</span>
-      <span class="new-price">R$20,90</span>
+      <div class="plan-header">
+        <span class="tag offer">OFERTA</span>
+        <span class="tag lifetime">VITALÍCIO</span>
+      </div>
+
+      <div class="plan-title">
+        Vitalício
+      </div>
+
+      <div class="price">
+        <span class="old-price">R$50</span>
+
+        <span class="new-price">
+          R$20,90
+        </span>
+      </div>
+
+      <div class="features">
+        <div>✦ Acesso vitalício</div>
+        <div>✦ Tudo desbloqueado</div>
+        <div>✦ Sem limites</div>
+        <div>✦ Recursos premium</div>
+        <div>✦ Prioridade máxima</div>
+        <div>✦ Atualizações futuras grátis</div>
+      </div>
+
     </div>
 
-    <div class="features">
-      <div>✔ Acesso vitalício</div>
-      <div>✔ Sem limites</div>
-      <div>✔ Tudo liberado</div>
-    </div>
-
-    <a href="https://t.me/consultasdedados_bot" class="btn btn-primary">
+    <a href="https://t.me/consultasdedados_bot"
+       target="_blank"
+       class="btn">
       🚀 Desbloquear
     </a>
-  </div>
 
-</div>
+  </div>
 
 </div>
 
@@ -834,7 +1233,7 @@ document.querySelectorAll(".card").forEach(el=>{
   observer.observe(el);
 });
 
-document.querySelectorAll(".btn").forEach(btn=>{
+document.querySelectorAll(".card .btn").forEach(btn=>{
   btn.addEventListener("mousemove", e=>{
     const rect = btn.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width/2;
@@ -945,6 +1344,45 @@ if(isVip){
 }
 
 animate()
+
+// 💎 PLANS 3D EFFECT
+
+document.querySelectorAll(".plan").forEach(card=>{
+
+  card.addEventListener("mousemove", e=>{
+
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty("--mx", x + "px");
+    card.style.setProperty("--my", y + "px");
+
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+
+    card.style.transform = `
+      perspective(1200px)
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      translateY(-8px)
+    `;
+
+  });
+
+  card.addEventListener("mouseleave", ()=>{
+
+    card.style.transform = `
+      perspective(1200px)
+      rotateX(0deg)
+      rotateY(0deg)
+      translateY(0px)
+    `;
+
+  });
+
+});
 
 </script>
 
