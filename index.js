@@ -144,6 +144,8 @@ function renderApp(data){
     return html
   }
 
+  const isVip = data.plano === "vip"
+
   const results = normalize(data.resultado)
 
   return `
@@ -163,9 +165,18 @@ function renderApp(data){
 body{
   font-family:'Inter',sans-serif;
   background:
-    radial-gradient(circle at 10% 10%, rgba(59,130,246,0.08), transparent 40%),
-    radial-gradient(circle at 90% 0%, rgba(59,130,246,0.05), transparent 50%),
-    #020617;
+  ${isVip
+    ? `
+    radial-gradient(circle at 10% 10%, rgba(168,85,247,0.16), transparent 40%),
+    radial-gradient(circle at 90% 0%, rgba(139,92,246,0.12), transparent 50%),
+    #020617
+    `
+    : `
+    radial-gradient(circle at 10% 10%, rgba(34,197,94,0.10), transparent 40%),
+    radial-gradient(circle at 90% 0%, rgba(34,197,94,0.05), transparent 50%),
+    #020617
+    `
+  };
 
   color:#e5e7eb;
   display:flex;
@@ -202,11 +213,93 @@ body{
 }
 
 .badge{
-  font-size:10px;
-  padding:5px 10px;
+  position:relative;
+  overflow:hidden;
+
+  font-size:11px;
+  padding:7px 14px;
   border-radius:999px;
-  background:rgba(59,130,246,0.15);
-  border:1px solid rgba(59,130,246,0.3);
+
+  font-weight:600;
+  letter-spacing:.5px;
+
+  backdrop-filter:blur(12px);
+
+  transition:.3s;
+}
+
+/* VIP */
+.badge.vip{
+  color:#e9d5ff;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.22),
+      rgba(139,92,246,.12)
+    );
+
+  border:1px solid rgba(168,85,247,.45);
+
+  box-shadow:
+    0 0 25px rgba(168,85,247,.25),
+    inset 0 0 12px rgba(255,255,255,.04);
+}
+
+/* FREE */
+.badge.free{
+  color:#bbf7d0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(34,197,94,.16),
+      rgba(34,197,94,.08)
+    );
+
+  border:1px solid rgba(34,197,94,.3);
+}
+
+/* ✨ estrelas VIP */
+.badge.vip::before,
+.badge.vip::after{
+  content:"✦";
+  position:absolute;
+
+  font-size:10px;
+  color:#fff;
+
+  opacity:.8;
+
+  animation: sparkle 2.5s linear infinite;
+}
+
+.badge.vip::before{
+  top:2px;
+  left:8px;
+}
+
+.badge.vip::after{
+  bottom:1px;
+  right:8px;
+  animation-delay:1.2s;
+}
+
+@keyframes sparkle{
+  0%{
+    transform:scale(.6) rotate(0deg);
+    opacity:0;
+  }
+
+  50%{
+    transform:scale(1.2) rotate(20deg);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(.6) rotate(0deg);
+    opacity:0;
+  }
 }
 
 /* CARD */
@@ -225,11 +318,17 @@ body{
 
 .card:hover{
   transform:translateY(-4px);
-  border-color:rgba(59,130,246,0.25);
+border-color:${isVip
+? "rgba(168,85,247,.35)"
+: "rgba(34,197,94,.35)"
+};
 
   box-shadow:
     0 10px 40px rgba(0,0,0,0.6),
-    inset 0 0 20px rgba(59,130,246,0.05);
+inset 0 0 20px ${isVip
+? "rgba(168,85,247,.08)"
+: "rgba(34,197,94,.08)"
+};
 }
 
 /* TEXT */
@@ -249,12 +348,22 @@ body{
 }
 
 .btn-primary{
-  background: rgba(59,130,246,0.15);
-  border:1px solid rgba(59,130,246,0.35);
+  background:${isVip
+    ? "rgba(168,85,247,.14)"
+    : "rgba(34,197,94,.12)"
+  };
+
+  border:1px solid ${isVip
+    ? "rgba(168,85,247,.35)"
+    : "rgba(34,197,94,.25)"
+  };
 }
 
 .btn-primary:hover{
-  background: rgba(59,130,246,0.25);
+  background:${isVip
+    ? "rgba(168,85,247,.22)"
+    : "rgba(34,197,94,.18)"
+  };
 }
 
 /* RESULT HEADER */
@@ -459,7 +568,9 @@ canvas{
 
 <div class="header">
   <div class="logo">Consulta</div>
-  <div class="badge">Premium</div>
+<div class="badge ${isVip ? 'vip' : 'free'}">
+  ${isVip ? '✦ VIP' : '● FREE'}
+</div>
 </div>
 
 <div class="card">
@@ -701,7 +812,13 @@ function animate(){
 ctx.shadowBlur = 6;
 ctx.shadowColor = "white";
 
-animate();
+const isVip = ${JSON.stringify(isVip)}
+
+if(isVip){
+  animate()
+}else{
+  c.remove()
+}
 
 </script>
 
