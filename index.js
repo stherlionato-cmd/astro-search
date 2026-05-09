@@ -68,81 +68,77 @@ function renderApp(data){
       .replace(/\b\w/g,l=>l.toUpperCase())
   }
 
-  function renderFields(obj){
+function renderFields(obj){
 
-    let html = ""
+  if(obj.valor){
+    return `
+      <div class="raw-html">
+        ${obj.valor}
+      </div>
+    `
+  }
 
-    for(let key in obj){
+  let html = ""
 
-      let value = obj[key]
-      if(!value) continue
+  const titulo = obj.titulo || "RESULTADO"
+  const conteudo = obj.conteudo || ""
 
-      if(Array.isArray(value)){
-        if(value.length === 0) continue
+  const linhas = conteudo.split("\n")
 
-        html += `
-        <div class="section closed">
-          <div class="section-title" onclick="toggleSection(this)">
-            ${formatLabel(key)}
-            <span class="arrow">›</span>
-          </div>
-          <div class="section-content">
-        `
+  html += `
+  <div class="result-block">
 
-        value.forEach(item=>{
-          if(typeof item === "object"){
-            html += `<div class="sub-card">`
+    <div class="result-title">
+      ✦ ${titulo}
+    </div>
 
-            for(let k in item){
-              if(!item[k]) continue
-              html += `
-              <div class="field">
-                <span>${formatLabel(k)}</span>
-                <b>${item[k]}</b>
-              </div>`
-            }
+    <div class="result-lines">
+  `
 
-            html += `</div>`
-          }
-        })
+  linhas.forEach(linha=>{
 
-        html += `</div></div>`
-        continue
-      }
+    linha = linha.trim()
 
-      if(typeof value === "object"){
+    if(!linha) return
 
-        html += `
-        <div class="section closed">
-          <div class="section-title" onclick="toggleSection(this)">
-            ${formatLabel(key)}
-            <span class="arrow">›</span>
-          </div>
-          <div class="section-content">
-        `
+    if(linha.includes(":")){
 
-        for(let k in value){
-          if(!value[k]) continue
-          html += `
-          <div class="field">
-            <span>${formatLabel(k)}</span>
-            <b>${value[k]}</b>
-          </div>`
-        }
-
-        html += `</div></div>`
-        continue
-      }
+      const parts = linha.split(":")
+      const label = parts.shift()
+      const value = parts.join(":").trim()
 
       html += `
-      <div class="field">
-        <span>${formatLabel(key)}</span>
-        <b>${value}</b>
-      </div>`
+      <div class="premium-field">
+
+        <div class="premium-label">
+          ${label}
+        </div>
+
+        <div class="premium-value">
+          ${value}
+        </div>
+
+      </div>
+      `
+
+    }else{
+
+      html += `
+      <div class="premium-text">
+        ${linha}
+      </div>
+      `
     }
 
-    return html
-  }
+  })
+
+  html += `
+    </div>
+  </div>
+  `
+
+  return html
+}
 
   const isVip = data.plano === "vip"
 
@@ -1184,6 +1180,106 @@ canvas{
 
   box-shadow:
     0 10px 30px rgba(168,85,247,.22);
+}
+
+/* =========================
+   💎 PREMIUM RESULT
+========================= */
+
+.result-block{
+  margin-top:14px;
+}
+
+.result-title{
+
+  font-size:13px;
+  font-weight:700;
+
+  margin-bottom:14px;
+
+  color:#fff;
+
+  letter-spacing:.5px;
+
+  padding-bottom:10px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.06);
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.result-lines{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.premium-field{
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.03),
+      rgba(255,255,255,.01)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.04);
+
+  border-radius:14px;
+
+  padding:14px;
+
+  transition:.25s ease;
+}
+
+.premium-field:hover{
+
+  transform:translateY(-2px);
+
+  border-color:
+    rgba(168,85,247,.25);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.35);
+}
+
+.premium-label{
+
+  font-size:11px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.7px;
+
+  opacity:.5;
+
+  margin-bottom:6px;
+}
+
+.premium-value{
+
+  font-size:15px;
+
+  line-height:1.5;
+
+  color:#fff;
+
+  font-weight:600;
+
+  word-break:break-word;
+}
+
+.premium-text{
+
+  font-size:13px;
+
+  opacity:.8;
+
+  line-height:1.6;
 }
 
 </style>
