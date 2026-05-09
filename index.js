@@ -701,6 +701,20 @@ justify-content:space-between;
   </a>
 </div>
 
+${results.map((p,i)=>`
+<div class="card">
+  <div class="result-header">
+    <div class="title">Resultado ${i+1}</div>
+    <div class="copy" onclick="copyCard(this)">Copiar</div>
+  </div>
+
+  <div class="preview-name">${p.nome || "-"}</div>
+  <div class="preview-sub">${p.telefone || "-"} • ${p.cpf || "-"}</div>
+
+  ${renderFields(p)}
+</div>
+`).join("")}
+
 <div class="plan-box">
 
   <div style="font-size:13px; opacity:.7; margin-bottom:6px;">
@@ -781,20 +795,6 @@ justify-content:space-between;
   </div>
 
 </div>
-
-${results.map((p,i)=>`
-<div class="card">
-  <div class="result-header">
-    <div class="title">Resultado ${i+1}</div>
-    <div class="copy" onclick="copyCard(this)">Copiar</div>
-  </div>
-
-  <div class="preview-name">${p.nome || "-"}</div>
-  <div class="preview-sub">${p.telefone || "-"} • ${p.cpf || "-"}</div>
-
-  ${renderFields(p)}
-</div>
-`).join("")}
 
 </div>
 
