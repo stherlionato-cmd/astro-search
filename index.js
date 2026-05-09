@@ -525,11 +525,18 @@ canvas{
 ========================= */
 
 .plan-box{
-  margin-top:24px;
+  margin-top:22px;
 
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(210px,1fr));
+
+  gap:14px;
+
+  max-width:760px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 /* CARD */
@@ -538,11 +545,9 @@ canvas{
   position:relative;
   overflow:hidden;
 
-  min-height:340px;
-
-  padding:22px;
-
-  border-radius:26px;
+min-height:295px;
+padding:18px;
+border-radius:22px;
 
   background:
     linear-gradient(
@@ -813,7 +818,7 @@ canvas{
 /* title */
 
 .plan-title{
-  font-size:28px;
+  font-size:24px;
   font-weight:700;
 
   margin-bottom:6px;
@@ -838,7 +843,7 @@ canvas{
 }
 
 .new-price{
-  font-size:42px;
+  font-size:34px;
   line-height:1;
   font-weight:800;
   letter-spacing:-2px;
@@ -984,6 +989,302 @@ canvas{
 
 }
 
+/* ✨ estrelas topo premium */
+
+.plan.premium .top-stars{
+  position:absolute;
+  top:10px;
+  right:14px;
+
+  display:flex;
+  gap:6px;
+
+  z-index:5;
+}
+
+.plan.premium .top-stars span{
+  font-size:11px;
+  color:#fff;
+
+  opacity:.9;
+
+  animation: premiumSparkle 2.2s infinite;
+}
+
+.plan.premium .top-stars span:nth-child(2){
+  animation-delay:.8s;
+}
+
+.plan.premium .top-stars span:nth-child(3){
+  animation-delay:1.5s;
+}
+
+@keyframes premiumSparkle{
+
+  0%{
+    transform:scale(.5) rotate(0deg);
+    opacity:0;
+  }
+
+  50%{
+    transform:scale(1.15) rotate(20deg);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(.5) rotate(0deg);
+    opacity:0;
+  }
+
+}
+
+/* =========================
+   💳 PAYMENT MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+
+  background:rgba(2,6,23,.78);
+
+  backdrop-filter:blur(18px);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:18px;
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.35s ease;
+
+  z-index:9999;
+}
+
+.modal.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-box{
+  position:relative;
+
+  width:100%;
+  max-width:420px;
+
+  border-radius:28px;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15,23,42,.96),
+      rgba(2,6,23,.98)
+    );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.75),
+    0 0 60px rgba(168,85,247,.18);
+
+  transform:translateY(20px) scale(.94);
+
+  transition:.35s ease;
+}
+
+.modal.show .modal-box{
+  transform:translateY(0) scale(1);
+}
+
+.modal-glow{
+  position:absolute;
+
+  top:-120px;
+  left:-40px;
+
+  width:260px;
+  height:260px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.28),
+      transparent 70%
+    );
+
+  filter:blur(40px);
+}
+
+.modal-content{
+  position:relative;
+  z-index:2;
+
+  padding:24px;
+}
+
+.modal-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:18px;
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:700;
+}
+
+.close-modal{
+  width:34px;
+  height:34px;
+
+  border:none;
+  outline:none;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  color:#fff;
+
+  background:rgba(255,255,255,.06);
+
+  transition:.2s;
+}
+
+.close-modal:hover{
+  background:rgba(255,255,255,.12);
+}
+
+.modal-plan{
+  padding:14px;
+  border-radius:18px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  margin-bottom:16px;
+}
+
+.modal-plan small{
+  display:block;
+  opacity:.55;
+  margin-bottom:4px;
+}
+
+.modal-plan b{
+  font-size:18px;
+}
+
+.pix-label{
+  font-size:12px;
+  opacity:.6;
+  margin-bottom:8px;
+}
+
+.pix-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:12px;
+
+  border-radius:16px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  margin-bottom:16px;
+}
+
+.pix-key{
+  flex:1;
+
+  font-size:12px;
+  line-height:1.5;
+
+  word-break:break-all;
+
+  color:#f8fafc;
+}
+
+.copy-pix{
+  min-width:42px;
+  height:42px;
+
+  border:none;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  color:#fff;
+
+  font-size:16px;
+
+  background:rgba(255,255,255,.06);
+
+  transition:.2s;
+}
+
+.copy-pix:hover{
+  background:rgba(255,255,255,.12);
+  transform:scale(1.04);
+}
+
+.modal-text{
+  font-size:13px;
+  line-height:1.7;
+
+  color:#cbd5e1;
+
+  margin-bottom:18px;
+}
+
+.support-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:100%;
+  min-height:54px;
+
+  border-radius:18px;
+
+  text-decoration:none;
+  color:#fff;
+
+  font-weight:600;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.28),
+      rgba(59,130,246,.28)
+    );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  transition:.25s ease;
+}
+
+.support-btn:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 10px 30px rgba(168,85,247,.22);
+}
+
 </style>
 </head>
 
@@ -1081,11 +1382,10 @@ ${results.map((p,i)=>`
 
     </div>
 
-    <a href="https://t.me/consultasdedados_bot"
-       target="_blank"
-       class="btn">
-      Testar agora
-    </a>
+<button class="btn"
+        onclick="openPayment('Plano Diário • R$14,90')">
+  Adquirir
+</button>
 
   </div>
 
@@ -1131,11 +1431,10 @@ ${results.map((p,i)=>`
 
     </div>
 
-    <a href="https://t.me/consultasdedados_bot"
-       target="_blank"
-       class="btn">
-      Assinar agora
-    </a>
+<button class="btn"
+        onclick="openPayment('Plano Semanal • R$24,90')">
+  Adquirir
+</button>
 
   </div>
 
@@ -1143,6 +1442,11 @@ ${results.map((p,i)=>`
        👑 VITALÍCIO
   ========================= -->
   <div class="plan premium">
+  <div class="top-stars">
+  <span>✦</span>
+  <span>✧</span>
+  <span>✦</span>
+</div>
   <div class="aurora"></div>
 
     <div class="plan-particles">
@@ -1186,11 +1490,76 @@ ${results.map((p,i)=>`
 
     </div>
 
-    <a href="https://t.me/consultasdedados_bot"
-       target="_blank"
-       class="btn">
-      🚀 Desbloquear
-    </a>
+<button class="btn"
+        onclick="openPayment('Plano Vitalício • R$20,90')">
+  🚀 Desbloquear
+</button>
+
+  </div>
+
+</div>
+
+<div class="modal" id="paymentModal">
+
+  <div class="modal-box">
+
+    <div class="modal-glow"></div>
+
+    <div class="modal-content">
+
+      <div class="modal-top">
+
+        <div class="modal-title">
+          Astro Premium
+        </div>
+
+        <button class="close-modal"
+                onclick="closePayment()">
+          ✕
+        </button>
+
+      </div>
+
+      <div class="modal-plan">
+
+        <small>Plano selecionado</small>
+
+        <b id="modalPlanName">
+          VIP
+        </b>
+
+      </div>
+
+      <div class="pix-label">
+        Chave PIX
+      </div>
+
+      <div class="pix-box">
+
+        <div class="pix-key" id="pixKey">
+          f0d0f3b1-8776-4f06-a254-b6ea3686f71a
+        </div>
+
+        <button class="copy-pix"
+                onclick="copyPix()">
+          ⧉
+        </button>
+
+      </div>
+
+      <div class="modal-text">
+        Após efetuar o pagamento, envie o comprovante
+        para o suporte e seu acesso será liberado
+        imediatamente.
+      </div>
+
+      <a href="https://t.me/puxardados5"
+         target="_blank"
+         class="support-btn">
+        Já paguei
+      </a>
+
+    </div>
 
   </div>
 
@@ -1379,6 +1748,46 @@ document.querySelectorAll(".plan").forEach(card=>{
   });
 
 });
+
+function openPayment(plan){
+
+  document.getElementById("modalPlanName")
+    .innerText = plan
+
+  document.getElementById("paymentModal")
+    .classList.add("show")
+}
+
+function closePayment(){
+
+  document.getElementById("paymentModal")
+    .classList.remove("show")
+}
+
+function copyPix(){
+
+  const key =
+    "f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
+
+  navigator.clipboard.writeText(key)
+
+  const btn = document.querySelector(".copy-pix")
+
+  btn.innerText = "✓"
+
+  setTimeout(()=>{
+    btn.innerText = "⧉"
+  },1400)
+}
+
+document.getElementById("paymentModal")
+.addEventListener("click", e=>{
+
+  if(e.target.id === "paymentModal"){
+    closePayment()
+  }
+
+})
 
 </script>
 
