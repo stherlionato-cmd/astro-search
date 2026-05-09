@@ -196,14 +196,44 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
 
-  position:sticky;
-  top:0;
-  background:rgba(2,6,23,0.6);
-  backdrop-filter:blur(12px);
-  padding-bottom:10px;
-  z-index:10;
+  margin-bottom:18px;
+
+  padding:16px 18px;
+
+  border-radius:20px;
+
+  background:rgba(15,23,42,0.45);
+
+  border:1px solid rgba(255,255,255,0.05);
+
+  backdrop-filter:blur(18px);
+}
+
+.header-left{
+  display:flex;
+  flex-direction:column;
+}
+
+.top-label{
+  font-size:11px;
+  letter-spacing:.4px;
+  opacity:.55;
+  margin-bottom:2px;
+}
+
+.plan-name{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:.5px;
+
+  background:${isVip
+    ? "linear-gradient(90deg,#ffffff,#d8b4fe)"
+    : "linear-gradient(90deg,#ffffff,#86efac)"
+  };
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .logo{
@@ -241,23 +271,27 @@ body{
 
   border:1px solid rgba(168,85,247,.45);
 
-  box-shadow:
-    0 0 25px rgba(168,85,247,.25),
+box-shadow:
+  0 0 18px rgba(168,85,247,.16),
     inset 0 0 12px rgba(255,255,255,.04);
 }
 
 /* FREE */
 .badge.free{
-  color:#bbf7d0;
+  color:#dcfce7;
 
   background:
     linear-gradient(
       135deg,
-      rgba(34,197,94,.16),
-      rgba(34,197,94,.08)
+      rgba(34,197,94,.22),
+      rgba(16,185,129,.12)
     );
 
-  border:1px solid rgba(34,197,94,.3);
+  border:1px solid rgba(74,222,128,.35);
+
+  box-shadow:
+    0 0 18px rgba(34,197,94,.12),
+    inset 0 0 10px rgba(255,255,255,.03);
 }
 
 /* ✨ estrelas VIP */
@@ -304,7 +338,9 @@ body{
 
 /* CARD */
 .card{
-  background: rgba(15,23,42,0.55);
+  width:100%;
+
+  background: rgba(15,23,42,0.58);
   backdrop-filter: blur(20px);
 
   border-radius:20px;
@@ -337,14 +373,43 @@ inset 0 0 20px ${isVip
 
 /* BUTTON */
 .btn{
-  display:block;
-  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:100%;
+
+  margin-top:14px;
+
+  min-height:52px;
+
   text-align:center;
-  padding:11px;
-  border-radius:10px;
+
+  padding:0 18px;
+
+  border-radius:14px;
+
   text-decoration:none;
   color:#fff;
-  font-size:13px;
+
+  font-size:14px;
+  font-weight:500;
+
+  transition:.25s ease;
+}
+
+.plan-header{
+  display:flex;
+  gap:6px;
+  margin-bottom:10px;
+}
+
+.plan{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  min-height:255px;
 }
 
 .btn-primary{
@@ -474,8 +539,12 @@ canvas{
 }
 
 .plan{
- margin-top:10px;
- padding:12px;
+  margin-top:12px;
+  padding:16px;
+  min-height:260px;
+  display:flex;
+  flex-direction:column;
+justify-content:space-between;
  border-radius:14px;
  background:rgba(255,255,255,0.03);
  border:1px solid rgba(255,255,255,0.05);
@@ -488,14 +557,20 @@ canvas{
 }
 
 .plan-title{
- font-size:13px;
- font-weight:600;
+ font-size:20px;
+ font-weight:700;
+ margin-top:6px;
 }
 
 .price{
- font-size:16px;
+ font-size:28px;
  font-weight:700;
- margin:4px 0;
+
+ margin:10px 0 14px;
+
+ display:flex;
+ align-items:end;
+ gap:8px;
 }
 
 .old-price{
@@ -557,6 +632,36 @@ canvas{
   box-shadow:0 0 20px rgba(59,130,246,.6);
 }
 
+@media(max-width:600px){
+
+  .container{
+    padding:14px;
+  }
+
+  .header{
+    padding:14px 16px;
+  }
+
+  .plan-name{
+    font-size:20px;
+  }
+
+  .card{
+    padding:16px;
+    border-radius:18px;
+  }
+
+  .plan{
+    min-height:auto;
+  }
+
+  .btn{
+    min-height:48px;
+    font-size:13px;
+  }
+
+}
+
 </style>
 </head>
 
@@ -567,10 +672,21 @@ canvas{
 <div class="container">
 
 <div class="header">
-  <div class="logo">Consulta</div>
-<div class="badge ${isVip ? 'vip' : 'free'}">
-  ${isVip ? '✦ VIP' : '● FREE'}
-</div>
+
+  <div class="header-left">
+    <div class="top-label">
+      Plano atual
+    </div>
+
+    <div class="plan-name">
+      ${isVip ? 'VIP' : 'FREE'}
+    </div>
+  </div>
+
+  <div class="badge ${isVip ? 'vip' : 'free'}">
+    ${isVip ? '✦ PREMIUM' : '● STANDARD'}
+  </div>
+
 </div>
 
 <div class="card">
