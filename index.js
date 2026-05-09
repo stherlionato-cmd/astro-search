@@ -1112,7 +1112,7 @@ ${results.map((p,i)=>`
       </div>
 
       <div class="plan-title">
-        Mensal
+        Semanal
       </div>
 
       <div class="price">
@@ -1125,10 +1125,8 @@ ${results.map((p,i)=>`
 
       <div class="features">
         <div>✦ Consultas ilimitadas</div>
-        <div>✦ Todas APIs liberadas</div>
         <div>✦ Prioridade no sistema</div>
         <div>✦ Atualizações premium</div>
-        <div>✦ Melhor custo benefício</div>
       </div>
 
     </div>
@@ -1161,7 +1159,7 @@ ${results.map((p,i)=>`
 
       <div class="plan-header">
         <span class="tag offer">OFERTA</span>
-        <span class="tag lifetime">VITALÍCIO</span>
+        <span class="tag lifetime">ILIMITADO</span>
       </div>
 
       <div class="plan-title">
@@ -1180,6 +1178,7 @@ ${results.map((p,i)=>`
         <div>✦ Acesso vitalício</div>
         <div>✦ Tudo desbloqueado</div>
         <div>✦ Sem limites</div>
+        <div>✦ Acesso aos códigos</div>
         <div>✦ Recursos premium</div>
         <div>✦ Prioridade máxima</div>
         <div>✦ Atualizações futuras grátis</div>
