@@ -1987,24 +1987,51 @@ window.addEventListener("resize", resize);
 let stars = [];
 let particles = [];
 
-// 🔥 ESTRELAS
-for(let i=0;i<220;i++){
+let stars = [];
+let particles = [];
+
+// ⭐ ESTRELAS PREMIUM
+for(let i=0;i<520;i++){
+
+  const strong = Math.random() > 0.82;
+
   stars.push({
-    x: Math.random()*c.width,
-    y: Math.random()*c.height,
-    speed: Math.random()*0.3 + 0.05,
-    size: Math.random()*1.5,
-    opacity: Math.random()
+
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+
+    speed:
+      Math.random() * 0.22 + 0.03,
+
+    // pequenas mas visíveis
+    size:
+      strong
+      ? Math.random() * 1.8 + 1
+      : Math.random() * 1.1 + 0.4,
+
+    opacity:
+      strong
+      ? Math.random() * 0.5 + 0.45
+      : Math.random() * 0.22 + 0.08
   });
 }
 
-// ✨ PARTÍCULAS
-for(let i=0;i<80;i++){
+// 🌫 partículas suaves
+for(let i=0;i<140;i++){
+
   particles.push({
-    x: Math.random()*c.width,
-    y: Math.random()*c.height,
-    size: Math.random()*2,
-    speed: Math.random()*0.15 + 0.05
+
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+
+    size:
+      Math.random() * 1.8 + 0.3,
+
+    speed:
+      Math.random() * 0.12 + 0.03,
+
+    opacity:
+      Math.random() * 0.12 + 0.03
   });
 }
 
@@ -2022,7 +2049,8 @@ function animate(){
       s.x = Math.random()*c.width;
     }
 
-    ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
+ctx.fillStyle =
+  "rgba(255,255,255," + s.opacity + ")";
     ctx.fillRect(s.x, s.y, s.size, s.size);
   });
 
@@ -2035,7 +2063,8 @@ function animate(){
       p.x = Math.random()*c.width;
     }
 
-    ctx.fillStyle = "rgba(255,255,255,0.2)";
+ctx.fillStyle =
+  "rgba(255,255,255," + p.opacity + ")";
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
     ctx.fill();
@@ -2044,22 +2073,21 @@ function animate(){
   requestAnimationFrame(animate);
 }
 
-ctx.shadowBlur = 6;
-ctx.shadowColor = "white";
+ctx.shadowBlur = 12;
+ctx.shadowColor = "rgba(255,255,255,.9)";
 
 const isVip = ${JSON.stringify(isVip)}
 
 // VIP = mais partículas
 if(isVip){
 
-  stars = stars.slice(0,220)
-  particles = particles.slice(0,80)
+  stars = stars.slice(0,520)
+  particles = particles.slice(0,140)
 
 }else{
 
-  // FREE = menos partículas
-  stars = stars.slice(0,150)
-  particles = particles.slice(0,35)
+  stars = stars.slice(0,320)
+  particles = particles.slice(0,80)
 
 }
 
