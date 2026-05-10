@@ -579,6 +579,8 @@ canvas{
 .plan-box{
   margin-top:18px;
 
+  scroll-margin-top:30px;
+
   display:grid;
   grid-template-columns:
     repeat(auto-fit,minmax(185px,1fr));
@@ -1330,6 +1332,275 @@ canvas{
   line-height:1.6;
 }
 
+/* =========================
+   🚀 PLANS SHORTCUT
+========================= */
+
+.plans-shortcut{
+  position:relative;
+  overflow:hidden;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:14px;
+
+  margin-bottom:18px;
+  padding:16px 18px;
+
+  border-radius:20px;
+
+  cursor:pointer;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15,23,42,.78),
+      rgba(15,23,42,.52)
+    );
+
+  border:1px solid rgba(255,255,255,.06);
+
+  backdrop-filter:blur(18px);
+
+  transition:
+    transform .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease;
+
+  isolation:isolate;
+}
+
+.plans-shortcut:hover{
+
+  transform:translateY(-3px);
+
+  border-color:
+    rgba(168,85,247,.28);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.45),
+    0 0 30px rgba(168,85,247,.12);
+}
+
+.plans-shortcut:active{
+  transform:scale(.985);
+}
+
+.plans-shortcut::before{
+  content:"";
+
+  position:absolute;
+  inset:-1px;
+
+  border-radius:inherit;
+
+  background:
+    radial-gradient(
+      500px circle at var(--mx,50%) var(--my,50%),
+      rgba(255,255,255,.07),
+      transparent 40%
+    );
+
+  opacity:0;
+  transition:.35s ease;
+}
+
+.plans-shortcut:hover::before{
+  opacity:1;
+}
+
+.plans-shortcut-glow{
+  position:absolute;
+
+  top:-80px;
+  right:-40px;
+
+  width:180px;
+  height:180px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.18),
+      transparent 70%
+    );
+
+  filter:blur(30px);
+
+  pointer-events:none;
+}
+
+.plans-shortcut-left{
+  position:relative;
+  z-index:2;
+}
+
+.plans-shortcut-mini{
+
+  font-size:10px;
+  font-weight:700;
+
+  letter-spacing:1.3px;
+
+  margin-bottom:5px;
+
+  color:#c084fc;
+
+  opacity:.9;
+}
+
+.plans-shortcut-title{
+
+  font-size:15px;
+  font-weight:600;
+
+  color:#fff;
+}
+
+.plans-shortcut-sub{
+
+  margin-top:3px;
+
+  font-size:11px;
+
+  color:#94a3b8;
+}
+
+.plans-shortcut-arrow{
+
+  position:relative;
+  z-index:2;
+
+  width:44px;
+  height:44px;
+
+  border-radius:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:18px;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.18),
+      rgba(59,130,246,.18)
+    );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  animation:plansArrow 2s ease-in-out infinite;
+
+  box-shadow:
+    inset 0 0 12px rgba(255,255,255,.04);
+}
+
+@keyframes plansArrow{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(4px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+
+}
+
+.plan-box{
+  scroll-margin-top:30px;
+}
+
+.plan-box.plans-highlight{
+  animation:plansPulse 1.8s ease;
+}
+
+@keyframes plansPulse{
+
+  0%{
+    transform:scale(1);
+    filter:brightness(1);
+  }
+
+  30%{
+    transform:scale(1.015);
+    filter:brightness(1.08);
+  }
+
+  100%{
+    transform:scale(1);
+    filter:brightness(1);
+  }
+
+}
+
+@media(max-width:700px){
+
+  .plans-shortcut{
+    padding:14px 15px;
+  }
+
+  .plans-shortcut-title{
+    font-size:14px;
+  }
+
+  .plans-shortcut-arrow{
+    width:38px;
+    height:38px;
+    font-size:16px;
+  }
+
+}
+
+.top-stars{
+  position:absolute;
+  inset:0;
+
+  pointer-events:none;
+}
+
+.top-stars span{
+  position:absolute;
+
+  color:#fff;
+
+  opacity:.9;
+
+  animation:premiumSparkle 2.8s infinite;
+}
+
+.top-stars span:nth-child(1){
+  top:14px;
+  left:18px;
+  font-size:11px;
+}
+
+.top-stars span:nth-child(2){
+  top:20px;
+  right:20px;
+  font-size:13px;
+  animation-delay:.8s;
+}
+
+.top-stars span:nth-child(3){
+  bottom:24px;
+  left:24px;
+  font-size:10px;
+  animation-delay:1.5s;
+}
+
 </style>
 </head>
 
@@ -1353,6 +1624,32 @@ canvas{
 
   <div class="badge ${isVip ? 'vip' : 'free'}">
     ${isVip ? '✦ PREMIUM' : '● STANDARD'}
+  </div>
+
+</div>
+
+<!-- =========================
+     🚀 QUICK PLANS NAV
+========================= -->
+
+<div class="plans-shortcut" onclick="scrollToPlans()">
+
+  <div class="plans-shortcut-glow"></div>
+
+  <div class="plans-shortcut-left">
+
+    <div class="plans-shortcut-mini">
+      PREMIUM
+    </div>
+
+    <div class="plans-shortcut-title">
+      Ver planos disponíveis
+    </div>
+
+  </div>
+
+  <div class="plans-shortcut-arrow">
+    ↓
   </div>
 
 </div>
@@ -1383,7 +1680,7 @@ ${results.map((p,i)=>`
 </div>
 `).join("")}
 
-<div class="plan-box">
+<div class="plan-box" id="plansSection">
 
   <!-- =========================
        💎 DIÁRIO
@@ -1624,6 +1921,25 @@ window.addEventListener("mousemove", e=>{
     el.style.setProperty("--y", y + "px");
   });
 });
+
+function scrollToPlans(){
+
+  const section =
+    document.getElementById("plansSection")
+
+  if(!section) return
+
+  section.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  })
+
+  section.classList.add("plans-highlight")
+
+  setTimeout(()=>{
+    section.classList.remove("plans-highlight")
+  },1800)
+}
 
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
