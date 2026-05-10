@@ -2002,18 +2002,18 @@ for(let i=0;i<STAR_COUNT;i++){
     x: Math.random() * c.width,
     y: Math.random() * c.height,
 
-    size:
-      bright
-      ? Math.random() * 1.8 + 0.8
-      : Math.random() * 0.9 + 0.15,
+size:
+  bright
+  ? Math.random() * 1.1 + 0.7
+  : Math.random() * 0.55 + 0.12,
 
     opacity:
       bright
       ? Math.random() * 0.55 + 0.45
       : Math.random() * 0.18 + 0.04,
 
-    speed:
-      Math.random() * 0.12 + 0.015
+speed:
+  Math.random() * 0.025 + 0.003
   });
 }
 
@@ -2050,8 +2050,7 @@ function animate(){
   requestAnimationFrame(animate);
 }
 
-ctx.shadowBlur = 8;
-ctx.shadowColor = "rgba(255,255,255,.8)";
+ctx.shadowBlur = 0;
 
 animate();
 
