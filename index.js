@@ -1992,19 +1992,19 @@ for(let i=0;i<220;i++){
   stars.push({
     x: Math.random()*c.width,
     y: Math.random()*c.height,
-    speed: Math.random()*0.3 + 0.05,
-    size: Math.random()*1.5,
-    opacity: Math.random()
+    speed: Math.random()*0.35 + 0.08,
+    size: Math.random()*2.2 + 0.4,
+    opacity: Math.random()*0.8 + 0.2
   });
 }
 
 // ✨ PARTÍCULAS
-for(let i=0;i<80;i++){
+for(let i=0;i<90;i++){
   particles.push({
     x: Math.random()*c.width,
     y: Math.random()*c.height,
-    size: Math.random()*2,
-    speed: Math.random()*0.15 + 0.05
+    size: Math.random()*2.4 + 0.4,
+    speed: Math.random()*0.18 + 0.05
   });
 }
 
@@ -2013,53 +2013,79 @@ function animate(){
 
   c.style.top = lastScroll + "px";
 
-  // ⭐ estrelas
-  stars.forEach(s=>{
-    s.y += s.speed;
+// ⭐ estrelas
+stars.forEach(s=>{
 
-    if(s.y > c.height){
-      s.y = 0;
-      s.x = Math.random()*c.width;
-    }
+  s.y += s.speed;
 
-    ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
-    ctx.fillRect(s.x, s.y, s.size, s.size);
-  });
+  if(s.y > c.height){
+    s.y = 0;
+    s.x = Math.random()*c.width;
+  }
 
-  // 🌫 partículas
-  particles.forEach(p=>{
-    p.y += p.speed;
+  // brilho forte mas elegante
+  const glow = isVip
+    ? "rgba(168,85,247,"
+    : "rgba(255,255,255,";
 
-    if(p.y > c.height){
-      p.y = 0;
-      p.x = Math.random()*c.width;
-    }
+  ctx.beginPath();
 
-    ctx.fillStyle = "rgba(255,255,255,0.2)";
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-    ctx.fill();
-  });
+  ctx.fillStyle =
+    glow + (0.35 + s.opacity) + ")";
+
+  ctx.shadowBlur = isVip ? 14 : 8;
+
+  ctx.shadowColor =
+    isVip
+      ? "rgba(168,85,247,.9)"
+      : "rgba(255,255,255,.7)";
+
+  ctx.arc(
+    s.x,
+    s.y,
+    s.size,
+    0,
+    Math.PI * 2
+  );
+
+  ctx.fill();
+
+  // mini brilho externo
+  ctx.beginPath();
+
+  ctx.fillStyle =
+    "rgba(255,255,255,.08)";
+
+  ctx.arc(
+    s.x,
+    s.y,
+    s.size * 3.2,
+    0,
+    Math.PI * 2
+  );
+
+  ctx.fill();
+
+});
 
   requestAnimationFrame(animate);
 }
 
-ctx.shadowBlur = 6;
-ctx.shadowColor = "white";
+ctx.shadowBlur = 14;
+ctx.shadowColor = "rgba(255,255,255,.9)";
 
 const isVip = ${JSON.stringify(isVip)}
 
 // VIP = mais partículas
 if(isVip){
 
-  stars = stars.slice(0,220)
-  particles = particles.slice(0,80)
+  stars = stars.slice(0,280)
+  particles = particles.slice(0,110)
 
 }else{
 
-  // FREE = menos partículas
-  stars = stars.slice(0,150)
-  particles = particles.slice(0,35)
+  stars = stars.slice(0,180)
+  particles = particles.slice(0,50)
 
 }
 
