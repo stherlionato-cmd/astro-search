@@ -1715,50 +1715,110 @@ respostas rápidas e visual premium.
 <div class="features-grid">
 
 <div class="feature">
-<div class="feature-icon">📄</div>
+<div class="feature-icon">🪪</div>
 <div class="feature-title">CPF</div>
 <div class="feature-text">
-Dados completos vinculados em segundos.
+Dados cadastrais completos,
+situação, vínculos e registros integrados.
 </div>
 </div>
 
 <div class="feature">
 <div class="feature-icon">📱</div>
-<div class="feature-title">Telefone</div>
+<div class="feature-title">TELEFONE</div>
 <div class="feature-text">
-Localização de números e vínculos.
+Localização de números vinculados,
+operadoras e dados associados.
 </div>
 </div>
 
 <div class="feature">
-<div class="feature-icon">🏠</div>
-<div class="feature-title">Endereços</div>
+<div class="feature-icon">🚘</div>
+<div class="feature-title">PLACA</div>
 <div class="feature-text">
-Consulta rápida de dados residenciais.
-</div>
-</div>
-
-<div class="feature">
-<div class="feature-icon">🚗</div>
-<div class="feature-title">Veículos</div>
-<div class="feature-text">
-Informações vinculadas e registros.
+Consultas veiculares com
+dados vinculados e histórico.
 </div>
 </div>
 
 <div class="feature">
 <div class="feature-icon">🏢</div>
-<div class="feature-title">Empresas</div>
+<div class="feature-title">CNPJ</div>
 <div class="feature-text">
-Dados empresariais e integrações.
+Empresas, sócios, situação cadastral
+e informações empresariais.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">👤</div>
+<div class="feature-title">NOME</div>
+<div class="feature-text">
+Busca nominal integrada com
+múltiplas fontes sincronizadas.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">👨‍👩‍👧</div>
+<div class="feature-title">PARENTES</div>
+<div class="feature-text">
+Possíveis vínculos familiares,
+conexões e relações registradas.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🏘</div>
+<div class="feature-title">VIZINHOS</div>
+<div class="feature-text">
+Informações relacionadas à
+região e proximidade residencial.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🛒</div>
+<div class="feature-title">COMPRAS</div>
+<div class="feature-text">
+Registros vinculados e
+dados complementares disponíveis.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">💳</div>
+<div class="feature-title">SCORE</div>
+<div class="feature-text">
+Informações financeiras
+e indicadores disponíveis.
 </div>
 </div>
 
 <div class="feature">
 <div class="feature-icon">🌐</div>
-<div class="feature-title">Premium</div>
+<div class="feature-title">REDES SOCIAIS</div>
 <div class="feature-text">
-Recursos avançados desbloqueados.
+Perfis públicos vinculados
+e dados conectados.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📍</div>
+<div class="feature-title">ENDEREÇOS</div>
+<div class="feature-text">
+Histórico residencial,
+localizações e vínculos.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🔒</div>
+<div class="feature-title">DADOS PREMIUM</div>
+<div class="feature-text">
+Recursos avançados liberados
+para usuários VIP.
 </div>
 </div>
 
