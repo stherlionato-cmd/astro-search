@@ -1988,7 +1988,7 @@ let stars = [];
 let particles = [];
 
 // 🔥 ESTRELAS
-for(let i=0;i<220;i++){
+for(let i=0;i<170;i++){
   stars.push({
     x: Math.random()*c.width,
     y: Math.random()*c.height,
@@ -2023,43 +2023,31 @@ stars.forEach(s=>{
     s.x = Math.random()*c.width;
   }
 
-  // brilho forte mas elegante
-  const glow = isVip
-    ? "rgba(168,85,247,"
-    : "rgba(255,255,255,";
+  // brilho discreto premium
+  const opacity =
+    isVip
+      ? (0.22 + s.opacity * 0.45)
+      : (0.12 + s.opacity * 0.28);
 
   ctx.beginPath();
 
   ctx.fillStyle =
-    glow + (0.35 + s.opacity) + ")";
+    isVip
+      ? "rgba(255,255,255," + opacity + ")"
+      : "rgba(255,255,255," + opacity + ")";
 
-  ctx.shadowBlur = isVip ? 14 : 8;
+  ctx.shadowBlur =
+    isVip ? 8 : 4;
 
   ctx.shadowColor =
     isVip
-      ? "rgba(168,85,247,.9)"
-      : "rgba(255,255,255,.7)";
+      ? "rgba(168,85,247,.35)"
+      : "rgba(255,255,255,.18)";
 
   ctx.arc(
     s.x,
     s.y,
     s.size,
-    0,
-    Math.PI * 2
-  );
-
-  ctx.fill();
-
-  // mini brilho externo
-  ctx.beginPath();
-
-  ctx.fillStyle =
-    "rgba(255,255,255,.08)";
-
-  ctx.arc(
-    s.x,
-    s.y,
-    s.size * 3.2,
     0,
     Math.PI * 2
   );
