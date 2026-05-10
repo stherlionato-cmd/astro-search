@@ -1968,130 +1968,92 @@ btn.style.transform = "translate(" + (x*0.2) + "px, " + (y*0.2) + "px)";
 });
 
 // ⭐ ESTRELAS PREMIUM
+// ⭐ BACKGROUND PREMIUM
+
 const c = document.getElementById("bg");
 const ctx = c.getContext("2d");
 
 function resize(){
-  c.width = window.innerWidth;
-  c.height = document.body.scrollHeight;
-}
-let lastScroll = 0;
 
-window.addEventListener("scroll", ()=>{
-  lastScroll = window.scrollY;
-});
+  c.width = window.innerWidth;
+  c.height = Math.max(
+    document.body.scrollHeight,
+    window.innerHeight
+  );
+}
 
 resize();
+
 window.addEventListener("resize", resize);
 
-let stars = [];
-let particles = [];
+const isVip = ${JSON.stringify(isVip)}
 
-let stars = [];
-let particles = [];
+const STAR_COUNT =
+  isVip ? 900 : 550;
 
-// ⭐ ESTRELAS PREMIUM
-for(let i=0;i<520;i++){
+const stars = [];
 
-  const strong = Math.random() > 0.82;
+for(let i=0;i<STAR_COUNT;i++){
+
+  const bright = Math.random() > 0.92;
 
   stars.push({
 
     x: Math.random() * c.width,
     y: Math.random() * c.height,
 
-    speed:
-      Math.random() * 0.22 + 0.03,
-
-    // pequenas mas visíveis
     size:
-      strong
-      ? Math.random() * 1.8 + 1
-      : Math.random() * 1.1 + 0.4,
+      bright
+      ? Math.random() * 1.8 + 0.8
+      : Math.random() * 0.9 + 0.15,
 
     opacity:
-      strong
-      ? Math.random() * 0.5 + 0.45
-      : Math.random() * 0.22 + 0.08
-  });
-}
-
-// 🌫 partículas suaves
-for(let i=0;i<140;i++){
-
-  particles.push({
-
-    x: Math.random() * c.width,
-    y: Math.random() * c.height,
-
-    size:
-      Math.random() * 1.8 + 0.3,
+      bright
+      ? Math.random() * 0.55 + 0.45
+      : Math.random() * 0.18 + 0.04,
 
     speed:
-      Math.random() * 0.12 + 0.03,
-
-    opacity:
-      Math.random() * 0.12 + 0.03
+      Math.random() * 0.12 + 0.015
   });
 }
 
 function animate(){
+
   ctx.clearRect(0,0,c.width,c.height);
 
-  c.style.top = lastScroll + "px";
+  for(const s of stars){
 
-  // ⭐ estrelas
-  stars.forEach(s=>{
     s.y += s.speed;
 
     if(s.y > c.height){
-      s.y = 0;
-      s.x = Math.random()*c.width;
+
+      s.y = -2;
+      s.x = Math.random() * c.width;
     }
 
-ctx.fillStyle =
-  "rgba(255,255,255," + s.opacity + ")";
-    ctx.fillRect(s.x, s.y, s.size, s.size);
-  });
-
-  // 🌫 partículas
-  particles.forEach(p=>{
-    p.y += p.speed;
-
-    if(p.y > c.height){
-      p.y = 0;
-      p.x = Math.random()*c.width;
-    }
-
-ctx.fillStyle =
-  "rgba(255,255,255," + p.opacity + ")";
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+
+    ctx.fillStyle =
+      "rgba(255,255,255," + s.opacity + ")";
+
+    ctx.arc(
+      s.x,
+      s.y,
+      s.size,
+      0,
+      Math.PI * 2
+    );
+
     ctx.fill();
-  });
+  }
 
   requestAnimationFrame(animate);
 }
 
-ctx.shadowBlur = 12;
-ctx.shadowColor = "rgba(255,255,255,.9)";
+ctx.shadowBlur = 8;
+ctx.shadowColor = "rgba(255,255,255,.8)";
 
-const isVip = ${JSON.stringify(isVip)}
-
-// VIP = mais partículas
-if(isVip){
-
-  stars = stars.slice(0,520)
-  particles = particles.slice(0,140)
-
-}else{
-
-  stars = stars.slice(0,320)
-  particles = particles.slice(0,80)
-
-}
-
-animate()
+animate();
 
 // 💎 PLANS 3D EFFECT
 
