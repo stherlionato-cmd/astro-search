@@ -1988,23 +1988,23 @@ let stars = [];
 let particles = [];
 
 // 🔥 ESTRELAS
-for(let i=0;i<170;i++){
+for(let i=0;i<220;i++){
   stars.push({
     x: Math.random()*c.width,
     y: Math.random()*c.height,
-    speed: Math.random()*0.35 + 0.08,
-    size: Math.random()*2.2 + 0.4,
-    opacity: Math.random()*0.8 + 0.2
+    speed: Math.random()*0.3 + 0.05,
+    size: Math.random()*1.5,
+    opacity: Math.random()
   });
 }
 
 // ✨ PARTÍCULAS
-for(let i=0;i<90;i++){
+for(let i=0;i<80;i++){
   particles.push({
     x: Math.random()*c.width,
     y: Math.random()*c.height,
-    size: Math.random()*2.4 + 0.4,
-    speed: Math.random()*0.18 + 0.05
+    size: Math.random()*2,
+    speed: Math.random()*0.15 + 0.05
   });
 }
 
@@ -2013,67 +2013,53 @@ function animate(){
 
   c.style.top = lastScroll + "px";
 
-// ⭐ estrelas
-stars.forEach(s=>{
+  // ⭐ estrelas
+  stars.forEach(s=>{
+    s.y += s.speed;
 
-  s.y += s.speed;
+    if(s.y > c.height){
+      s.y = 0;
+      s.x = Math.random()*c.width;
+    }
 
-  if(s.y > c.height){
-    s.y = 0;
-    s.x = Math.random()*c.width;
-  }
+    ctx.fillStyle = "rgba(255,255,255," + (0.2 + s.opacity) + ")";
+    ctx.fillRect(s.x, s.y, s.size, s.size);
+  });
 
-  // brilho discreto premium
-  const opacity =
-    isVip
-      ? (0.22 + s.opacity * 0.45)
-      : (0.12 + s.opacity * 0.28);
+  // 🌫 partículas
+  particles.forEach(p=>{
+    p.y += p.speed;
 
-  ctx.beginPath();
+    if(p.y > c.height){
+      p.y = 0;
+      p.x = Math.random()*c.width;
+    }
 
-  ctx.fillStyle =
-    isVip
-      ? "rgba(255,255,255," + opacity + ")"
-      : "rgba(255,255,255," + opacity + ")";
-
-  ctx.shadowBlur =
-    isVip ? 8 : 4;
-
-  ctx.shadowColor =
-    isVip
-      ? "rgba(168,85,247,.35)"
-      : "rgba(255,255,255,.18)";
-
-  ctx.arc(
-    s.x,
-    s.y,
-    s.size,
-    0,
-    Math.PI * 2
-  );
-
-  ctx.fill();
-
-});
+    ctx.fillStyle = "rgba(255,255,255,0.2)";
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+    ctx.fill();
+  });
 
   requestAnimationFrame(animate);
 }
 
-ctx.shadowBlur = 14;
-ctx.shadowColor = "rgba(255,255,255,.9)";
+ctx.shadowBlur = 6;
+ctx.shadowColor = "white";
 
 const isVip = ${JSON.stringify(isVip)}
 
 // VIP = mais partículas
 if(isVip){
 
-  stars = stars.slice(0,280)
-  particles = particles.slice(0,110)
+  stars = stars.slice(0,220)
+  particles = particles.slice(0,80)
 
 }else{
 
-  stars = stars.slice(0,180)
-  particles = particles.slice(0,50)
+  // FREE = menos partículas
+  stars = stars.slice(0,150)
+  particles = particles.slice(0,35)
 
 }
 
