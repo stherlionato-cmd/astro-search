@@ -46,8 +46,2333 @@ if (url.pathname.startsWith("/r/")) {
       })
     }
 
+if (url.pathname === "/") {
+
+  return new Response(renderHome(), {
+
+    headers:{
+      "Content-Type":"text/html; charset=UTF-8"
+    }
+
+  })
+
+}
+
     return new Response("Not Found", { status: 404 })
   }
+}
+
+function renderHome(){
+
+return `
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Astro • Sistema Premium</title>
+
+<meta name="theme-color" content="#020617">
+
+<meta
+name="description"
+content="Sistema premium de consultas privadas com acesso instantâneo"
+/>
+
+<meta property="og:title" content="Astro Premium">
+<meta property="og:description" content="Consultas premium instantâneas">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:
+radial-gradient(circle at top left,
+rgba(168,85,247,.15),
+transparent 35%),
+
+radial-gradient(circle at top right,
+rgba(59,130,246,.12),
+transparent 35%),
+
+#020617;
+
+color:#fff;
+overflow-x:hidden;
+
+-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility;
+}
+
+/* =========================
+BACKGROUND
+========================= */
+
+canvas{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+z-index:0;
+pointer-events:none;
+}
+
+/* =========================
+LAYOUT
+========================= */
+
+.container{
+position:relative;
+z-index:2;
+width:100%;
+max-width:1220px;
+margin:auto;
+padding:0 18px;
+}
+
+/* =========================
+HEADER
+========================= */
+
+.header{
+
+position:sticky;
+top:0;
+
+z-index:1000;
+
+backdrop-filter:blur(18px);
+
+background:rgba(2,6,23,.55);
+
+border-bottom:
+1px solid rgba(255,255,255,.05);
+
+}
+
+.header-wrap{
+
+height:78px;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+}
+
+.logo{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+font-weight:800;
+font-size:20px;
+letter-spacing:-1px;
+}
+
+.logo-icon{
+
+width:42px;
+height:42px;
+
+border-radius:14px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.25),
+rgba(59,130,246,.25)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 25px rgba(168,85,247,.25);
+
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.mini-badge{
+
+padding:8px 14px;
+
+border-radius:999px;
+
+font-size:11px;
+font-weight:700;
+letter-spacing:.7px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:#cbd5e1;
+}
+
+.header-btn{
+
+height:44px;
+padding:0 18px;
+
+border-radius:14px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+color:#fff;
+
+font-size:13px;
+font-weight:600;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.24),
+rgba(59,130,246,.24)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+transition:.25s;
+}
+
+.header-btn:hover{
+transform:translateY(-2px);
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+
+position:relative;
+
+padding-top:90px;
+padding-bottom:90px;
+
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:40px;
+align-items:center;
+}
+
+.hero-tag{
+
+display:inline-flex;
+align-items:center;
+gap:8px;
+
+padding:10px 16px;
+
+border-radius:999px;
+
+margin-bottom:22px;
+
+font-size:11px;
+font-weight:700;
+letter-spacing:1px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:#d8b4fe;
+}
+
+.hero-title{
+
+font-size:72px;
+line-height:.95;
+
+font-weight:800;
+
+letter-spacing:-4px;
+
+margin-bottom:22px;
+
+max-width:720px;
+}
+
+.hero-title span{
+
+background:
+linear-gradient(
+90deg,
+#fff,
+#c084fc,
+#60a5fa
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero-sub{
+
+font-size:17px;
+line-height:1.8;
+
+max-width:620px;
+
+color:#94a3b8;
+
+margin-bottom:28px;
+}
+
+.hero-actions{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+}
+
+.btn{
+
+height:58px;
+padding:0 28px;
+
+border-radius:18px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+color:#fff;
+
+font-weight:700;
+font-size:14px;
+
+transition:.25s;
+}
+
+.btn-primary{
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.35),
+rgba(59,130,246,.35)
+);
+
+border:
+1px solid rgba(255,255,255,.10);
+
+box-shadow:
+0 0 40px rgba(168,85,247,.25);
+}
+
+.btn-primary:hover{
+transform:translateY(-4px);
+}
+
+.btn-secondary{
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.08);
+}
+
+.btn-secondary:hover{
+background:
+rgba(255,255,255,.06);
+}
+
+/* =========================
+MOCKUP
+========================= */
+
+.hero-side{
+position:relative;
+}
+
+.mockup{
+
+position:relative;
+
+border-radius:28px;
+
+padding:22px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.95),
+rgba(2,6,23,.95)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 40px 120px rgba(0,0,0,.75),
+0 0 70px rgba(168,85,247,.18);
+
+overflow:hidden;
+}
+
+.mockup::before{
+
+content:"";
+
+position:absolute;
+inset:-1px;
+
+border-radius:inherit;
+
+background:
+radial-gradient(
+500px circle at var(--mx,50%) var(--my,50%),
+rgba(255,255,255,.08),
+transparent 40%
+);
+
+opacity:0;
+transition:.35s;
+}
+
+.mockup:hover::before{
+opacity:1;
+}
+
+.mock-top{
+display:flex;
+gap:8px;
+margin-bottom:22px;
+}
+
+.mock-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#334155;
+}
+
+.terminal{
+
+background:#020617;
+
+border-radius:18px;
+
+padding:18px;
+
+border:
+1px solid rgba(255,255,255,.06);
+
+min-height:330px;
+}
+
+.term-line{
+
+font-size:13px;
+line-height:2;
+
+font-family:monospace;
+
+color:#d1d5db;
+
+opacity:0;
+
+transform:translateY(6px);
+
+animation:termAppear .5s forwards;
+}
+
+.term-line:nth-child(1){animation-delay:.2s}
+.term-line:nth-child(2){animation-delay:.6s}
+.term-line:nth-child(3){animation-delay:1s}
+.term-line:nth-child(4){animation-delay:1.4s}
+.term-line:nth-child(5){animation-delay:1.8s}
+.term-line:nth-child(6){animation-delay:2.2s}
+
+@keyframes termAppear{
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.term-green{color:#4ade80}
+.term-blue{color:#60a5fa}
+.term-purple{color:#c084fc}
+
+/* =========================
+FLOATING CARDS
+========================= */
+
+.float-card{
+
+position:absolute;
+
+padding:14px 16px;
+
+border-radius:18px;
+
+background:
+rgba(15,23,42,.85);
+
+backdrop-filter:blur(18px);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 10px 40px rgba(0,0,0,.45);
+
+animation:floatCard 4s ease-in-out infinite;
+}
+
+.float-card small{
+display:block;
+opacity:.5;
+font-size:10px;
+margin-bottom:4px;
+}
+
+.float-card b{
+font-size:14px;
+}
+
+.float-1{
+top:-25px;
+left:-25px;
+}
+
+.float-2{
+bottom:-25px;
+right:-25px;
+animation-delay:1.2s;
+}
+
+@keyframes floatCard{
+
+0%{transform:translateY(0px)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0px)}
+
+}
+
+/* =========================
+STATS
+========================= */
+
+.stats{
+
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+
+gap:16px;
+
+margin-bottom:90px;
+}
+
+.stat{
+
+padding:24px;
+
+border-radius:24px;
+
+background:
+rgba(15,23,42,.65);
+
+backdrop-filter:blur(18px);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+transition:.25s;
+}
+
+.stat:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.45);
+
+}
+
+.stat-number{
+
+font-size:34px;
+font-weight:800;
+letter-spacing:-2px;
+
+margin-bottom:8px;
+}
+
+.stat-text{
+font-size:13px;
+color:#94a3b8;
+line-height:1.6;
+}
+
+/* =========================
+SECTION
+========================= */
+
+.section{
+margin-bottom:110px;
+}
+
+.section-top{
+margin-bottom:32px;
+}
+
+.section-mini{
+
+font-size:11px;
+letter-spacing:1px;
+font-weight:700;
+
+color:#c084fc;
+
+margin-bottom:10px;
+}
+
+.section-title{
+
+font-size:46px;
+line-height:1;
+
+font-weight:800;
+
+letter-spacing:-2px;
+
+margin-bottom:14px;
+}
+
+.section-sub{
+
+font-size:15px;
+line-height:1.8;
+
+color:#94a3b8;
+
+max-width:720px;
+}
+
+/* =========================
+FEATURES
+========================= */
+
+.features-grid{
+
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+
+gap:18px;
+}
+
+.feature{
+
+position:relative;
+
+overflow:hidden;
+
+padding:24px;
+
+border-radius:26px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.9),
+rgba(2,6,23,.92)
+);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+transition:.3s;
+}
+
+.feature:hover{
+
+transform:
+translateY(-6px);
+
+border-color:
+rgba(168,85,247,.25);
+
+box-shadow:
+0 25px 60px rgba(0,0,0,.55);
+
+}
+
+.feature-icon{
+
+width:54px;
+height:54px;
+
+border-radius:18px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+margin-bottom:18px;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.22),
+rgba(59,130,246,.22)
+);
+
+}
+
+.feature-title{
+
+font-size:18px;
+font-weight:700;
+
+margin-bottom:10px;
+}
+
+.feature-text{
+
+font-size:13px;
+line-height:1.7;
+
+color:#94a3b8;
+}
+
+/* =========================
+COMPARISON
+========================= */
+
+.compare{
+
+overflow:auto;
+
+border-radius:26px;
+
+background:
+rgba(15,23,42,.75);
+
+border:
+1px solid rgba(255,255,255,.06);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:700px;
+}
+
+th,td{
+padding:18px;
+text-align:left;
+font-size:14px;
+}
+
+th{
+background:
+rgba(255,255,255,.03);
+}
+
+tr{
+border-bottom:
+1px solid rgba(255,255,255,.05);
+}
+
+.vip{
+color:#c084fc;
+font-weight:700;
+}
+
+.free{
+color:#94a3b8;
+}
+
+/* =========================
+SOCIAL
+========================= */
+
+.social-grid{
+
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+
+gap:18px;
+}
+
+.social{
+
+padding:24px;
+
+border-radius:24px;
+
+background:
+rgba(15,23,42,.72);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+transition:.25s;
+}
+
+.social:hover{
+transform:translateY(-4px);
+}
+
+.stars{
+margin-bottom:14px;
+color:#fde68a;
+}
+
+.social-text{
+
+font-size:14px;
+line-height:1.8;
+
+color:#d1d5db;
+
+margin-bottom:16px;
+}
+
+.social-user{
+
+font-size:13px;
+color:#94a3b8;
+}
+
+/* =========================
+PLANS
+========================= */
+
+.plan-box{
+
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(290px,1fr));
+
+gap:22px;
+}
+
+.plan{
+
+position:relative;
+
+overflow:hidden;
+
+padding:28px;
+
+border-radius:30px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.95),
+rgba(2,6,23,.96)
+);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+transition:.35s;
+}
+
+.plan:hover{
+
+transform:
+translateY(-8px);
+
+box-shadow:
+0 30px 80px rgba(0,0,0,.65);
+
+}
+
+.plan-premium{
+
+border:
+1px solid rgba(168,85,247,.32);
+
+box-shadow:
+0 0 60px rgba(168,85,247,.14);
+}
+
+.plan-tag{
+
+display:inline-flex;
+
+padding:8px 12px;
+
+border-radius:999px;
+
+font-size:10px;
+font-weight:700;
+letter-spacing:1px;
+
+margin-bottom:18px;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+}
+
+.plan-title{
+
+font-size:32px;
+font-weight:800;
+
+letter-spacing:-2px;
+
+margin-bottom:12px;
+}
+
+.price{
+
+display:flex;
+align-items:flex-end;
+gap:10px;
+
+margin-bottom:22px;
+}
+
+.old{
+
+font-size:14px;
+opacity:.35;
+text-decoration:line-through;
+}
+
+.new{
+
+font-size:48px;
+line-height:1;
+font-weight:800;
+letter-spacing:-3px;
+}
+
+.new small{
+font-size:14px;
+opacity:.6;
+}
+
+.features{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.features div{
+font-size:14px;
+color:#d1d5db;
+}
+
+.live-buy{
+
+margin-top:20px;
+
+font-size:12px;
+
+color:#fca5a5;
+}
+
+.stock{
+
+height:10px;
+
+border-radius:999px;
+
+overflow:hidden;
+
+background:
+rgba(255,255,255,.05);
+
+margin-top:14px;
+}
+
+.stock-fill{
+
+height:100%;
+width:87%;
+
+background:
+linear-gradient(
+90deg,
+#c084fc,
+#60a5fa
+);
+
+animation:stockMove 2s linear infinite;
+}
+
+@keyframes stockMove{
+
+0%{filter:brightness(1)}
+50%{filter:brightness(1.25)}
+100%{filter:brightness(1)}
+
+}
+
+.plan-btn{
+
+width:100%;
+height:56px;
+
+margin-top:24px;
+
+border:none;
+cursor:pointer;
+
+border-radius:18px;
+
+color:#fff;
+
+font-size:14px;
+font-weight:700;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.35),
+rgba(59,130,246,.35)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+transition:.25s;
+}
+
+.plan-btn:hover{
+transform:translateY(-3px);
+}
+
+/* =========================
+FAQ
+========================= */
+
+.faq-wrap{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.faq{
+
+border-radius:22px;
+
+overflow:hidden;
+
+background:
+rgba(15,23,42,.72);
+
+border:
+1px solid rgba(255,255,255,.06);
+}
+
+.faq-head{
+
+padding:22px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+cursor:pointer;
+}
+
+.faq-title{
+font-weight:600;
+}
+
+.faq-body{
+
+max-height:0;
+overflow:hidden;
+
+transition:.35s ease;
+}
+
+.faq-content{
+
+padding:0 22px 22px;
+
+font-size:14px;
+line-height:1.8;
+
+color:#94a3b8;
+}
+
+.faq.active .faq-body{
+max-height:220px;
+}
+
+/* =========================
+CTA FINAL
+========================= */
+
+.cta{
+
+position:relative;
+
+overflow:hidden;
+
+padding:60px;
+
+border-radius:36px;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.22),
+rgba(59,130,246,.22)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+text-align:center;
+
+margin-bottom:90px;
+}
+
+.cta::before{
+
+content:"";
+
+position:absolute;
+
+width:500px;
+height:500px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(255,255,255,.08),
+transparent 70%
+);
+
+top:-250px;
+right:-120px;
+}
+
+.cta-title{
+
+font-size:54px;
+line-height:1;
+
+font-weight:800;
+
+letter-spacing:-3px;
+
+margin-bottom:18px;
+}
+
+.cta-sub{
+
+max-width:700px;
+
+margin:auto;
+
+font-size:16px;
+line-height:1.8;
+
+color:#d1d5db;
+
+margin-bottom:28px;
+}
+
+.cta-btn{
+
+display:inline-flex;
+
+height:62px;
+padding:0 34px;
+
+border-radius:20px;
+
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+color:#fff;
+
+font-size:15px;
+font-weight:700;
+
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.14),
+rgba(255,255,255,.08)
+);
+
+border:
+1px solid rgba(255,255,255,.12);
+
+transition:.25s;
+}
+
+.cta-btn:hover{
+transform:translateY(-4px);
+}
+
+/* =========================
+MODAL
+========================= */
+
+.modal{
+position:fixed;
+inset:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:20px;
+
+background:
+rgba(2,6,23,.82);
+
+backdrop-filter:blur(20px);
+
+opacity:0;
+visibility:hidden;
+
+transition:.35s;
+
+z-index:9999;
+}
+
+.modal.show{
+opacity:1;
+visibility:visible;
+}
+
+.modal-box{
+
+position:relative;
+
+width:100%;
+max-width:420px;
+
+padding:26px;
+
+border-radius:30px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.96),
+rgba(2,6,23,.98)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 40px 120px rgba(0,0,0,.8),
+0 0 60px rgba(168,85,247,.18);
+
+transform:scale(.92);
+
+transition:.35s;
+}
+
+.modal.show .modal-box{
+transform:scale(1);
+}
+
+.modal-title{
+
+font-size:24px;
+font-weight:800;
+
+margin-bottom:20px;
+}
+
+.modal-plan{
+
+padding:16px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+margin-bottom:18px;
+}
+
+.modal-plan small{
+display:block;
+opacity:.5;
+margin-bottom:6px;
+}
+
+.pix-label{
+
+font-size:12px;
+opacity:.6;
+
+margin-bottom:10px;
+}
+
+.pix-box{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:14px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+margin-bottom:18px;
+}
+
+.pix-key{
+
+flex:1;
+
+font-size:12px;
+line-height:1.6;
+
+word-break:break-all;
+}
+
+.copy-pix{
+
+width:48px;
+height:48px;
+
+border:none;
+cursor:pointer;
+
+border-radius:16px;
+
+color:#fff;
+font-size:18px;
+
+background:
+rgba(255,255,255,.06);
+}
+
+.modal-text{
+
+font-size:14px;
+line-height:1.8;
+
+color:#cbd5e1;
+
+margin-bottom:22px;
+}
+
+.support-btn{
+
+height:56px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border-radius:18px;
+
+text-decoration:none;
+color:#fff;
+
+font-weight:700;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.32),
+rgba(59,130,246,.32)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:980px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+.hero-title{
+font-size:54px;
+}
+
+.cta-title{
+font-size:42px;
+}
+
+}
+
+@media(max-width:700px){
+
+.hero-title{
+font-size:42px;
+letter-spacing:-2px;
+}
+
+.section-title{
+font-size:34px;
+}
+
+.cta{
+padding:38px 24px;
+}
+
+.cta-title{
+font-size:34px;
+}
+
+.header-wrap{
+height:72px;
+}
+
+.header-right .mini-badge{
+display:none;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="header">
+
+<div class="container">
+
+<div class="header-wrap">
+
+<div class="logo">
+
+<div class="logo-icon">
+✦
+</div>
+
+<div>
+Astro
+</div>
+
+</div>
+
+<div class="header-right">
+
+<div class="mini-badge">
+SISTEMA PREMIUM
+</div>
+
+<a
+href="https://t.me/consultasdedados_bot"
+target="_blank"
+class="header-btn"
+>
+Abrir bot
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="container">
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div>
+
+<div class="hero-tag">
+✦ ACESSO PRIVADO • LIBERAÇÃO IMEDIATA
+</div>
+
+<div class="hero-title">
+Sistema premium de
+<span>consultas privadas</span>
+com acesso instantâneo
+</div>
+
+<div class="hero-sub">
+
+Infraestrutura premium com consultas rápidas,
+dados integrados, respostas instantâneas
+e recursos avançados desbloqueados em segundos.
+
+</div>
+
+<div class="hero-actions">
+
+<a
+href="https://t.me/consultasdedados_bot"
+target="_blank"
+class="btn btn-primary"
+>
+ABRIR BOT
+</a>
+
+<a
+href="#plans"
+class="btn btn-secondary"
+>
+VER PLANOS
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-side">
+
+<div class="float-card float-1">
+<small>CONSULTAS</small>
+<b>+48.291 realizadas</b>
+</div>
+
+<div class="float-card float-2">
+<small>UPTIME</small>
+<b>99.9% online</b>
+</div>
+
+<div class="mockup" id="mockup">
+
+<div class="mock-top">
+<div class="mock-dot"></div>
+<div class="mock-dot"></div>
+<div class="mock-dot"></div>
+</div>
+
+<div class="terminal">
+
+<div class="term-line">
+<span class="term-purple">[ASTRO]</span>
+Inicializando gateway...
+</div>
+
+<div class="term-line">
+<span class="term-green">[✓]</span>
+CPF localizado
+</div>
+
+<div class="term-line">
+<span class="term-green">[✓]</span>
+Telefones vinculados encontrados
+</div>
+
+<div class="term-line">
+<span class="term-blue">[+]</span>
+Score sincronizado
+</div>
+
+<div class="term-line">
+<span class="term-blue">[+]</span>
+Dados premium carregados
+</div>
+
+<div class="term-line">
+<span class="term-purple">[✓]</span>
+Acesso autorizado
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="stats">
+
+<div class="stat">
+<div class="stat-number">48K+</div>
+<div class="stat-text">
+Consultas processadas em tempo real
+com estabilidade máxima.
+</div>
+</div>
+
+<div class="stat">
+<div class="stat-number"><2s</div>
+<div class="stat-text">
+Velocidade média de resposta
+em consultas premium.
+</div>
+</div>
+
+<div class="stat">
+<div class="stat-number">99.9%</div>
+<div class="stat-text">
+Infraestrutura otimizada com
+uptime contínuo.
+</div>
+</div>
+
+<div class="stat">
+<div class="stat-number">24/7</div>
+<div class="stat-text">
+Sistema disponível sem pausas
+ou filas de liberação.
+</div>
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="section">
+
+<div class="section-top">
+
+<div class="section-mini">
+RECURSOS
+</div>
+
+<div class="section-title">
+Consultas disponíveis
+</div>
+
+<div class="section-sub">
+
+Sistema integrado com múltiplas fontes,
+respostas rápidas e visual premium.
+
+</div>
+
+</div>
+
+<div class="features-grid">
+
+<div class="feature">
+<div class="feature-icon">📄</div>
+<div class="feature-title">CPF</div>
+<div class="feature-text">
+Dados completos vinculados em segundos.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">📱</div>
+<div class="feature-title">Telefone</div>
+<div class="feature-text">
+Localização de números e vínculos.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🏠</div>
+<div class="feature-title">Endereços</div>
+<div class="feature-text">
+Consulta rápida de dados residenciais.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🚗</div>
+<div class="feature-title">Veículos</div>
+<div class="feature-text">
+Informações vinculadas e registros.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🏢</div>
+<div class="feature-title">Empresas</div>
+<div class="feature-text">
+Dados empresariais e integrações.
+</div>
+</div>
+
+<div class="feature">
+<div class="feature-icon">🌐</div>
+<div class="feature-title">Premium</div>
+<div class="feature-text">
+Recursos avançados desbloqueados.
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- COMPARISON -->
+
+<section class="section">
+
+<div class="section-top">
+
+<div class="section-mini">
+COMPARAÇÃO
+</div>
+
+<div class="section-title">
+FREE vs VIP
+</div>
+
+</div>
+
+<div class="compare">
+
+<table>
+
+<tr>
+<th>RECURSO</th>
+<th>FREE</th>
+<th>VIP</th>
+</tr>
+
+<tr>
+<td>Consultas básicas</td>
+<td class="free">✓</td>
+<td class="vip">✓</td>
+</tr>
+
+<tr>
+<td>Consultas premium</td>
+<td class="free">✕</td>
+<td class="vip">✓</td>
+</tr>
+
+<tr>
+<td>Velocidade máxima</td>
+<td class="free">✕</td>
+<td class="vip">✓</td>
+</tr>
+
+<tr>
+<td>Sem limite</td>
+<td class="free">✕</td>
+<td class="vip">✓</td>
+</tr>
+
+<tr>
+<td>Atualizações</td>
+<td class="free">✕</td>
+<td class="vip">✓</td>
+</tr>
+
+<tr>
+<td>Prioridade</td>
+<td class="free">✕</td>
+<td class="vip">✓</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- SOCIAL -->
+
+<section class="section">
+
+<div class="section-top">
+
+<div class="section-mini">
+PROVA SOCIAL
+</div>
+
+<div class="section-title">
+Quem usa recomenda
+</div>
+
+</div>
+
+<div class="social-grid">
+
+<div class="social">
+
+<div class="stars">
+★★★★★
+</div>
+
+<div class="social-text">
+“Sistema extremamente rápido.
+Dados completos carregando em segundos.”
+</div>
+
+<div class="social-user">
+— Rafael M.
+</div>
+
+</div>
+
+<div class="social">
+
+<div class="stars">
+★★★★★
+</div>
+
+<div class="social-text">
+“Melhor plataforma privada que já utilizei.
+Interface absurda.”
+</div>
+
+<div class="social-user">
+— Lucas T.
+</div>
+
+</div>
+
+<div class="social">
+
+<div class="stars">
+★★★★★
+</div>
+
+<div class="social-text">
+“VIP vale muito.
+Velocidade e recursos premium liberados na hora.”
+</div>
+
+<div class="social-user">
+— Gabriel S.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PLANS -->
+
+<section class="section" id="plans">
+
+<div class="section-top">
+
+<div class="section-mini">
+PLANOS
+</div>
+
+<div class="section-title">
+Escolha seu acesso
+</div>
+
+</div>
+
+<div class="plan-box">
+
+<div class="plan">
+
+<div class="plan-tag">
+ACESSO RÁPIDO
+</div>
+
+<div class="plan-title">
+Diário
+</div>
+
+<div class="price">
+<div class="new">
+R$14<small>,90</small>
+</div>
+</div>
+
+<div class="features">
+<div>✦ Acesso por 24 horas</div>
+<div>✦ Consultas básicas</div>
+<div>✦ Liberação imediata</div>
+<div>✦ Suporte rápido</div>
+</div>
+
+<div class="live-buy">
+🔥 12 acessos liberados hoje
+</div>
+
+<div class="stock">
+<div class="stock-fill"></div>
+</div>
+
+<button
+class="plan-btn"
+onclick="openPayment('Plano Diário • R$14,90')"
+>
+Desbloquear
+</button>
+
+</div>
+
+<div class="plan">
+
+<div class="plan-tag">
+MAIS ESCOLHIDO
+</div>
+
+<div class="plan-title">
+Semanal
+</div>
+
+<div class="price">
+<div class="new">
+R$24<small>,90</small>
+</div>
+</div>
+
+<div class="features">
+<div>✦ Consultas ilimitadas</div>
+<div>✦ Prioridade máxima</div>
+<div>✦ Recursos premium</div>
+<div>✦ Atualizações liberadas</div>
+</div>
+
+<div class="live-buy">
+🔥 31 acessos liberados hoje
+</div>
+
+<div class="stock">
+<div class="stock-fill"></div>
+</div>
+
+<button
+class="plan-btn"
+onclick="openPayment('Plano Semanal • R$24,90')"
+>
+Desbloquear
+</button>
+
+</div>
+
+<div class="plan plan-premium">
+
+<div class="plan-tag">
+VITALÍCIO
+</div>
+
+<div class="plan-title">
+Premium
+</div>
+
+<div class="price">
+
+<div class="old">
+R$50
+</div>
+
+<div class="new">
+R$20<small>,90</small>
+</div>
+
+</div>
+
+<div class="features">
+<div>✦ Acesso vitalício</div>
+<div>✦ Sem limites</div>
+<div>✦ Tudo desbloqueado</div>
+<div>✦ Recursos premium</div>
+<div>✦ Atualizações futuras grátis</div>
+<div>✦ Prioridade absoluta</div>
+</div>
+
+<div class="live-buy">
+🔥 53 desbloqueios hoje
+</div>
+
+<div class="stock">
+<div class="stock-fill"></div>
+</div>
+
+<button
+class="plan-btn"
+onclick="openPayment('Plano Vitalício • R$20,90')"
+>
+🚀 DESBLOQUEAR
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FAQ -->
+
+<section class="section">
+
+<div class="section-top">
+
+<div class="section-mini">
+FAQ
+</div>
+
+<div class="section-title">
+Dúvidas frequentes
+</div>
+
+</div>
+
+<div class="faq-wrap">
+
+<div class="faq">
+
+<div class="faq-head" onclick="toggleFaq(this)">
+<div class="faq-title">
+O acesso é liberado na hora?
+</div>
+<div>+</div>
+</div>
+
+<div class="faq-body">
+<div class="faq-content">
+Após o envio do comprovante o acesso
+é liberado rapidamente.
+</div>
+</div>
+
+</div>
+
+<div class="faq">
+
+<div class="faq-head" onclick="toggleFaq(this)">
+<div class="faq-title">
+Funciona pelo celular?
+</div>
+<div>+</div>
+</div>
+
+<div class="faq-body">
+<div class="faq-content">
+Sim. O sistema funciona perfeitamente
+em dispositivos móveis.
+</div>
+</div>
+
+</div>
+
+<div class="faq">
+
+<div class="faq-head" onclick="toggleFaq(this)">
+<div class="faq-title">
+O VIP possui limites?
+</div>
+<div>+</div>
+</div>
+
+<div class="faq-body">
+<div class="faq-content">
+Os planos premium possuem recursos
+e consultas liberadas.
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+
+<div class="cta-title">
+Seu acesso pode ser liberado agora
+</div>
+
+<div class="cta-sub">
+
+Entre no sistema premium e desbloqueie
+todos os recursos disponíveis.
+
+</div>
+
+<a
+href="#plans"
+class="cta-btn"
+>
+DESBLOQUEAR ACESSO PREMIUM
+</a>
+
+</section>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="paymentModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+Astro Premium
+</div>
+
+<div class="modal-plan">
+
+<small>Plano selecionado</small>
+
+<b id="modalPlanName">
+VIP
+</b>
+
+</div>
+
+<div class="pix-label">
+Chave PIX
+</div>
+
+<div class="pix-box">
+
+<div class="pix-key">
+f0d0f3b1-8776-4f06-a254-b6ea3686f71a
+</div>
+
+<button
+class="copy-pix"
+onclick="copyPix()"
+>
+⧉
+</button>
+
+</div>
+
+<div class="modal-text">
+
+Após efetuar o pagamento,
+envie o comprovante para o suporte
+e seu acesso será liberado imediatamente.
+
+</div>
+
+<a
+href="https://t.me/puxardados5"
+target="_blank"
+class="support-btn"
+>
+Já paguei
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================
+PARTICLES
+========================= */
+
+const c = document.getElementById("bg");
+const ctx = c.getContext("2d");
+
+function resize(){
+
+c.width = innerWidth;
+c.height = innerHeight;
+
+}
+
+resize();
+
+addEventListener("resize",resize);
+
+const particles = [];
+
+for(let i=0;i<180;i++){
+
+particles.push({
+
+x:Math.random()*c.width,
+y:Math.random()*c.height,
+
+r:Math.random()*2,
+
+o:Math.random()*0.4,
+
+s:Math.random()*0.4+.05
+
+})
+
+}
+
+function render(){
+
+ctx.clearRect(0,0,c.width,c.height);
+
+for(const p of particles){
+
+p.y += p.s;
+
+if(p.y > c.height){
+
+p.y = -10;
+p.x = Math.random()*c.width;
+
+}
+
+ctx.beginPath();
+
+ctx.fillStyle =
+"rgba(255,255,255,"+p.o+")";
+
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+
+ctx.fill();
+
+}
+
+requestAnimationFrame(render);
+
+}
+
+render();
+
+/* =========================
+FAQ
+========================= */
+
+function toggleFaq(el){
+
+const faq = el.parentElement;
+
+faq.classList.toggle("active");
+
+}
+
+/* =========================
+PAYMENT
+========================= */
+
+function openPayment(plan){
+
+document
+.getElementById("modalPlanName")
+.innerText = plan;
+
+document
+.getElementById("paymentModal")
+.classList.add("show");
+
+}
+
+function copyPix(){
+
+navigator.clipboard.writeText(
+"f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
+);
+
+const btn =
+document.querySelector(".copy-pix");
+
+btn.innerText = "✓";
+
+setTimeout(()=>{
+btn.innerText = "⧉";
+},1400);
+
+}
+
+document
+.getElementById("paymentModal")
+.addEventListener("click",e=>{
+
+if(e.target.id==="paymentModal"){
+
+document
+.getElementById("paymentModal")
+.classList.remove("show");
+
+}
+
+});
+
+/* =========================
+MOCKUP EFFECT
+========================= */
+
+const mockup =
+document.getElementById("mockup");
+
+mockup.addEventListener("mousemove",e=>{
+
+const rect =
+mockup.getBoundingClientRect();
+
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+mockup.style.setProperty("--mx",x+"px");
+mockup.style.setProperty("--my",y+"px");
+
+});
+
+</script>
+
+</body>
+</html>
+`
 }
 
 // =========================
