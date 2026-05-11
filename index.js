@@ -424,8 +424,8 @@ MOCKUP
 
 .hero-side{
 position:relative;
+z-index:5;
 }
-
 .mockup{
 
 position:relative;
@@ -449,6 +449,11 @@ box-shadow:
 0 0 70px rgba(168,85,247,.18);
 
 overflow:hidden;
+}
+
+.mockup{
+position:relative;
+z-index:1;
 }
 
 .mockup::before{
@@ -545,23 +550,24 @@ FLOATING CARDS
 .float-card{
 
 position:absolute;
+z-index:30;
 
 padding:14px 16px;
 
 border-radius:18px;
 
-background:
-rgba(15,23,42,.85);
+background:rgba(15,23,42,.92);
 
 backdrop-filter:blur(18px);
 
-border:
-1px solid rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.08);
 
 box-shadow:
 0 10px 40px rgba(0,0,0,.45);
 
 animation:floatCard 4s ease-in-out infinite;
+
+pointer-events:none;
 }
 
 .float-card small{
