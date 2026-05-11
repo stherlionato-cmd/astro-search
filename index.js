@@ -4790,6 +4790,87 @@ pointer-events:none;
 
 }
 
+/* =========================
+   ✨ TOPBAR PARTICLES
+========================= */
+
+.topbar-particles{
+
+  position:absolute;
+  inset:0;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
+  z-index:1;
+}
+
+.topbar-particles span{
+
+  position:absolute;
+
+  bottom:-20px;
+
+  width:3px;
+  height:3px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.65);
+
+  box-shadow:
+    0 0 10px rgba(168,85,247,.55),
+    0 0 18px rgba(59,130,246,.35);
+
+  opacity:.7;
+
+  animation:
+    topbarFloat linear infinite;
+}
+
+.topbar-particles span::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:-2px;
+
+  border-radius:inherit;
+
+  background:
+    rgba(168,85,247,.25);
+
+  filter:blur(4px);
+}
+
+@keyframes topbarFloat{
+
+  0%{
+
+    transform:
+      translateY(0)
+      scale(.7);
+
+    opacity:0;
+  }
+
+  10%{
+    opacity:.7;
+  }
+
+  100%{
+
+    transform:
+      translateY(-140px)
+      scale(1.15);
+
+    opacity:0;
+  }
+}
+
 </style>
 </head>
 
@@ -4802,6 +4883,25 @@ pointer-events:none;
 <header class="topbar">
 
 <div class="topbar-blur"></div>
+
+<div class="topbar-particles">
+
+  <span style="left:3%;animation-duration:9s"></span>
+  <span style="left:8%;animation-duration:13s"></span>
+  <span style="left:14%;animation-duration:7s"></span>
+  <span style="left:20%;animation-duration:11s"></span>
+  <span style="left:27%;animation-duration:8s"></span>
+  <span style="left:34%;animation-duration:15s"></span>
+  <span style="left:40%;animation-duration:9s"></span>
+  <span style="left:48%;animation-duration:12s"></span>
+  <span style="left:55%;animation-duration:10s"></span>
+  <span style="left:63%;animation-duration:14s"></span>
+  <span style="left:71%;animation-duration:8s"></span>
+  <span style="left:78%;animation-duration:13s"></span>
+  <span style="left:85%;animation-duration:11s"></span>
+  <span style="left:92%;animation-duration:9s"></span>
+
+</div>
 
 <div class="topbar-left">
 
