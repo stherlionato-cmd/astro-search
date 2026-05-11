@@ -4527,6 +4527,7 @@ document.getElementById("paymentModal")
 // =========================
 
 function renderError(){
+
 return `
 
 <!DOCTYPE html>
@@ -4561,18 +4562,11 @@ font-family:'Inter',sans-serif;
 background:#020617;
 overflow-x:hidden;
 color:#fff;
-
 min-height:100vh;
 position:relative;
-
 display:flex;
 justify-content:center;
-
--webkit-font-smoothing:antialiased;
-text-rendering:optimizeLegibility;
 }
-
-/* BG */
 
 .bg{
 position:fixed;
@@ -4590,16 +4584,11 @@ height:100%;
 
 .nebula{
 position:absolute;
-
 width:700px;
 height:700px;
-
 border-radius:50%;
-
 filter:blur(90px);
-
 opacity:.18;
-
 animation:nebulaMove 18s linear infinite;
 }
 
@@ -4632,25 +4621,18 @@ transform:translateY(0) scale(1);
 
 }
 
-/* WRAP */
-
 .wrap{
 position:relative;
 z-index:2;
-
 width:100%;
 max-width:1180px;
-
 padding:40px 18px 80px;
 }
-
-/* TOP */
 
 .top{
 display:flex;
 justify-content:space-between;
 align-items:center;
-
 margin-bottom:40px;
 }
 
@@ -4658,18 +4640,14 @@ margin-bottom:40px;
 display:flex;
 align-items:center;
 gap:12px;
-
 font-weight:800;
 font-size:22px;
-letter-spacing:-1px;
 }
 
 .logo-icon{
 width:46px;
 height:46px;
-
 border-radius:16px;
-
 display:flex;
 align-items:center;
 justify-content:center;
@@ -4681,8 +4659,7 @@ rgba(168,85,247,.35),
 rgba(59,130,246,.35)
 );
 
-border:
-1px solid rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.08);
 
 box-shadow:
 0 0 40px rgba(168,85,247,.25);
@@ -4690,9 +4667,7 @@ box-shadow:
 
 .badge{
 padding:10px 16px;
-
 border-radius:999px;
-
 font-size:11px;
 font-weight:700;
 letter-spacing:1px;
@@ -4706,23 +4681,18 @@ border:
 color:#c4b5fd;
 }
 
-/* HERO */
-
 .hero{
 display:grid;
 grid-template-columns:1fr 420px;
 gap:30px;
 align-items:center;
-
 margin-bottom:60px;
 }
 
 .hero-card{
 position:relative;
 overflow:hidden;
-
 padding:40px;
-
 border-radius:34px;
 
 background:
@@ -4769,13 +4739,9 @@ opacity:1;
 display:inline-flex;
 align-items:center;
 gap:8px;
-
 padding:10px 16px;
-
 border-radius:999px;
-
 margin-bottom:22px;
-
 font-size:11px;
 font-weight:700;
 letter-spacing:1px;
@@ -4792,11 +4758,8 @@ color:#fca5a5;
 .title{
 font-size:72px;
 line-height:.92;
-
 font-weight:800;
-
 letter-spacing:-4px;
-
 margin-bottom:24px;
 }
 
@@ -4816,11 +4779,7 @@ linear-gradient(
 .text{
 font-size:16px;
 line-height:1.9;
-
 color:#94a3b8;
-
-max-width:640px;
-
 margin-bottom:28px;
 }
 
@@ -4833,22 +4792,16 @@ flex-wrap:wrap;
 .btn{
 height:60px;
 padding:0 30px;
-
 border:none;
 cursor:pointer;
-
 border-radius:20px;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 text-decoration:none;
 color:#fff;
-
 font-size:14px;
 font-weight:700;
-
 transition:.3s;
 }
 
@@ -4862,13 +4815,6 @@ rgba(59,130,246,.35)
 
 border:
 1px solid rgba(255,255,255,.08);
-
-box-shadow:
-0 0 50px rgba(168,85,247,.22);
-}
-
-.btn-primary:hover{
-transform:translateY(-4px);
 }
 
 .btn-secondary{
@@ -4879,13 +4825,12 @@ border:
 1px solid rgba(255,255,255,.08);
 }
 
-/* SIDE */
+.btn:hover{
+transform:translateY(-4px);
+}
 
 .side-card{
-position:relative;
-
 padding:24px;
-
 border-radius:30px;
 
 background:
@@ -4897,8 +4842,6 @@ rgba(2,6,23,.98)
 
 border:
 1px solid rgba(255,255,255,.06);
-
-overflow:hidden;
 
 box-shadow:
 0 20px 80px rgba(0,0,0,.7);
@@ -4919,41 +4862,16 @@ background:#334155;
 
 .term{
 background:#020617;
-
 border-radius:18px;
-
 padding:18px;
-
-border:
-1px solid rgba(255,255,255,.06);
-
+border:1px solid rgba(255,255,255,.06);
 min-height:280px;
 }
 
 .line{
 font-size:13px;
 line-height:2;
-
 font-family:monospace;
-
-opacity:0;
-
-transform:translateY(6px);
-
-animation:appear .5s forwards;
-}
-
-.line:nth-child(1){animation-delay:.2s}
-.line:nth-child(2){animation-delay:.6s}
-.line:nth-child(3){animation-delay:1s}
-.line:nth-child(4){animation-delay:1.4s}
-.line:nth-child(5){animation-delay:1.8s}
-
-@keyframes appear{
-to{
-opacity:1;
-transform:translateY(0);
-}
 }
 
 .red{color:#f87171}
@@ -4961,14 +4879,9 @@ transform:translateY(0);
 .blue{color:#60a5fa}
 .purple{color:#c084fc}
 
-/* PLANS */
-
 .plans-title{
 font-size:38px;
 font-weight:800;
-
-letter-spacing:-2px;
-
 margin-bottom:24px;
 }
 
@@ -4976,16 +4889,11 @@ margin-bottom:24px;
 display:grid;
 grid-template-columns:
 repeat(auto-fit,minmax(260px,1fr));
-
 gap:20px;
 }
 
 .plan{
-position:relative;
-overflow:hidden;
-
 padding:28px;
-
 border-radius:28px;
 
 background:
@@ -4997,43 +4905,6 @@ rgba(2,6,23,.95)
 
 border:
 1px solid rgba(255,255,255,.06);
-
-transition:.35s;
-}
-
-.plan:hover{
-transform:translateY(-8px);
-
-box-shadow:
-0 30px 80px rgba(0,0,0,.6);
-}
-
-.plan-premium{
-border:
-1px solid rgba(168,85,247,.32);
-
-box-shadow:
-0 0 50px rgba(168,85,247,.15);
-}
-
-.tag{
-display:inline-flex;
-
-padding:8px 12px;
-
-border-radius:999px;
-
-font-size:10px;
-font-weight:700;
-letter-spacing:1px;
-
-margin-bottom:16px;
-
-background:
-rgba(255,255,255,.04);
-
-border:
-1px solid rgba(255,255,255,.08);
 }
 
 .plan-title{
@@ -5045,14 +4916,7 @@ margin-bottom:12px;
 .price{
 font-size:48px;
 font-weight:800;
-letter-spacing:-3px;
-
 margin-bottom:20px;
-}
-
-.price small{
-font-size:14px;
-opacity:.6;
 }
 
 .features{
@@ -5061,24 +4925,14 @@ flex-direction:column;
 gap:12px;
 }
 
-.features div{
-font-size:14px;
-color:#d1d5db;
-}
-
 .plan-btn{
 width:100%;
 height:56px;
-
 margin-top:24px;
-
 border:none;
 cursor:pointer;
-
 border-radius:18px;
-
 color:#fff;
-
 font-size:14px;
 font-weight:700;
 
@@ -5088,27 +4942,14 @@ linear-gradient(
 rgba(168,85,247,.35),
 rgba(59,130,246,.35)
 );
-
-border:
-1px solid rgba(255,255,255,.08);
-
-transition:.25s;
 }
-
-.plan-btn:hover{
-transform:translateY(-3px);
-}
-
-/* MODAL */
 
 .modal{
 position:fixed;
 inset:0;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 padding:20px;
 
 background:
@@ -5118,9 +4959,7 @@ backdrop-filter:blur(20px);
 
 opacity:0;
 visibility:hidden;
-
 transition:.35s;
-
 z-index:99999;
 }
 
@@ -5132,9 +4971,7 @@ visibility:visible;
 .modal-box{
 width:100%;
 max-width:420px;
-
 padding:26px;
-
 border-radius:30px;
 
 background:
@@ -5146,110 +4983,38 @@ rgba(2,6,23,.98)
 
 border:
 1px solid rgba(255,255,255,.08);
-
-box-shadow:
-0 40px 120px rgba(0,0,0,.8),
-0 0 60px rgba(168,85,247,.18);
-}
-
-.modal-title{
-font-size:24px;
-font-weight:800;
-
-margin-bottom:20px;
-}
-
-.modal-plan{
-padding:16px;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,.04);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-margin-bottom:18px;
-}
-
-.modal-plan small{
-display:block;
-opacity:.5;
-margin-bottom:6px;
-}
-
-.pix-label{
-font-size:12px;
-opacity:.6;
-
-margin-bottom:10px;
 }
 
 .pix-box{
 display:flex;
-align-items:center;
 gap:12px;
-
-padding:14px;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,.04);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-margin-bottom:18px;
+margin:18px 0;
 }
 
 .pix-key{
 flex:1;
-
 font-size:12px;
-line-height:1.6;
-
 word-break:break-all;
 }
 
 .copy-pix{
 width:48px;
 height:48px;
-
 border:none;
 cursor:pointer;
-
 border-radius:16px;
-
+background:rgba(255,255,255,.06);
 color:#fff;
-font-size:18px;
-
-background:
-rgba(255,255,255,.06);
-}
-
-.modal-text{
-font-size:14px;
-line-height:1.8;
-
-color:#cbd5e1;
-
-margin-bottom:22px;
 }
 
 .support-btn{
 height:56px;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 border-radius:18px;
-
 text-decoration:none;
 color:#fff;
-
 font-weight:700;
 
 background:
@@ -5258,12 +5023,7 @@ linear-gradient(
 rgba(168,85,247,.32),
 rgba(59,130,246,.32)
 );
-
-border:
-1px solid rgba(255,255,255,.08);
 }
-
-/* RESPONSIVE */
 
 @media(max-width:980px){
 
@@ -5273,34 +5033,12 @@ grid-template-columns:1fr;
 
 .title{
 font-size:52px;
-letter-spacing:-2px;
-}
-
-}
-
-@media(max-width:700px){
-
-.title{
-font-size:40px;
-}
-
-.hero-card{
-padding:28px;
-}
-
-.plans-title{
-font-size:30px;
-}
-
-.top{
-flex-direction:column;
-gap:18px;
-align-items:flex-start;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -5351,22 +5089,20 @@ Seu acesso
 
 <div class="text">
 Essa consulta foi removida automaticamente do sistema.
-Desbloqueie um plano premium e gere consultas ilimitadas
-sem perder acesso aos resultados.
 </div>
 
 <div class="actions">
 
 <button
 class="btn btn-primary"
-onclick="window.open('https://t.me/consultasdedados_bot','_blank')"
+id="newQueryBtn"
 >
 GERAR NOVA CONSULTA
 </button>
 
 <button
 class="btn btn-secondary"
-onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})"
+id="plansBtn"
 >
 VER PLANOS
 </button>
@@ -5387,25 +5123,10 @@ VER PLANOS
 
 <div class="term">
 
-<div class="line red">
-[×] Token expirado
-</div>
-
-<div class="line blue">
-[•] Resultado removido
-</div>
-
-<div class="line purple">
-[ASTRO] Reconectando...
-</div>
-
-<div class="line green">
-[✓] Upgrade disponível
-</div>
-
-<div class="line green">
-[✓] Acesso premium liberável
-</div>
+<div class="line red">[×] Token expirado</div>
+<div class="line blue">[•] Resultado removido</div>
+<div class="line purple">[ASTRO] Reconectando...</div>
+<div class="line green">[✓] Upgrade disponível</div>
 
 </div>
 
@@ -5415,10 +5136,7 @@ VER PLANOS
 
 </section>
 
-<div
-class="plans-title"
-id="plans"
->
+<div class="plans-title" id="plans">
 Escolha seu plano
 </div>
 
@@ -5426,56 +5144,36 @@ Escolha seu plano
 
 <div class="plan">
 
-<div class="tag">
-ACESSO RÁPIDO
-</div>
-
 <div class="plan-title">
 Diário
 </div>
 
 <div class="price">
-R$14<small>,90</small>
-</div>
-
-<div class="features">
-<div>✦ 24 horas liberado</div>
-<div>✦ Consultas básicas</div>
-<div>✦ Liberação rápida</div>
+R$14,90
 </div>
 
 <button
 class="plan-btn"
-onclick="openPayment('Plano Diário • R$14,90')"
+data-plan="Plano Diário • R$14,90"
 >
 Desbloquear
 </button>
 
 </div>
 
-<div class="plan plan-premium">
-
-<div class="tag">
-MAIS VENDIDO
-</div>
+<div class="plan">
 
 <div class="plan-title">
 Semanal
 </div>
 
 <div class="price">
-R$24<small>,90</small>
-</div>
-
-<div class="features">
-<div>✦ Consultas ilimitadas</div>
-<div>✦ Recursos premium</div>
-<div>✦ Prioridade total</div>
+R$24,90
 </div>
 
 <button
 class="plan-btn"
-onclick="openPayment('Plano Semanal • R$24,90')"
+data-plan="Plano Semanal • R$24,90"
 >
 🚀 DESBLOQUEAR
 </button>
@@ -5486,30 +5184,13 @@ onclick="openPayment('Plano Semanal • R$24,90')"
 
 </div>
 
-<div
-class="modal"
-id="paymentModal"
->
+<div class="modal" id="paymentModal">
 
 <div class="modal-box">
 
-<div class="modal-title">
-Astro Premium
-</div>
-
-<div class="modal-plan">
-
-<small>Plano selecionado</small>
-
-<b id="modalPlanName">
-VIP
-</b>
-
-</div>
-
-<div class="pix-label">
-Chave PIX
-</div>
+<h2 id="modalPlanName">
+Plano VIP
+</h2>
 
 <div class="pix-box">
 
@@ -5517,20 +5198,9 @@ Chave PIX
 f0d0f3b1-8776-4f06-a254-b6ea3686f71a
 </div>
 
-<button
-class="copy-pix"
-onclick="copyPix()"
->
+<button class="copy-pix">
 ⧉
 </button>
-
-</div>
-
-<div class="modal-text">
-
-Após efetuar o pagamento,
-envie o comprovante para o suporte
-e seu acesso será liberado imediatamente.
 
 </div>
 
@@ -5546,13 +5216,9 @@ Já paguei
 
 </div>
 
-</body>
-</html>
+<script>
 
-`
-}
-
-function initErrorPage(){
+document.addEventListener("DOMContentLoaded",()=>{
 
 const c =
 document.getElementById("stars");
@@ -5579,11 +5245,8 @@ stars.push({
 
 x:Math.random()*c.width,
 y:Math.random()*c.height,
-
 r:Math.random()*1.3,
-
 o:Math.random()*0.6,
-
 s:Math.random()*0.08+.01
 
 });
@@ -5628,41 +5291,48 @@ requestAnimationFrame(render);
 
 render();
 
-/* MODAL */
-
-window.openPayment = function(plan){
-
 document
-.getElementById("modalPlanName")
-.innerText = plan;
+.getElementById("newQueryBtn")
+.addEventListener("click",()=>{
 
-document
-.getElementById("paymentModal")
-.classList.add("show");
-
-}
-
-window.copyPix = function(){
-
-navigator.clipboard.writeText(
-"f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
+window.open(
+"https://t.me/consultasdedados_bot",
+"_blank"
 );
 
-const btn =
-document.querySelector(".copy-pix");
+});
 
-btn.innerText = "✓";
+document
+.getElementById("plansBtn")
+.addEventListener("click",()=>{
 
-setTimeout(()=>{
+document
+.getElementById("plans")
+.scrollIntoView({
+behavior:"smooth"
+});
 
-btn.innerText = "⧉";
-
-},1400);
-
-}
+});
 
 const modal =
 document.getElementById("paymentModal");
+
+document
+.querySelectorAll(".plan-btn")
+.forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+document
+.getElementById("modalPlanName")
+.innerText =
+btn.dataset.plan;
+
+modal.classList.add("show");
+
+});
+
+});
 
 modal.addEventListener("click",e=>{
 
@@ -5674,7 +5344,15 @@ modal.classList.remove("show");
 
 });
 
-/* GLOW */
+document
+.querySelector(".copy-pix")
+.addEventListener("click",()=>{
+
+navigator.clipboard.writeText(
+"f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
+);
+
+});
 
 const hero =
 document.getElementById("heroCard");
@@ -5684,21 +5362,25 @@ hero.addEventListener("mousemove",e=>{
 const rect =
 hero.getBoundingClientRect();
 
-const x =
-e.clientX - rect.left;
+hero.style.setProperty(
+"--mx",
+(e.clientX - rect.left)+"px"
+);
 
-const y =
-e.clientY - rect.top;
-
-hero.style.setProperty("--mx",x+"px");
-hero.style.setProperty("--my",y+"px");
+hero.style.setProperty(
+"--my",
+(e.clientY - rect.top)+"px"
+);
 
 });
 
+});
+
+</script>
+
+</body>
+</html>
+
+`
+
 }
-
-/* EXECUTA */
-
-const container = document.getElementById("app")
-
-initErrorPage();
