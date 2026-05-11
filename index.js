@@ -4535,9 +4535,13 @@ return `
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Astro • Link Expirado</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>Astro • Expirado</title>
 
 <link
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -4550,6 +4554,13 @@ rel="stylesheet"
 margin:0;
 padding:0;
 box-sizing:border-box;
+}
+
+html{
+width:100%;
+min-height:100%;
+overflow-x:hidden;
+-webkit-text-size-adjust:100%;
 }
 
 body{
@@ -4567,20 +4578,19 @@ transparent 35%),
 
 #020617;
 
-min-height:100vh;
+min-height:100dvh;
 
-overflow:hidden;
+overflow-x:hidden;
+overflow-y:auto;
 
 color:#fff;
-
-display:flex;
-align-items:center;
-justify-content:center;
 
 position:relative;
 
 -webkit-font-smoothing:antialiased;
 text-rendering:optimizeLegibility;
+
+touch-action:manipulation;
 }
 
 /* =========================
@@ -4594,6 +4604,7 @@ width:100%;
 height:100%;
 z-index:0;
 pointer-events:none;
+touch-action:none;
 }
 
 /* =========================
@@ -4602,7 +4613,7 @@ AURORA
 
 .aurora{
 
-position:absolute;
+position:fixed;
 
 width:700px;
 height:700px;
@@ -4620,6 +4631,8 @@ top:-300px;
 left:-200px;
 
 animation:auroraMove 12s ease-in-out infinite;
+
+pointer-events:none;
 }
 
 .aurora.two{
@@ -4655,22 +4668,38 @@ transform:translate(0,0) scale(1);
 }
 
 /* =========================
-CARD
+WRAPPER
 ========================= */
 
 .wrapper{
 position:relative;
 z-index:5;
+
 width:100%;
 max-width:960px;
+
+margin:auto;
+
 padding:24px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+min-height:100dvh;
 }
+
+/* =========================
+CARD
+========================= */
 
 .card{
 
 position:relative;
 
 overflow:hidden;
+
+width:100%;
 
 border-radius:36px;
 
@@ -4691,9 +4720,14 @@ box-shadow:
 0 0 70px rgba(168,85,247,.14);
 
 padding:42px;
+
+z-index:10;
 }
 
-/* glow mouse */
+.card *{
+position:relative;
+z-index:20;
+}
 
 .card::before{
 
@@ -4713,6 +4747,8 @@ transparent 40%
 
 opacity:0;
 transition:.3s;
+
+pointer-events:none;
 }
 
 .card:hover::before{
@@ -4974,6 +5010,8 @@ top:-120px;
 right:-80px;
 
 filter:blur(30px);
+
+pointer-events:none;
 }
 
 .side-title{
@@ -4987,7 +5025,9 @@ opacity:.7;
 margin-bottom:18px;
 }
 
-/* plans */
+/* =========================
+PLANS
+========================= */
 
 .plan{
 
@@ -5126,11 +5166,23 @@ letter-spacing:-2px;
 
 }
 
-@media(max-width:600px){
+@media(max-width:700px){
+
+html,
+body{
+overflow-x:hidden;
+}
+
+.wrapper{
+padding:14px;
+align-items:flex-start;
+padding-top:30px;
+padding-bottom:40px;
+}
 
 .card{
-padding:24px;
-border-radius:28px;
+padding:22px;
+border-radius:24px;
 }
 
 .top{
@@ -5138,8 +5190,14 @@ flex-direction:column;
 align-items:flex-start;
 }
 
+.content{
+grid-template-columns:1fr !important;
+}
+
 .title{
-font-size:38px;
+font-size:38px !important;
+line-height:1.02;
+letter-spacing:-2px !important;
 }
 
 .actions{
@@ -5148,8 +5206,27 @@ flex-direction:column;
 
 .btn{
 width:100%;
+min-height:56px;
 }
 
+.side{
+margin-top:10px;
+}
+
+.footer{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+/* zoom fix */
+
+input,
+select,
+textarea,
+button{
+font-size:16px;
 }
 
 </style>
@@ -5195,16 +5272,17 @@ LINK EXPIRADO
 </div>
 
 <div class="title">
-Seu acesso <span>desapareceu</span>
+Seu acesso <span>expirou</span>
 do sistema
 </div>
 
 <div class="text">
 
-Esse resultado foi removido da infraestrutura segura da Astro.
-As consultas possuem tempo limitado por segurança e expiração automática.
+Esse resultado foi removido automaticamente
+da infraestrutura da Astro por segurança.
 
-Gere uma nova consulta ou desbloqueie acesso premium ilimitado agora.
+Gere uma nova consulta ou desbloqueie
+o acesso premium ilimitado.
 
 </div>
 
@@ -5238,14 +5316,15 @@ PLANOS PREMIUM
 <div class="plan">
 
 <div class="plan-top">
+
 <div class="plan-name">
 Diário
 </div>
 
 <div class="plan-price">
-R$14
-<small>,90</small>
+R$14<small>,90</small>
 </div>
+
 </div>
 
 <div class="plan-features">
@@ -5259,14 +5338,15 @@ R$14
 <div class="plan">
 
 <div class="plan-top">
+
 <div class="plan-name">
 Semanal
 </div>
 
 <div class="plan-price">
-R$24
-<small>,90</small>
+R$24<small>,90</small>
 </div>
+
 </div>
 
 <div class="plan-features">
@@ -5280,14 +5360,15 @@ R$24
 <div class="plan">
 
 <div class="plan-top">
+
 <div class="plan-name">
 Vitalício
 </div>
 
 <div class="plan-price">
-R$20
-<small>,90</small>
+R$20<small>,90</small>
 </div>
+
 </div>
 
 <div class="plan-features">
@@ -5305,14 +5386,14 @@ R$20
 <div class="footer">
 
 <div>
-Astro.app • Sistema premium protegido
+Astro.app • Sistema premium online
 </div>
 
 <div class="online">
 
 <div class="dot"></div>
 
-Sistema online
+Online
 
 </div>
 
@@ -5413,7 +5494,7 @@ requestAnimationFrame(render);
 render();
 
 /* =========================
-CARD LIGHT
+LIGHT EFFECT
 ========================= */
 
 const card =
