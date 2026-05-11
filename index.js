@@ -5699,6 +5699,6 @@ hero.style.setProperty("--my",y+"px");
 
 /* EXECUTA */
 
-container.innerHTML = renderError();
+const container = document.getElementById("app")
 
 initErrorPage();
