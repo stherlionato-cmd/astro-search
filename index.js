@@ -2782,6 +2782,9 @@ box-shadow:
   background: rgba(15,23,42,0.58);
   backdrop-filter: blur(20px);
 
+  overflow:hidden;
+  isolation:isolate;
+
   border-radius:20px;
   padding:18px;
   margin-bottom:14px;
@@ -2789,6 +2792,52 @@ box-shadow:
   border:1px solid rgba(255,255,255,0.05);
 
   transition:.25s ease;
+}
+
+.card::before{
+
+  content:"";
+
+  position:absolute;
+  inset:-1px;
+
+  border-radius:inherit;
+
+  background:
+    radial-gradient(
+      500px circle at var(--mx,50%) var(--my,50%),
+      rgba(255,255,255,.07),
+      transparent 40%
+    );
+
+  opacity:0;
+
+  transition:.35s;
+}
+
+.card:hover::before{
+  opacity:1;
+}
+
+.card{
+
+  opacity:0;
+  transform:
+    translateY(30px)
+    scale(.98);
+
+  transition:
+    opacity .6s ease,
+    transform .6s ease;
+}
+
+.card.show{
+
+  opacity:1;
+
+  transform:
+    translateY(0)
+    scale(1);
 }
 
 .card:hover{
@@ -3937,6 +3986,253 @@ canvas{
 
 }
 
+/* =========================
+   🚀 ASTRO TOPBAR
+========================= */
+
+.topbar{
+
+  position:sticky;
+  top:14px;
+
+  z-index:999;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:20px;
+
+  margin-bottom:22px;
+
+  padding:14px 18px;
+
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15,23,42,.72),
+      rgba(15,23,42,.45)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  backdrop-filter:blur(24px);
+
+  box-shadow:
+    0 10px 50px rgba(0,0,0,.35);
+
+  overflow:hidden;
+}
+
+.topbar::before{
+
+  content:"";
+
+  position:absolute;
+  inset:-1px;
+
+  border-radius:inherit;
+
+  background:
+    radial-gradient(
+      600px circle at var(--mx,50%) var(--my,50%),
+      rgba(255,255,255,.08),
+      transparent 40%
+    );
+
+  opacity:0;
+  transition:.35s;
+}
+
+.topbar:hover::before{
+  opacity:1;
+}
+
+.topbar-blur{
+
+  position:absolute;
+
+  top:-100px;
+  right:-80px;
+
+  width:240px;
+  height:240px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.20),
+      transparent 70%
+    );
+
+  filter:blur(40px);
+}
+
+.topbar-left,
+.topbar-right{
+  position:relative;
+  z-index:2;
+}
+
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.astro-logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.astro-icon{
+
+  width:48px;
+  height:48px;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.25),
+      rgba(59,130,246,.25)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 0 25px rgba(168,85,247,.25);
+
+  animation:astroRotate 7s linear infinite;
+}
+
+@keyframes astroRotate{
+
+  0%{
+    transform:rotate(0deg);
+  }
+
+  100%{
+    transform:rotate(360deg);
+  }
+
+}
+
+.astro-mini{
+
+  font-size:10px;
+  letter-spacing:1.5px;
+
+  color:#c084fc;
+
+  margin-bottom:3px;
+
+  font-weight:700;
+}
+
+.astro-title{
+
+  font-size:16px;
+  font-weight:700;
+
+  color:#fff;
+}
+
+.topbar-link{
+
+  height:42px;
+  padding:0 16px;
+
+  border-radius:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-decoration:none;
+
+  color:#cbd5e1;
+
+  font-size:13px;
+  font-weight:600;
+
+  background:
+    rgba(255,255,255,.03);
+
+  border:
+    1px solid rgba(255,255,255,.05);
+
+  transition:.25s;
+}
+
+.topbar-link:hover{
+
+  color:#fff;
+
+  transform:translateY(-2px);
+
+  background:
+    rgba(255,255,255,.06);
+}
+
+.topbar-btn{
+
+  height:44px;
+  padding:0 20px;
+
+  border-radius:16px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  font-size:13px;
+  font-weight:700;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.32),
+      rgba(59,130,246,.32)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 0 25px rgba(168,85,247,.14);
+
+  transition:.25s;
+}
+
+.topbar-btn:hover{
+
+  transform:
+    translateY(-3px)
+    scale(1.02);
+
+  box-shadow:
+    0 10px 40px rgba(168,85,247,.22);
+}
+
 @media(max-width:700px){
 
   .plans-shortcut{
@@ -4001,23 +4297,62 @@ canvas{
 
 <div class="container">
 
-<div class="header">
+<header class="topbar">
 
-  <div class="header-left">
-    <div class="top-label">
-      Plano atual
+<div class="topbar-blur"></div>
+
+<div class="topbar-left">
+
+  <div class="astro-logo">
+
+    <div class="astro-icon">
+      ✦
     </div>
 
-    <div class="plan-name">
-      ${isVip ? 'VIP' : 'FREE'}
-    </div>
-  </div>
+    <div class="astro-logo-text">
 
-  <div class="badge ${isVip ? 'vip' : 'free'}">
-    ${isVip ? '✦ PREMIUM' : '● STANDARD'}
+      <div class="astro-mini">
+        ASTRO SYSTEM
+      </div>
+
+      <div class="astro-title">
+        ${isVip ? 'PAINEL PREMIUM' : 'PAINEL STANDARD'}
+      </div>
+
+    </div>
+
   </div>
 
 </div>
+
+<div class="topbar-right">
+
+  <a
+    href="/"
+    class="topbar-link"
+  >
+    Home
+  </a>
+
+  <a
+    href="#plansSection"
+    class="topbar-link"
+    onclick="scrollToPlans()"
+  >
+    Planos
+  </a>
+
+  <a
+    href="https://t.me/consultasdedados_bot"
+    target="_blank"
+    class="topbar-btn"
+  >
+    Abrir Bot
+  </a>
+
+</div>
+
+</header>
 
 <!-- =========================
      🚀 QUICK PLANS NAV
@@ -4312,6 +4647,35 @@ window.addEventListener("mousemove", e=>{
     el.style.setProperty("--y", y + "px");
   });
 });
+
+const topbar =
+document.querySelector(".topbar")
+
+document.addEventListener("mousemove",e=>{
+
+  const x = e.clientX
+  const y = e.clientY
+
+  document
+    .querySelectorAll(".card,.plan,.topbar")
+    .forEach(el=>{
+
+      const rect =
+        el.getBoundingClientRect()
+
+      el.style.setProperty(
+        "--mx",
+        (x - rect.left) + "px"
+      )
+
+      el.style.setProperty(
+        "--my",
+        (y - rect.top) + "px"
+      )
+
+    })
+
+})
 
 function scrollToPlans(){
 
