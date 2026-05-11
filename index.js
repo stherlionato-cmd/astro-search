@@ -133,6 +133,8 @@ position:fixed;
 inset:0;
 width:100%;
 height:100%;
+opacity:.9;
+filter:blur(.2px);
 z-index:0;
 pointer-events:none;
 }
@@ -2617,7 +2619,7 @@ Já paguei
 <script>
 
 /* =========================
-PARTICLES
+   ✨ PREMIUM PARTICLES
 ========================= */
 
 const c = document.getElementById("bg");
@@ -2625,61 +2627,80 @@ const ctx = c.getContext("2d");
 
 function resize(){
 
-c.width = innerWidth;
-c.height = innerHeight;
+  c.width = innerWidth;
+  c.height = innerHeight;
 
 }
 
 resize();
 
-addEventListener("resize",resize);
+addEventListener("resize", resize);
 
 const particles = [];
 
-for(let i=0;i<180;i++){
+const PARTICLE_COUNT =
+  isVip ? 180 : 140;
 
-particles.push({
+for(let i = 0; i < PARTICLE_COUNT; i++){
 
-x:Math.random()*c.width,
-y:Math.random()*c.height,
+  particles.push({
 
-r:Math.random()*2,
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
 
-o:Math.random()*0.4,
+    r: Math.random() * 2,
 
-s:Math.random()*0.4+.05
+    o: Math.random() * 0.4,
 
-})
+    s: Math.random() * 0.4 + 0.05
+
+  });
 
 }
 
 function render(){
 
-ctx.clearRect(0,0,c.width,c.height);
+  ctx.clearRect(0,0,c.width,c.height);
 
-for(const p of particles){
+  for(const p of particles){
 
-p.y += p.s;
+    p.y += p.s;
 
-if(p.y > c.height){
+    if(p.y > c.height){
 
-p.y = -10;
-p.x = Math.random()*c.width;
+      p.y = -10;
+      p.x = Math.random() * c.width;
 
-}
+    }
 
-ctx.beginPath();
+    ctx.beginPath();
 
-ctx.fillStyle =
-"rgba(255,255,255,"+p.o+")";
+    ctx.shadowBlur =
+      isVip ? 14 : 8;
 
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.shadowColor =
+      isVip
+      ? "rgba(168,85,247,.8)"
+      : "rgba(255,255,255,.45)";
 
-ctx.fill();
+    ctx.fillStyle =
+      isVip
+      ? "rgba(255,255,255," + p.o + ")"
+      : "rgba(255,255,255," + (p.o * .8) + ")";
 
-}
+    ctx.arc(
+      p.x,
+      p.y,
+      p.r,
+      0,
+      Math.PI * 2
+    );
 
-requestAnimationFrame(render);
+    ctx.fill();
+
+  }
+
+  requestAnimationFrame(render);
 
 }
 
@@ -2930,6 +2951,7 @@ function renderFields(obj){
 body{
   position:relative;
   overflow-x:hidden;
+  background-attachment:fixed;
   font-family:'Inter',sans-serif;
   background:
   ${isVip
