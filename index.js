@@ -3998,14 +3998,18 @@ canvas{
   z-index:999;
 
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
 
-  gap:20px;
+  flex-wrap:wrap;
+
+  gap:16px;
+
+  width:100%;
 
   margin-bottom:22px;
 
-  padding:14px 18px;
+  padding:16px;
 
   border-radius:24px;
 
@@ -4080,15 +4084,32 @@ canvas{
 }
 
 .topbar-right{
+
   display:flex;
   align-items:center;
+  justify-content:flex-end;
+
+  flex-wrap:wrap;
+
   gap:10px;
+
+  flex:1;
+
+  min-width:0;
 }
 
 .astro-logo{
   display:flex;
   align-items:center;
   gap:14px;
+}
+
+.topbar-link{
+  white-space:nowrap;
+}
+
+.topbar-left{
+  flex-shrink:0;
 }
 
 .astro-icon{
@@ -4191,8 +4212,9 @@ canvas{
 
 .topbar-btn{
 
-  height:44px;
-  padding:0 20px;
+  min-height:44px;
+
+  padding:0 18px;
 
   border-radius:16px;
 
@@ -4207,6 +4229,10 @@ canvas{
   font-size:13px;
   font-weight:700;
 
+  white-space:nowrap;
+
+  flex-shrink:0;
+
   background:
     linear-gradient(
       135deg,
@@ -4220,7 +4246,10 @@ canvas{
   box-shadow:
     0 0 25px rgba(168,85,247,.14);
 
-  transition:.25s;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
 }
 
 .topbar-btn:hover{
@@ -4230,7 +4259,14 @@ canvas{
     scale(1.02);
 
   box-shadow:
-    0 10px 40px rgba(168,85,247,.22);
+    0 12px 40px rgba(168,85,247,.22);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.40),
+      rgba(59,130,246,.40)
+    );
 }
 
 @media(max-width:700px){
@@ -4286,6 +4322,46 @@ canvas{
   left:24px;
   font-size:10px;
   animation-delay:1.5s;
+}
+
+@media(max-width:700px){
+
+  .topbar{
+
+    flex-direction:column;
+    align-items:stretch;
+
+    padding:14px;
+  }
+
+  .topbar-left{
+
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+  }
+
+  .topbar-right{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(3,1fr);
+
+    gap:10px;
+  }
+
+  .topbar-link,
+  .topbar-btn{
+
+    width:100%;
+
+    justify-content:center;
+  }
+
 }
 
 </style>
