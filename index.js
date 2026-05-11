@@ -4529,16 +4529,15 @@ document.getElementById("paymentModal")
 function renderError(){
 
 return `
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
 
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Astro • Expirado</title>
+<title>Astro • Link Expirado</title>
 
 <link
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -4547,10 +4546,6 @@ rel="stylesheet"
 
 <style>
 
-html{
-scroll-behavior:smooth;
-}
-
 *{
 margin:0;
 padding:0;
@@ -4558,160 +4553,149 @@ box-sizing:border-box;
 }
 
 body{
+
 font-family:'Inter',sans-serif;
-background:#020617;
-overflow-x:hidden;
-color:#fff;
+
+background:
+radial-gradient(circle at top left,
+rgba(168,85,247,.16),
+transparent 30%),
+
+radial-gradient(circle at top right,
+rgba(59,130,246,.14),
+transparent 35%),
+
+#020617;
+
 min-height:100vh;
-position:relative;
+
+overflow:hidden;
+
+color:#fff;
+
 display:flex;
+align-items:center;
 justify-content:center;
+
+position:relative;
+
+-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility;
 }
 
-.bg{
-position:fixed;
-inset:0;
-overflow:hidden;
-z-index:0;
-}
+/* =========================
+BACKGROUND
+========================= */
 
 canvas{
-position:absolute;
+position:fixed;
 inset:0;
 width:100%;
 height:100%;
+z-index:0;
+pointer-events:none;
 }
 
-.nebula{
+/* =========================
+AURORA
+========================= */
+
+.aurora{
+
 position:absolute;
+
 width:700px;
 height:700px;
+
 border-radius:50%;
-filter:blur(90px);
-opacity:.18;
-animation:nebulaMove 18s linear infinite;
-}
 
-.n1{
-background:#7c3aed;
-top:-200px;
+background:
+radial-gradient(circle,
+rgba(168,85,247,.12),
+transparent 70%);
+
+filter:blur(80px);
+
+top:-300px;
 left:-200px;
+
+animation:auroraMove 12s ease-in-out infinite;
 }
 
-.n2{
-background:#2563eb;
-bottom:-250px;
-right:-200px;
-animation-delay:8s;
+.aurora.two{
+
+left:auto;
+right:-240px;
+
+top:auto;
+bottom:-320px;
+
+background:
+radial-gradient(circle,
+rgba(59,130,246,.10),
+transparent 70%);
+
+animation-delay:4s;
 }
 
-@keyframes nebulaMove{
+@keyframes auroraMove{
 
 0%{
-transform:translateY(0) scale(1);
+transform:translate(0,0) scale(1);
 }
 
 50%{
-transform:translateY(40px) scale(1.08);
+transform:translate(40px,-30px) scale(1.08);
 }
 
 100%{
-transform:translateY(0) scale(1);
+transform:translate(0,0) scale(1);
 }
 
 }
 
-.wrap{
+/* =========================
+CARD
+========================= */
+
+.wrapper{
 position:relative;
-z-index:2;
+z-index:5;
 width:100%;
-max-width:1180px;
-padding:40px 18px 80px;
+max-width:960px;
+padding:24px;
 }
 
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:40px;
-}
+.card{
 
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-font-weight:800;
-font-size:22px;
-}
-
-.logo-icon{
-width:46px;
-height:46px;
-border-radius:16px;
-display:flex;
-align-items:center;
-justify-content:center;
-
-background:
-linear-gradient(
-135deg,
-rgba(168,85,247,.35),
-rgba(59,130,246,.35)
-);
-
-border:1px solid rgba(255,255,255,.08);
-
-box-shadow:
-0 0 40px rgba(168,85,247,.25);
-}
-
-.badge{
-padding:10px 16px;
-border-radius:999px;
-font-size:11px;
-font-weight:700;
-letter-spacing:1px;
-
-background:
-rgba(255,255,255,.04);
-
-border:
-1px solid rgba(255,255,255,.08);
-
-color:#c4b5fd;
-}
-
-.hero{
-display:grid;
-grid-template-columns:1fr 420px;
-gap:30px;
-align-items:center;
-margin-bottom:60px;
-}
-
-.hero-card{
 position:relative;
+
 overflow:hidden;
-padding:40px;
-border-radius:34px;
+
+border-radius:36px;
 
 background:
 linear-gradient(
 180deg,
-rgba(15,23,42,.88),
-rgba(2,6,23,.94)
+rgba(15,23,42,.92),
+rgba(2,6,23,.96)
 );
 
 border:
-1px solid rgba(255,255,255,.06);
+1px solid rgba(255,255,255,.08);
 
-backdrop-filter:blur(22px);
+backdrop-filter:blur(20px);
 
 box-shadow:
-0 30px 120px rgba(0,0,0,.7);
+0 40px 120px rgba(0,0,0,.75),
+0 0 70px rgba(168,85,247,.14);
+
+padding:42px;
 }
 
-.hero-card::before{
+/* glow mouse */
+
+.card::before{
 
 content:"";
 
@@ -4722,48 +4706,145 @@ border-radius:inherit;
 
 background:
 radial-gradient(
-500px circle at var(--mx,50%) var(--my,50%),
+600px circle at var(--mx,50%) var(--my,50%),
 rgba(255,255,255,.08),
 transparent 40%
 );
 
 opacity:0;
-transition:.4s;
+transition:.3s;
 }
 
-.hero-card:hover::before{
+.card:hover::before{
 opacity:1;
 }
 
-.expired{
-display:inline-flex;
+/* =========================
+TOP
+========================= */
+
+.top{
+
+display:flex;
 align-items:center;
-gap:8px;
+justify-content:space-between;
+
+gap:20px;
+
+margin-bottom:32px;
+}
+
+.logo{
+
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.logo-icon{
+
+width:54px;
+height:54px;
+
+border-radius:18px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.28),
+rgba(59,130,246,.24)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 35px rgba(168,85,247,.25);
+}
+
+.logo-text{
+
+font-size:22px;
+font-weight:800;
+letter-spacing:-1px;
+}
+
+.status{
+
 padding:10px 16px;
+
 border-radius:999px;
-margin-bottom:22px;
+
 font-size:11px;
 font-weight:700;
 letter-spacing:1px;
 
 background:
-rgba(239,68,68,.08);
+rgba(255,255,255,.04);
 
 border:
-1px solid rgba(239,68,68,.18);
+1px solid rgba(255,255,255,.08);
 
 color:#fca5a5;
 }
 
+/* =========================
+CONTENT
+========================= */
+
+.content{
+
+display:grid;
+grid-template-columns:1fr 360px;
+gap:30px;
+align-items:center;
+}
+
+.expire-tag{
+
+display:inline-flex;
+align-items:center;
+gap:8px;
+
+padding:10px 16px;
+
+border-radius:999px;
+
+margin-bottom:20px;
+
+font-size:11px;
+font-weight:700;
+letter-spacing:1px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:#c084fc;
+}
+
 .title{
-font-size:72px;
+
+font-size:64px;
 line-height:.92;
+
 font-weight:800;
+
 letter-spacing:-4px;
-margin-bottom:24px;
+
+margin-bottom:22px;
 }
 
 .title span{
+
 background:
 linear-gradient(
 90deg,
@@ -4777,11 +4858,20 @@ linear-gradient(
 }
 
 .text{
+
 font-size:16px;
-line-height:1.9;
+line-height:1.8;
+
 color:#94a3b8;
+
+max-width:580px;
+
 margin-bottom:28px;
 }
+
+/* =========================
+BUTTONS
+========================= */
 
 .actions{
 display:flex;
@@ -4790,22 +4880,27 @@ flex-wrap:wrap;
 }
 
 .btn{
-height:60px;
-padding:0 30px;
-border:none;
-cursor:pointer;
-border-radius:20px;
+
+height:58px;
+padding:0 26px;
+
+border-radius:18px;
+
 display:flex;
 align-items:center;
 justify-content:center;
+
 text-decoration:none;
 color:#fff;
+
 font-size:14px;
 font-weight:700;
-transition:.3s;
+
+transition:.25s;
 }
 
 .btn-primary{
+
 background:
 linear-gradient(
 135deg,
@@ -4814,10 +4909,18 @@ rgba(59,130,246,.35)
 );
 
 border:
-1px solid rgba(255,255,255,.08);
+1px solid rgba(255,255,255,.10);
+
+box-shadow:
+0 0 40px rgba(168,85,247,.22);
+}
+
+.btn-primary:hover{
+transform:translateY(-4px);
 }
 
 .btn-secondary{
+
 background:
 rgba(255,255,255,.03);
 
@@ -4825,234 +4928,243 @@ border:
 1px solid rgba(255,255,255,.08);
 }
 
-.btn:hover{
-transform:translateY(-4px);
+.btn-secondary:hover{
+background:
+rgba(255,255,255,.06);
 }
 
-.side-card{
-padding:24px;
-border-radius:30px;
+/* =========================
+SIDE PANEL
+========================= */
+
+.side{
+
+position:relative;
+
+border-radius:28px;
+
+padding:22px;
 
 background:
-linear-gradient(
-180deg,
-rgba(15,23,42,.95),
-rgba(2,6,23,.98)
-);
+rgba(255,255,255,.03);
 
 border:
 1px solid rgba(255,255,255,.06);
 
-box-shadow:
-0 20px 80px rgba(0,0,0,.7);
+overflow:hidden;
 }
 
-.side-top{
-display:flex;
-gap:8px;
+.side::before{
+
+content:"";
+
+position:absolute;
+
+width:240px;
+height:240px;
+
+border-radius:50%;
+
+background:
+radial-gradient(circle,
+rgba(168,85,247,.16),
+transparent 70%);
+
+top:-120px;
+right:-80px;
+
+filter:blur(30px);
+}
+
+.side-title{
+
+font-size:13px;
+font-weight:700;
+letter-spacing:1px;
+
+opacity:.7;
+
 margin-bottom:18px;
 }
 
-.dot{
-width:10px;
-height:10px;
-border-radius:50%;
-background:#334155;
-}
-
-.term{
-background:#020617;
-border-radius:18px;
-padding:18px;
-border:1px solid rgba(255,255,255,.06);
-min-height:280px;
-}
-
-.line{
-font-size:13px;
-line-height:2;
-font-family:monospace;
-}
-
-.red{color:#f87171}
-.green{color:#4ade80}
-.blue{color:#60a5fa}
-.purple{color:#c084fc}
-
-.plans-title{
-font-size:38px;
-font-weight:800;
-margin-bottom:24px;
-}
-
-.plan-box{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
-}
+/* plans */
 
 .plan{
-padding:28px;
-border-radius:28px;
 
-background:
-linear-gradient(
-180deg,
-rgba(15,23,42,.9),
-rgba(2,6,23,.95)
-);
+padding:16px;
 
-border:
-1px solid rgba(255,255,255,.06);
-}
-
-.plan-title{
-font-size:28px;
-font-weight:800;
-margin-bottom:12px;
-}
-
-.price{
-font-size:48px;
-font-weight:800;
-margin-bottom:20px;
-}
-
-.features{
-display:flex;
-flex-direction:column;
-gap:12px;
-}
-
-.plan-btn{
-width:100%;
-height:56px;
-margin-top:24px;
-border:none;
-cursor:pointer;
 border-radius:18px;
-color:#fff;
-font-size:14px;
-font-weight:700;
 
 background:
-linear-gradient(
-135deg,
-rgba(168,85,247,.35),
-rgba(59,130,246,.35)
-);
-}
-
-.modal{
-position:fixed;
-inset:0;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-
-background:
-rgba(2,6,23,.82);
-
-backdrop-filter:blur(20px);
-
-opacity:0;
-visibility:hidden;
-transition:.35s;
-z-index:99999;
-}
-
-.modal.show{
-opacity:1;
-visibility:visible;
-}
-
-.modal-box{
-width:100%;
-max-width:420px;
-padding:26px;
-border-radius:30px;
-
-background:
-linear-gradient(
-180deg,
-rgba(15,23,42,.96),
-rgba(2,6,23,.98)
-);
+rgba(255,255,255,.03);
 
 border:
-1px solid rgba(255,255,255,.08);
+1px solid rgba(255,255,255,.05);
+
+margin-bottom:14px;
+
+transition:.25s;
 }
 
-.pix-box{
+.plan:hover{
+
+transform:translateY(-3px);
+
+border-color:
+rgba(168,85,247,.25);
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.35);
+}
+
+.plan-top{
+
 display:flex;
-gap:12px;
-margin:18px 0;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:10px;
 }
 
-.pix-key{
-flex:1;
+.plan-name{
+font-size:16px;
+font-weight:700;
+}
+
+.plan-price{
+
+font-size:24px;
+font-weight:800;
+letter-spacing:-1px;
+}
+
+.plan-price small{
 font-size:12px;
-word-break:break-all;
+opacity:.6;
 }
 
-.copy-pix{
-width:48px;
-height:48px;
-border:none;
-cursor:pointer;
-border-radius:16px;
-background:rgba(255,255,255,.06);
-color:#fff;
+.plan-features{
+font-size:12px;
+line-height:1.8;
+color:#94a3b8;
 }
 
-.support-btn{
-height:56px;
+/* =========================
+FOOTER
+========================= */
+
+.footer{
+
+margin-top:28px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+gap:20px;
+
+font-size:12px;
+
+color:#64748b;
+}
+
+.online{
+
 display:flex;
 align-items:center;
-justify-content:center;
-border-radius:18px;
-text-decoration:none;
-color:#fff;
-font-weight:700;
-
-background:
-linear-gradient(
-135deg,
-rgba(168,85,247,.32),
-rgba(59,130,246,.32)
-);
+gap:8px;
 }
 
-@media(max-width:980px){
+.dot{
 
-.hero{
+width:8px;
+height:8px;
+
+border-radius:50%;
+
+background:#4ade80;
+
+box-shadow:
+0 0 10px #4ade80;
+
+animation:pulse 1.8s infinite;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+50%{
+transform:scale(1.5);
+opacity:.6;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+.content{
 grid-template-columns:1fr;
 }
 
 .title{
-font-size:52px;
+font-size:46px;
+letter-spacing:-2px;
+}
+
+}
+
+@media(max-width:600px){
+
+.card{
+padding:24px;
+border-radius:28px;
+}
+
+.top{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.title{
+font-size:38px;
+}
+
+.actions{
+flex-direction:column;
+}
+
+.btn{
+width:100%;
 }
 
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="bg">
+<canvas id="bg"></canvas>
 
-<canvas id="stars"></canvas>
+<div class="aurora"></div>
+<div class="aurora two"></div>
 
-<div class="nebula n1"></div>
-<div class="nebula n2"></div>
+<div class="wrapper">
 
-</div>
-
-<div class="wrap">
+<div class="card" id="card">
 
 <div class="top">
 
@@ -5062,50 +5174,56 @@ font-size:52px;
 ✦
 </div>
 
-<div>
+<div class="logo-text">
 Astro
 </div>
 
 </div>
 
-<div class="badge">
+<div class="status">
 LINK EXPIRADO
 </div>
 
 </div>
 
-<section class="hero">
+<div class="content">
 
-<div class="hero-card" id="heroCard">
+<div>
 
-<div class="expired">
-⏳ CONSULTA REMOVIDA
+<div class="expire-tag">
+✦ CONSULTA REMOVIDA AUTOMATICAMENTE
 </div>
 
 <div class="title">
-Seu acesso
-<span>expirou</span>
+Seu acesso <span>desapareceu</span>
+do sistema
 </div>
 
 <div class="text">
-Essa consulta foi removida automaticamente do sistema.
+
+Esse resultado foi removido da infraestrutura segura da Astro.
+As consultas possuem tempo limitado por segurança e expiração automática.
+
+Gere uma nova consulta ou desbloqueie acesso premium ilimitado agora.
+
 </div>
 
 <div class="actions">
 
-<button
+<a
+href="https://t.me/consultasdedados_bot"
+target="_blank"
 class="btn btn-primary"
-id="newQueryBtn"
 >
 GERAR NOVA CONSULTA
-</button>
+</a>
 
-<button
+<a
+href="/"
 class="btn btn-secondary"
-id="plansBtn"
 >
-VER PLANOS
-</button>
+PÁGINA INICIAL
+</a>
 
 </div>
 
@@ -5113,104 +5231,92 @@ VER PLANOS
 
 <div class="side">
 
-<div class="side-card">
-
-<div class="side-top">
-<div class="dot"></div>
-<div class="dot"></div>
-<div class="dot"></div>
+<div class="side-title">
+PLANOS PREMIUM
 </div>
-
-<div class="term">
-
-<div class="line red">[×] Token expirado</div>
-<div class="line blue">[•] Resultado removido</div>
-<div class="line purple">[ASTRO] Reconectando...</div>
-<div class="line green">[✓] Upgrade disponível</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<div class="plans-title" id="plans">
-Escolha seu plano
-</div>
-
-<div class="plan-box">
 
 <div class="plan">
 
-<div class="plan-title">
+<div class="plan-top">
+<div class="plan-name">
 Diário
 </div>
 
-<div class="price">
-R$14,90
+<div class="plan-price">
+R$14
+<small>,90</small>
+</div>
 </div>
 
-<button
-class="plan-btn"
-data-plan="Plano Diário • R$14,90"
->
-Desbloquear
-</button>
+<div class="plan-features">
+✦ 24h de acesso<br>
+✦ Liberação imediata<br>
+✦ Consultas rápidas
+</div>
 
 </div>
 
 <div class="plan">
 
-<div class="plan-title">
+<div class="plan-top">
+<div class="plan-name">
 Semanal
 </div>
 
-<div class="price">
-R$24,90
+<div class="plan-price">
+R$24
+<small>,90</small>
+</div>
 </div>
 
-<button
-class="plan-btn"
-data-plan="Plano Semanal • R$24,90"
->
-🚀 DESBLOQUEAR
-</button>
-
-</div>
-
+<div class="plan-features">
+✦ Consultas ilimitadas<br>
+✦ Prioridade máxima<br>
+✦ Recursos premium
 </div>
 
 </div>
 
-<div class="modal" id="paymentModal">
+<div class="plan">
 
-<div class="modal-box">
-
-<h2 id="modalPlanName">
-Plano VIP
-</h2>
-
-<div class="pix-box">
-
-<div class="pix-key">
-f0d0f3b1-8776-4f06-a254-b6ea3686f71a
+<div class="plan-top">
+<div class="plan-name">
+Vitalício
 </div>
 
-<button class="copy-pix">
-⧉
-</button>
+<div class="plan-price">
+R$20
+<small>,90</small>
+</div>
+</div>
+
+<div class="plan-features">
+✦ Sem limites<br>
+✦ Tudo desbloqueado<br>
+✦ Atualizações futuras grátis
+</div>
 
 </div>
 
-<a
-href="https://t.me/puxardados5"
-target="_blank"
-class="support-btn"
->
-Já paguei
-</a>
+</div>
+
+</div>
+
+<div class="footer">
+
+<div>
+Astro.app • Sistema premium protegido
+</div>
+
+<div class="online">
+
+<div class="dot"></div>
+
+Sistema online
+
+</div>
+
+</div>
 
 </div>
 
@@ -5218,10 +5324,12 @@ Já paguei
 
 <script>
 
-document.addEventListener("DOMContentLoaded",()=>{
+/* =========================
+PARTICLES
+========================= */
 
 const c =
-document.getElementById("stars");
+document.getElementById("bg");
 
 const ctx =
 c.getContext("2d");
@@ -5235,21 +5343,34 @@ c.height = innerHeight;
 
 resize();
 
-window.addEventListener("resize",resize);
+addEventListener("resize",resize);
 
-const stars=[];
+const stars = [];
 
-for(let i=0;i<900;i++){
+for(let i=0;i<240;i++){
+
+const bright =
+Math.random() > .92;
 
 stars.push({
 
 x:Math.random()*c.width,
 y:Math.random()*c.height,
-r:Math.random()*1.3,
-o:Math.random()*0.6,
-s:Math.random()*0.08+.01
 
-});
+r:
+bright
+? Math.random()*1.8+.8
+: Math.random()*1.1,
+
+o:
+bright
+? Math.random()*.8+.2
+: Math.random()*.25,
+
+s:
+Math.random()*.18+.03
+
+})
 
 }
 
@@ -5291,88 +5412,33 @@ requestAnimationFrame(render);
 
 render();
 
-document
-.getElementById("newQueryBtn")
-.addEventListener("click",()=>{
+/* =========================
+CARD LIGHT
+========================= */
 
-window.open(
-"https://t.me/consultasdedados_bot",
-"_blank"
-);
+const card =
+document.getElementById("card");
 
-});
-
-document
-.getElementById("plansBtn")
-.addEventListener("click",()=>{
-
-document
-.getElementById("plans")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-});
-
-const modal =
-document.getElementById("paymentModal");
-
-document
-.querySelectorAll(".plan-btn")
-.forEach(btn=>{
-
-btn.addEventListener("click",()=>{
-
-document
-.getElementById("modalPlanName")
-.innerText =
-btn.dataset.plan;
-
-modal.classList.add("show");
-
-});
-
-});
-
-modal.addEventListener("click",e=>{
-
-if(e.target === modal){
-
-modal.classList.remove("show");
-
-}
-
-});
-
-document
-.querySelector(".copy-pix")
-.addEventListener("click",()=>{
-
-navigator.clipboard.writeText(
-"f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
-);
-
-});
-
-const hero =
-document.getElementById("heroCard");
-
-hero.addEventListener("mousemove",e=>{
+card.addEventListener("mousemove",e=>{
 
 const rect =
-hero.getBoundingClientRect();
+card.getBoundingClientRect();
 
-hero.style.setProperty(
+const x =
+e.clientX - rect.left;
+
+const y =
+e.clientY - rect.top;
+
+card.style.setProperty(
 "--mx",
-(e.clientX - rect.left)+"px"
+x+"px"
 );
 
-hero.style.setProperty(
+card.style.setProperty(
 "--my",
-(e.clientY - rect.top)+"px"
+y+"px"
 );
-
-});
 
 });
 
@@ -5380,7 +5446,5 @@ hero.style.setProperty(
 
 </body>
 </html>
-
 `
-
 }
