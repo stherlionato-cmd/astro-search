@@ -1503,6 +1503,307 @@ display:none;
 
 }
 
+/* =========================
+   🚀 TOPBAR PREMIUM
+========================= */
+
+.topbar{
+
+  position:sticky;
+  top:14px;
+
+  z-index:999;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:18px;
+
+  width:100%;
+
+  margin-bottom:34px;
+
+  padding:16px 18px;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15,23,42,.78),
+      rgba(15,23,42,.52)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  backdrop-filter:blur(24px);
+
+  box-shadow:
+    0 10px 50px rgba(0,0,0,.35);
+}
+
+.topbar::before{
+
+  content:"";
+
+  position:absolute;
+  inset:-1px;
+
+  border-radius:inherit;
+
+  background:
+    radial-gradient(
+      600px circle at var(--mx,50%) var(--my,50%),
+      rgba(255,255,255,.07),
+      transparent 40%
+    );
+
+  opacity:0;
+  transition:.35s;
+}
+
+.topbar:hover::before{
+  opacity:1;
+}
+
+.topbar-blur{
+
+  position:absolute;
+
+  top:-100px;
+  right:-80px;
+
+  width:240px;
+  height:240px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.20),
+      transparent 70%
+    );
+
+  filter:blur(40px);
+}
+
+.topbar-left,
+.topbar-right{
+  position:relative;
+  z-index:2;
+}
+
+.topbar-left{
+  flex-shrink:0;
+}
+
+.topbar-right{
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+}
+
+/* LOGO */
+
+.astro-logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.astro-icon{
+
+  width:50px;
+  height:50px;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.25),
+      rgba(59,130,246,.25)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 0 25px rgba(168,85,247,.20);
+
+  animation:astroRotate 8s linear infinite;
+}
+
+@keyframes astroRotate{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+.astro-mini{
+
+  font-size:10px;
+  letter-spacing:1.6px;
+
+  color:#c084fc;
+
+  font-weight:700;
+
+  margin-bottom:3px;
+}
+
+.astro-title{
+
+  font-size:16px;
+  font-weight:700;
+
+  color:#fff;
+}
+
+/* BADGE */
+
+.mini-badge{
+
+  height:44px;
+
+  padding:0 16px;
+
+  border-radius:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  white-space:nowrap;
+
+  color:#d8b4fe;
+
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
+
+  background:
+    rgba(255,255,255,.03);
+
+  border:
+    1px solid rgba(255,255,255,.05);
+}
+
+/* BOTÃO */
+
+.topbar-btn{
+
+  height:44px;
+
+  padding:0 20px;
+
+  border-radius:16px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-decoration:none;
+
+  white-space:nowrap;
+
+  color:#fff;
+
+  font-size:13px;
+  font-weight:700;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.32),
+      rgba(59,130,246,.32)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 0 25px rgba(168,85,247,.14);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+.topbar-btn:hover{
+
+  transform:
+    translateY(-2px)
+    scale(1.02);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.42),
+      rgba(59,130,246,.42)
+    );
+
+  box-shadow:
+    0 12px 35px rgba(168,85,247,.22);
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  .topbar{
+
+    flex-direction:column;
+    align-items:stretch;
+
+    padding:14px;
+  }
+
+  .topbar-left{
+    justify-content:center;
+  }
+
+  .topbar-right{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+  }
+
+  .mini-badge,
+  .topbar-btn{
+    width:100%;
+  }
+
+}
+
 </style>
 </head>
 
@@ -1510,43 +1811,53 @@ display:none;
 
 <canvas id="bg"></canvas>
 
-<div class="header">
-
 <div class="container">
 
-<div class="header-wrap">
+  <div class="topbar">
 
-<div class="logo">
+    <div class="topbar-blur"></div>
 
-<div class="logo-icon">
-✦
-</div>
+    <div class="topbar-left">
 
-<div>
-Astro
-</div>
+      <div class="astro-logo">
 
-</div>
+        <div class="astro-icon">
+          ✦
+        </div>
 
-<div class="header-right">
+        <div class="astro-logo-text">
 
-<div class="mini-badge">
-SISTEMA PREMIUM
-</div>
+          <div class="astro-mini">
+            ASTRO SYSTEM
+          </div>
 
-<a
-href="https://t.me/consultasdedados_bot"
-target="_blank"
-class="header-btn"
->
-Abrir bot
-</a>
+          <div class="astro-title">
+            CONSULTAS PREMIUM
+          </div>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-</div>
+    </div>
+
+    <div class="topbar-right">
+
+      <div class="mini-badge">
+        SISTEMA PREMIUM
+      </div>
+
+      <a
+        href="https://t.me/consultasdedados_bot"
+        target="_blank"
+        class="topbar-btn"
+      >
+        Abrir bot
+      </a>
+
+    </div>
+
+  </div>
 
 </div>
 
