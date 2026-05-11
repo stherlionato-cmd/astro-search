@@ -1504,7 +1504,7 @@ display:none;
 }
 
 /* =========================
-   🚀 TOPBAR PREMIUM
+   🚀 ASTRO TOPBAR
 ========================= */
 
 .topbar{
@@ -1518,23 +1518,23 @@ display:none;
   align-items:center;
   justify-content:space-between;
 
-  gap:18px;
+  flex-wrap:wrap;
+
+  gap:16px;
 
   width:100%;
 
-  margin-bottom:34px;
+  margin-bottom:26px;
 
-  padding:16px 18px;
+  padding:16px;
 
   border-radius:24px;
-
-  overflow:hidden;
 
   background:
     linear-gradient(
       135deg,
-      rgba(15,23,42,.78),
-      rgba(15,23,42,.52)
+      rgba(15,23,42,.72),
+      rgba(15,23,42,.45)
     );
 
   border:
@@ -1544,6 +1544,8 @@ display:none;
 
   box-shadow:
     0 10px 50px rgba(0,0,0,.35);
+
+  overflow:hidden;
 }
 
 .topbar::before{
@@ -1558,7 +1560,7 @@ display:none;
   background:
     radial-gradient(
       600px circle at var(--mx,50%) var(--my,50%),
-      rgba(255,255,255,.07),
+      rgba(255,255,255,.08),
       transparent 40%
     );
 
@@ -1598,22 +1600,24 @@ display:none;
   z-index:2;
 }
 
-.topbar-left{
-  flex-shrink:0;
-}
-
 .topbar-right{
 
   display:flex;
   align-items:center;
   justify-content:flex-end;
 
+  flex-wrap:wrap;
+
   gap:10px;
 
-  flex-wrap:wrap;
+  flex:1;
+
+  min-width:0;
 }
 
-/* LOGO */
+.topbar-left{
+  flex-shrink:0;
+}
 
 .astro-logo{
   display:flex;
@@ -1623,8 +1627,8 @@ display:none;
 
 .astro-icon{
 
-  width:50px;
-  height:50px;
+  width:48px;
+  height:48px;
 
   border-radius:18px;
 
@@ -1645,18 +1649,18 @@ display:none;
     1px solid rgba(255,255,255,.08);
 
   box-shadow:
-    0 0 25px rgba(168,85,247,.20);
+    0 0 25px rgba(168,85,247,.25);
 
-  animation:astroRotate 8s linear infinite;
+  animation:astroRotate 7s linear infinite;
 }
 
 @keyframes astroRotate{
 
-  from{
+  0%{
     transform:rotate(0deg);
   }
 
-  to{
+  100%{
     transform:rotate(360deg);
   }
 
@@ -1665,13 +1669,13 @@ display:none;
 .astro-mini{
 
   font-size:10px;
-  letter-spacing:1.6px;
+  letter-spacing:1.5px;
 
   color:#c084fc;
 
-  font-weight:700;
-
   margin-bottom:3px;
+
+  font-weight:700;
 }
 
 .astro-title{
@@ -1682,12 +1686,9 @@ display:none;
   color:#fff;
 }
 
-/* BADGE */
+.topbar-link{
 
-.mini-badge{
-
-  height:44px;
-
+  height:42px;
   padding:0 16px;
 
   border-radius:14px;
@@ -1696,28 +1697,37 @@ display:none;
   align-items:center;
   justify-content:center;
 
-  white-space:nowrap;
+  text-decoration:none;
 
-  color:#d8b4fe;
+  color:#cbd5e1;
 
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:1px;
+  font-size:13px;
+  font-weight:600;
 
   background:
     rgba(255,255,255,.03);
 
   border:
     1px solid rgba(255,255,255,.05);
+
+  transition:.25s;
 }
 
-/* BOTÃO */
+.topbar-link:hover{
+
+  color:#fff;
+
+  transform:translateY(-2px);
+
+  background:
+    rgba(255,255,255,.06);
+}
 
 .topbar-btn{
 
-  height:44px;
+  min-height:44px;
 
-  padding:0 20px;
+  padding:0 18px;
 
   border-radius:16px;
 
@@ -1727,12 +1737,14 @@ display:none;
 
   text-decoration:none;
 
-  white-space:nowrap;
-
   color:#fff;
 
   font-size:13px;
   font-weight:700;
+
+  white-space:nowrap;
+
+  flex-shrink:0;
 
   background:
     linear-gradient(
@@ -1756,21 +1768,19 @@ display:none;
 .topbar-btn:hover{
 
   transform:
-    translateY(-2px)
+    translateY(-3px)
     scale(1.02);
+
+  box-shadow:
+    0 12px 40px rgba(168,85,247,.22);
 
   background:
     linear-gradient(
       135deg,
-      rgba(168,85,247,.42),
-      rgba(59,130,246,.42)
+      rgba(168,85,247,.40),
+      rgba(59,130,246,.40)
     );
-
-  box-shadow:
-    0 12px 35px rgba(168,85,247,.22);
 }
-
-/* MOBILE */
 
 @media(max-width:700px){
 
@@ -1783,6 +1793,10 @@ display:none;
   }
 
   .topbar-left{
+
+    width:100%;
+
+    display:flex;
     justify-content:center;
   }
 
@@ -1792,14 +1806,18 @@ display:none;
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+      repeat(2,1fr);
 
     gap:10px;
   }
 
-  .mini-badge,
+  .topbar-link,
   .topbar-btn{
+
     width:100%;
+
+    justify-content:center;
   }
 
 }
@@ -1813,53 +1831,54 @@ display:none;
 
 <div class="container">
 
-  <div class="topbar">
+<header class="topbar">
 
-    <div class="topbar-blur"></div>
+  <div class="topbar-blur"></div>
 
-    <div class="topbar-left">
+  <div class="topbar-left">
 
-      <div class="astro-logo">
+    <div class="astro-logo">
 
-        <div class="astro-icon">
-          ✦
+      <div class="astro-icon">
+        ✦
+      </div>
+
+      <div class="astro-logo-text">
+
+        <div class="astro-mini">
+          ASTRO SYSTEM
         </div>
 
-        <div class="astro-logo-text">
-
-          <div class="astro-mini">
-            ASTRO SYSTEM
-          </div>
-
-          <div class="astro-title">
-            CONSULTAS PREMIUM
-          </div>
-
+        <div class="astro-title">
+          CONSULTAS PREMIUM
         </div>
 
       </div>
-
-    </div>
-
-    <div class="topbar-right">
-
-      <div class="mini-badge">
-        SISTEMA PREMIUM
-      </div>
-
-      <a
-        href="https://t.me/consultasdedados_bot"
-        target="_blank"
-        class="topbar-btn"
-      >
-        Abrir bot
-      </a>
 
     </div>
 
   </div>
 
-</div>
+  <div class="topbar-right">
+
+    <a
+      href="#plans"
+      class="topbar-link"
+    >
+      Planos
+    </a>
+
+    <a
+      href="https://t.me/consultasdedados_bot"
+      target="_blank"
+      class="topbar-btn"
+    >
+      Abrir Bot
+    </a>
+
+  </div>
+
+</header>
 
 <div class="container">
 
