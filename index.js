@@ -5175,6 +5175,183 @@ align-items:flex-start;
 
 }
 
+/* MODAL */
+
+.modal{
+position:fixed;
+inset:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:20px;
+
+background:
+rgba(2,6,23,.82);
+
+backdrop-filter:blur(20px);
+
+opacity:0;
+visibility:hidden;
+
+transition:.35s;
+
+z-index:99999;
+}
+
+.modal.show{
+opacity:1;
+visibility:visible;
+}
+
+.modal-box{
+
+width:100%;
+max-width:420px;
+
+padding:26px;
+
+border-radius:30px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.96),
+rgba(2,6,23,.98)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 40px 120px rgba(0,0,0,.8),
+0 0 60px rgba(168,85,247,.18);
+}
+
+.modal-title{
+
+font-size:24px;
+font-weight:800;
+
+margin-bottom:20px;
+}
+
+.modal-plan{
+
+padding:16px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+margin-bottom:18px;
+}
+
+.modal-plan small{
+display:block;
+opacity:.5;
+margin-bottom:6px;
+}
+
+.pix-label{
+
+font-size:12px;
+opacity:.6;
+
+margin-bottom:10px;
+}
+
+.pix-box{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:14px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+margin-bottom:18px;
+}
+
+.pix-key{
+
+flex:1;
+
+font-size:12px;
+line-height:1.6;
+
+word-break:break-all;
+}
+
+.copy-pix{
+
+width:48px;
+height:48px;
+
+border:none;
+cursor:pointer;
+
+border-radius:16px;
+
+color:#fff;
+font-size:18px;
+
+background:
+rgba(255,255,255,.06);
+}
+
+.modal-text{
+
+font-size:14px;
+line-height:1.8;
+
+color:#cbd5e1;
+
+margin-bottom:22px;
+}
+
+.support-btn{
+
+height:56px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border-radius:18px;
+
+text-decoration:none;
+color:#fff;
+
+font-weight:700;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.32),
+rgba(59,130,246,.32)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+}
+
+html{
+scroll-behavior:smooth;
+}
+
 </style>
 </head>
 
@@ -5319,7 +5496,10 @@ R$14<small>,90</small>
 <div>✦ Liberação rápida</div>
 </div>
 
-<button class="plan-btn">
+<button
+class="plan-btn"
+onclick="openPayment('Plano Diário • R$14,90')"
+>
 Desbloquear
 </button>
 
@@ -5345,34 +5525,10 @@ R$24<small>,90</small>
 <div>✦ Prioridade total</div>
 </div>
 
-<button class="plan-btn">
-Desbloquear
-</button>
-
-</div>
-
-<div class="plan plan-premium">
-
-<div class="tag">
-VITALÍCIO
-</div>
-
-<div class="plan-title">
-Premium
-</div>
-
-<div class="price">
-R$20<small>,90</small>
-</div>
-
-<div class="features">
-<div>✦ Acesso vitalício</div>
-<div>✦ Sem limites</div>
-<div>✦ Tudo desbloqueado</div>
-<div>✦ Atualizações grátis</div>
-</div>
-
-<button class="plan-btn">
+<button
+class="plan-btn"
+onclick="openPayment('Plano Semanal • R$24,90')"
+>
 🚀 DESBLOQUEAR
 </button>
 
@@ -5423,6 +5579,49 @@ s:Math.random()*0.08+.01
 })
 
 }
+
+function openPayment(plan){
+
+document
+.getElementById("modalPlanName")
+.innerText = plan;
+
+document
+.getElementById("paymentModal")
+.classList.add("show");
+
+}
+
+function copyPix(){
+
+navigator.clipboard.writeText(
+"f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
+);
+
+const btn =
+document.querySelector(".copy-pix");
+
+btn.innerText = "✓";
+
+setTimeout(()=>{
+btn.innerText = "⧉";
+},1400);
+
+}
+
+document
+.getElementById("paymentModal")
+.addEventListener("click",e=>{
+
+if(e.target.id==="paymentModal"){
+
+document
+.getElementById("paymentModal")
+.classList.remove("show");
+
+}
+
+});
 
 function render(){
 
@@ -5483,6 +5682,65 @@ hero.style.setProperty("--my",y+"px");
 });
 
 </script>
+
+<!-- MODAL -->
+
+<div class="modal" id="paymentModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+Astro Premium
+</div>
+
+<div class="modal-plan">
+
+<small>Plano selecionado</small>
+
+<b id="modalPlanName">
+VIP
+</b>
+
+</div>
+
+<div class="pix-label">
+Chave PIX
+</div>
+
+<div class="pix-box">
+
+<div class="pix-key">
+f0d0f3b1-8776-4f06-a254-b6ea3686f71a
+</div>
+
+<button
+class="copy-pix"
+onclick="copyPix()"
+>
+⧉
+</button>
+
+</div>
+
+<div class="modal-text">
+
+Após efetuar o pagamento,
+envie o comprovante para o suporte
+e seu acesso será liberado imediatamente.
+
+</div>
+
+<a
+href="https://t.me/puxardados5"
+target="_blank"
+class="support-btn"
+>
+Já paguei
+</a>
+
+</div>
+
+</div>
 
 </body>
 </html>
