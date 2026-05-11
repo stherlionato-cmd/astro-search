@@ -5149,69 +5149,83 @@ window.addEventListener("resize", resize);
 
 const isVip = ${JSON.stringify(isVip)}
 
-const STAR_COUNT =
-  isVip ? 900 : 550;
+// =========================
+// ✨ PARTICLES PREMIUM
+// =========================
 
-const stars = [];
+const particles = [];
 
-for(let i=0;i<STAR_COUNT;i++){
+const PARTICLE_COUNT =
+  isVip ? 220 : 140;
 
-  const bright = Math.random() > 0.92;
+for(let i = 0; i < PARTICLE_COUNT; i++){
 
-  stars.push({
+  particles.push({
 
     x: Math.random() * c.width,
     y: Math.random() * c.height,
 
-size:
-  bright
-  ? Math.random() * 1.1 + 0.7
-  : Math.random() * 0.55 + 0.12,
+    r: Math.random() * 2.2,
 
-    opacity:
-      bright
-      ? Math.random() * 0.55 + 0.45
-      : Math.random() * 0.18 + 0.04,
+    o: Math.random() * 0.35 + 0.03,
 
-speed:
-  Math.random() * 0.025 + 0.003
+    s: Math.random() * 0.45 + 0.05,
+
+    vx:(Math.random() - .5) * .15,
+    vy:(Math.random() - .5) * .15
+
   });
+
 }
 
 function animate(){
 
   ctx.clearRect(0,0,c.width,c.height);
 
-  for(const s of stars){
+  particles.forEach(p=>{
 
-    s.y += s.speed;
+    p.x += p.vx;
+    p.y += p.vy;
 
-    if(s.y > c.height){
+    // movimento vertical suave
+    p.y += p.s * .15;
 
-      s.y = -2;
-      s.x = Math.random() * c.width;
+    // reset
+    if(p.y > c.height + 20){
+      p.y = -20;
+      p.x = Math.random() * c.width;
+    }
+
+    if(p.x > c.width + 20){
+      p.x = -20;
+    }
+
+    if(p.x < -20){
+      p.x = c.width + 20;
     }
 
     ctx.beginPath();
 
-    ctx.fillStyle =
-      "rgba(255,255,255," + s.opacity + ")";
-
     ctx.arc(
-      s.x,
-      s.y,
-      s.size,
+      p.x,
+      p.y,
+      p.r,
       0,
       Math.PI * 2
     );
 
+    ctx.fillStyle =
+      isVip
+      ? "rgba(168,85,247," + p.o + ")"
+      : "rgba(255,255,255," + p.o + ")";
+
     ctx.fill();
-  }
+
+  });
 
   requestAnimationFrame(animate);
-}
 
-ctx.shadowBlur = 0;
+}
 
 animate();
 
