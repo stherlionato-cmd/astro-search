@@ -4525,14 +4525,17 @@ document.getElementById("paymentModal")
 // =========================
 // ❌ ERRO
 // =========================
+
 function renderError(){
 return `
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 
 <title>Astro • Expirado</title>
 
@@ -4542,6 +4545,10 @@ rel="stylesheet"
 />
 
 <style>
+
+html{
+scroll-behavior:smooth;
+}
 
 *{
 margin:0;
@@ -4556,7 +4563,6 @@ overflow-x:hidden;
 color:#fff;
 
 min-height:100vh;
-
 position:relative;
 
 display:flex;
@@ -4566,9 +4572,7 @@ justify-content:center;
 text-rendering:optimizeLegibility;
 }
 
-/* =========================
-BG
-========================= */
+/* BG */
 
 .bg{
 position:fixed;
@@ -4585,7 +4589,6 @@ height:100%;
 }
 
 .nebula{
-
 position:absolute;
 
 width:700px;
@@ -4629,9 +4632,7 @@ transform:translateY(0) scale(1);
 
 }
 
-/* =========================
-WRAP
-========================= */
+/* WRAP */
 
 .wrap{
 position:relative;
@@ -4643,12 +4644,9 @@ max-width:1180px;
 padding:40px 18px 80px;
 }
 
-/* =========================
-TOP
-========================= */
+/* TOP */
 
 .top{
-
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -4657,7 +4655,6 @@ margin-bottom:40px;
 }
 
 .logo{
-
 display:flex;
 align-items:center;
 gap:12px;
@@ -4668,7 +4665,6 @@ letter-spacing:-1px;
 }
 
 .logo-icon{
-
 width:46px;
 height:46px;
 
@@ -4693,7 +4689,6 @@ box-shadow:
 }
 
 .badge{
-
 padding:10px 16px;
 
 border-radius:999px;
@@ -4711,24 +4706,19 @@ border:
 color:#c4b5fd;
 }
 
-/* =========================
-HERO
-========================= */
+/* HERO */
 
 .hero{
-
 display:grid;
 grid-template-columns:1fr 420px;
 gap:30px;
 align-items:center;
 
-margin-bottom:50px;
+margin-bottom:60px;
 }
 
 .hero-card{
-
 position:relative;
-
 overflow:hidden;
 
 padding:40px;
@@ -4776,7 +4766,6 @@ opacity:1;
 }
 
 .expired{
-
 display:inline-flex;
 align-items:center;
 gap:8px;
@@ -4801,7 +4790,6 @@ color:#fca5a5;
 }
 
 .title{
-
 font-size:72px;
 line-height:.92;
 
@@ -4813,7 +4801,6 @@ margin-bottom:24px;
 }
 
 .title span{
-
 background:
 linear-gradient(
 90deg,
@@ -4827,7 +4814,6 @@ linear-gradient(
 }
 
 .text{
-
 font-size:16px;
 line-height:1.9;
 
@@ -4845,9 +4831,11 @@ flex-wrap:wrap;
 }
 
 .btn{
-
 height:60px;
 padding:0 30px;
+
+border:none;
+cursor:pointer;
 
 border-radius:20px;
 
@@ -4865,7 +4853,6 @@ transition:.3s;
 }
 
 .btn-primary{
-
 background:
 linear-gradient(
 135deg,
@@ -4885,7 +4872,6 @@ transform:translateY(-4px);
 }
 
 .btn-secondary{
-
 background:
 rgba(255,255,255,.03);
 
@@ -4893,17 +4879,9 @@ border:
 1px solid rgba(255,255,255,.08);
 }
 
-/* =========================
-SIDE CARD
-========================= */
-
-.side{
-
-position:relative;
-}
+/* SIDE */
 
 .side-card{
-
 position:relative;
 
 padding:24px;
@@ -4940,7 +4918,6 @@ background:#334155;
 }
 
 .term{
-
 background:#020617;
 
 border-radius:18px;
@@ -4954,7 +4931,6 @@ min-height:280px;
 }
 
 .line{
-
 font-size:13px;
 line-height:2;
 
@@ -4974,12 +4950,10 @@ animation:appear .5s forwards;
 .line:nth-child(5){animation-delay:1.8s}
 
 @keyframes appear{
-
 to{
 opacity:1;
 transform:translateY(0);
 }
-
 }
 
 .red{color:#f87171}
@@ -4987,12 +4961,9 @@ transform:translateY(0);
 .blue{color:#60a5fa}
 .purple{color:#c084fc}
 
-/* =========================
-PLANS
-========================= */
+/* PLANS */
 
 .plans-title{
-
 font-size:38px;
 font-weight:800;
 
@@ -5002,7 +4973,6 @@ margin-bottom:24px;
 }
 
 .plan-box{
-
 display:grid;
 grid-template-columns:
 repeat(auto-fit,minmax(260px,1fr));
@@ -5011,7 +4981,6 @@ gap:20px;
 }
 
 .plan{
-
 position:relative;
 overflow:hidden;
 
@@ -5033,16 +5002,13 @@ transition:.35s;
 }
 
 .plan:hover{
-
-transform:
-translateY(-8px);
+transform:translateY(-8px);
 
 box-shadow:
 0 30px 80px rgba(0,0,0,.6);
 }
 
 .plan-premium{
-
 border:
 1px solid rgba(168,85,247,.32);
 
@@ -5051,7 +5017,6 @@ box-shadow:
 }
 
 .tag{
-
 display:inline-flex;
 
 padding:8px 12px;
@@ -5078,7 +5043,6 @@ margin-bottom:12px;
 }
 
 .price{
-
 font-size:48px;
 font-weight:800;
 letter-spacing:-3px;
@@ -5103,7 +5067,6 @@ color:#d1d5db;
 }
 
 .plan-btn{
-
 width:100%;
 height:56px;
 
@@ -5136,9 +5099,171 @@ transition:.25s;
 transform:translateY(-3px);
 }
 
-/* =========================
-RESPONSIVE
-========================= */
+/* MODAL */
+
+.modal{
+position:fixed;
+inset:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:20px;
+
+background:
+rgba(2,6,23,.82);
+
+backdrop-filter:blur(20px);
+
+opacity:0;
+visibility:hidden;
+
+transition:.35s;
+
+z-index:99999;
+}
+
+.modal.show{
+opacity:1;
+visibility:visible;
+}
+
+.modal-box{
+width:100%;
+max-width:420px;
+
+padding:26px;
+
+border-radius:30px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.96),
+rgba(2,6,23,.98)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 40px 120px rgba(0,0,0,.8),
+0 0 60px rgba(168,85,247,.18);
+}
+
+.modal-title{
+font-size:24px;
+font-weight:800;
+
+margin-bottom:20px;
+}
+
+.modal-plan{
+padding:16px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+margin-bottom:18px;
+}
+
+.modal-plan small{
+display:block;
+opacity:.5;
+margin-bottom:6px;
+}
+
+.pix-label{
+font-size:12px;
+opacity:.6;
+
+margin-bottom:10px;
+}
+
+.pix-box{
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:14px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+margin-bottom:18px;
+}
+
+.pix-key{
+flex:1;
+
+font-size:12px;
+line-height:1.6;
+
+word-break:break-all;
+}
+
+.copy-pix{
+width:48px;
+height:48px;
+
+border:none;
+cursor:pointer;
+
+border-radius:16px;
+
+color:#fff;
+font-size:18px;
+
+background:
+rgba(255,255,255,.06);
+}
+
+.modal-text{
+font-size:14px;
+line-height:1.8;
+
+color:#cbd5e1;
+
+margin-bottom:22px;
+}
+
+.support-btn{
+height:56px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border-radius:18px;
+
+text-decoration:none;
+color:#fff;
+
+font-weight:700;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.32),
+rgba(59,130,246,.32)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+}
+
+/* RESPONSIVE */
 
 @media(max-width:980px){
 
@@ -5173,183 +5298,6 @@ gap:18px;
 align-items:flex-start;
 }
 
-}
-
-/* MODAL */
-
-.modal{
-position:fixed;
-inset:0;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-padding:20px;
-
-background:
-rgba(2,6,23,.82);
-
-backdrop-filter:blur(20px);
-
-opacity:0;
-visibility:hidden;
-
-transition:.35s;
-
-z-index:99999;
-}
-
-.modal.show{
-opacity:1;
-visibility:visible;
-}
-
-.modal-box{
-
-width:100%;
-max-width:420px;
-
-padding:26px;
-
-border-radius:30px;
-
-background:
-linear-gradient(
-180deg,
-rgba(15,23,42,.96),
-rgba(2,6,23,.98)
-);
-
-border:
-1px solid rgba(255,255,255,.08);
-
-box-shadow:
-0 40px 120px rgba(0,0,0,.8),
-0 0 60px rgba(168,85,247,.18);
-}
-
-.modal-title{
-
-font-size:24px;
-font-weight:800;
-
-margin-bottom:20px;
-}
-
-.modal-plan{
-
-padding:16px;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,.04);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-margin-bottom:18px;
-}
-
-.modal-plan small{
-display:block;
-opacity:.5;
-margin-bottom:6px;
-}
-
-.pix-label{
-
-font-size:12px;
-opacity:.6;
-
-margin-bottom:10px;
-}
-
-.pix-box{
-
-display:flex;
-align-items:center;
-gap:12px;
-
-padding:14px;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,.04);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-margin-bottom:18px;
-}
-
-.pix-key{
-
-flex:1;
-
-font-size:12px;
-line-height:1.6;
-
-word-break:break-all;
-}
-
-.copy-pix{
-
-width:48px;
-height:48px;
-
-border:none;
-cursor:pointer;
-
-border-radius:16px;
-
-color:#fff;
-font-size:18px;
-
-background:
-rgba(255,255,255,.06);
-}
-
-.modal-text{
-
-font-size:14px;
-line-height:1.8;
-
-color:#cbd5e1;
-
-margin-bottom:22px;
-}
-
-.support-btn{
-
-height:56px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-border-radius:18px;
-
-text-decoration:none;
-color:#fff;
-
-font-weight:700;
-
-background:
-linear-gradient(
-135deg,
-rgba(168,85,247,.32),
-rgba(59,130,246,.32)
-);
-
-border:
-1px solid rgba(255,255,255,.08);
-}
-
-html{
-scroll-behavior:smooth;
 }
 
 </style>
@@ -5402,29 +5350,26 @@ Seu acesso
 </div>
 
 <div class="text">
-
 Essa consulta foi removida automaticamente do sistema.
 Desbloqueie um plano premium e gere consultas ilimitadas
 sem perder acesso aos resultados.
-
 </div>
 
 <div class="actions">
 
-<a
-href="https://t.me/consultasdedados_bot"
-target="_blank"
+<button
 class="btn btn-primary"
+onclick="window.open('https://t.me/consultasdedados_bot','_blank')"
 >
 GERAR NOVA CONSULTA
-</a>
+</button>
 
-<a
-href="#plans"
+<button
 class="btn btn-secondary"
+onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})"
 >
 VER PLANOS
-</a>
+</button>
 
 </div>
 
@@ -5470,7 +5415,10 @@ VER PLANOS
 
 </section>
 
-<div class="plans-title" id="plans">
+<div
+class="plans-title"
+id="plans"
+>
 Escolha seu plano
 </div>
 
@@ -5505,7 +5453,7 @@ Desbloquear
 
 </div>
 
-<div class="plan">
+<div class="plan plan-premium">
 
 <div class="tag">
 MAIS VENDIDO
@@ -5538,9 +5486,10 @@ onclick="openPayment('Plano Semanal • R$24,90')"
 
 </div>
 
-
-
-<div class="modal" id="paymentModal">
+<div
+class="modal"
+id="paymentModal"
+>
 
 <div class="modal-box">
 
@@ -5597,11 +5546,13 @@ Já paguei
 
 </div>
 
-<script>
+</body>
+</html>
 
-/* =========================
-STARS
-========================= */
+`
+}
+
+function initErrorPage(){
 
 const c =
 document.getElementById("stars");
@@ -5618,7 +5569,7 @@ c.height = innerHeight;
 
 resize();
 
-addEventListener("resize",resize);
+window.addEventListener("resize",resize);
 
 const stars=[];
 
@@ -5635,52 +5586,9 @@ o:Math.random()*0.6,
 
 s:Math.random()*0.08+.01
 
-})
-
-}
-
-function openPayment(plan){
-
-document
-.getElementById("modalPlanName")
-.innerText = plan;
-
-document
-.getElementById("paymentModal")
-.classList.add("show");
-
-}
-
-function copyPix(){
-
-navigator.clipboard.writeText(
-"f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
-);
-
-const btn =
-document.querySelector(".copy-pix");
-
-btn.innerText = "✓";
-
-setTimeout(()=>{
-btn.innerText = "⧉";
-},1400);
-
-}
-
-document
-.getElementById("paymentModal")
-.addEventListener("click",e=>{
-
-if(e.target.id==="paymentModal"){
-
-document
-.getElementById("paymentModal")
-.classList.remove("show");
-
-}
-
 });
+
+}
 
 function render(){
 
@@ -5720,9 +5628,53 @@ requestAnimationFrame(render);
 
 render();
 
-/* =========================
-GLOW EFFECT
-========================= */
+/* MODAL */
+
+window.openPayment = function(plan){
+
+document
+.getElementById("modalPlanName")
+.innerText = plan;
+
+document
+.getElementById("paymentModal")
+.classList.add("show");
+
+}
+
+window.copyPix = function(){
+
+navigator.clipboard.writeText(
+"f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
+);
+
+const btn =
+document.querySelector(".copy-pix");
+
+btn.innerText = "✓";
+
+setTimeout(()=>{
+
+btn.innerText = "⧉";
+
+},1400);
+
+}
+
+const modal =
+document.getElementById("paymentModal");
+
+modal.addEventListener("click",e=>{
+
+if(e.target === modal){
+
+modal.classList.remove("show");
+
+}
+
+});
+
+/* GLOW */
 
 const hero =
 document.getElementById("heroCard");
@@ -5732,17 +5684,21 @@ hero.addEventListener("mousemove",e=>{
 const rect =
 hero.getBoundingClientRect();
 
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
+const x =
+e.clientX - rect.left;
+
+const y =
+e.clientY - rect.top;
 
 hero.style.setProperty("--mx",x+"px");
 hero.style.setProperty("--my",y+"px");
 
 });
 
-</script>
-
-</body>
-</html>
-`
 }
+
+/* EXECUTA */
+
+container.innerHTML = renderError();
+
+initErrorPage();
