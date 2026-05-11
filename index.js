@@ -3330,16 +3330,12 @@ inset 0 0 20px ${isVip
 }
 
 canvas{
-  position:fixed;
-
-  inset:0;
-
-  width:100%;
-  height:100%;
-
-  z-index:0;
-
-  pointer-events:none;
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+z-index:0;
+pointer-events:none;
 }
 
 /* =========================
@@ -5128,106 +5124,74 @@ btn.style.transform = "translate(" + (x*0.2) + "px, " + (y*0.2) + "px)";
   });
 });
 
-// ⭐ ESTRELAS PREMIUM
-// ⭐ BACKGROUND PREMIUM
+/* =========================
+PARTICLES
+========================= */
 
 const c = document.getElementById("bg");
 const ctx = c.getContext("2d");
 
 function resize(){
 
-  c.width = window.innerWidth;
-  c.height = Math.max(
-    document.body.scrollHeight,
-    window.innerHeight
-  );
+  c.width = innerWidth;
+  c.height = innerHeight;
+
 }
 
 resize();
 
-window.addEventListener("resize", resize);
-
-const isVip = ${JSON.stringify(isVip)}
-
-// =========================
-// ✨ PARTICLES PREMIUM
-// =========================
+addEventListener("resize", resize);
 
 const particles = [];
 
-const PARTICLE_COUNT =
-  isVip ? 220 : 140;
-
-for(let i = 0; i < PARTICLE_COUNT; i++){
+for(let i=0;i<180;i++){
 
   particles.push({
 
-    x: Math.random() * c.width,
-    y: Math.random() * c.height,
+    x:Math.random()*c.width,
+    y:Math.random()*c.height,
 
-    r: Math.random() * 2.2,
+    r:Math.random()*2,
 
-    o: Math.random() * 0.35 + 0.03,
+    o:Math.random()*0.4,
 
-    s: Math.random() * 0.45 + 0.05,
+    s:Math.random()*0.4+.05
 
-    vx:(Math.random() - .5) * .15,
-    vy:(Math.random() - .5) * .15
-
-  });
+  })
 
 }
 
-function animate(){
+function render(){
 
   ctx.clearRect(0,0,c.width,c.height);
 
-  particles.forEach(p=>{
+  for(const p of particles){
 
-    p.x += p.vx;
-    p.y += p.vy;
+    p.y += p.s;
 
-    // movimento vertical suave
-    p.y += p.s * .15;
+    if(p.y > c.height){
 
-    // reset
-    if(p.y > c.height + 20){
-      p.y = -20;
-      p.x = Math.random() * c.width;
-    }
+      p.y = -10;
+      p.x = Math.random()*c.width;
 
-    if(p.x > c.width + 20){
-      p.x = -20;
-    }
-
-    if(p.x < -20){
-      p.x = c.width + 20;
     }
 
     ctx.beginPath();
 
-    ctx.arc(
-      p.x,
-      p.y,
-      p.r,
-      0,
-      Math.PI * 2
-    );
-
     ctx.fillStyle =
-      isVip
-      ? "rgba(168,85,247," + p.o + ")"
-      : "rgba(255,255,255," + p.o + ")";
+    "rgba(255,255,255,"+p.o+")";
+
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 
     ctx.fill();
 
-  });
+  }
 
-  requestAnimationFrame(animate);
+  requestAnimationFrame(render);
 
 }
 
-animate();
+render();
 
 // 💎 PLANS 3D EFFECT
 
