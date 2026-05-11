@@ -5538,6 +5538,65 @@ onclick="openPayment('Plano Semanal • R$24,90')"
 
 </div>
 
+
+
+<div class="modal" id="paymentModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+Astro Premium
+</div>
+
+<div class="modal-plan">
+
+<small>Plano selecionado</small>
+
+<b id="modalPlanName">
+VIP
+</b>
+
+</div>
+
+<div class="pix-label">
+Chave PIX
+</div>
+
+<div class="pix-box">
+
+<div class="pix-key">
+f0d0f3b1-8776-4f06-a254-b6ea3686f71a
+</div>
+
+<button
+class="copy-pix"
+onclick="copyPix()"
+>
+⧉
+</button>
+
+</div>
+
+<div class="modal-text">
+
+Após efetuar o pagamento,
+envie o comprovante para o suporte
+e seu acesso será liberado imediatamente.
+
+</div>
+
+<a
+href="https://t.me/puxardados5"
+target="_blank"
+class="support-btn"
+>
+Já paguei
+</a>
+
+</div>
+
+</div>
+
 <script>
 
 /* =========================
@@ -5682,65 +5741,6 @@ hero.style.setProperty("--my",y+"px");
 });
 
 </script>
-
-<!-- MODAL -->
-
-<div class="modal" id="paymentModal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-Astro Premium
-</div>
-
-<div class="modal-plan">
-
-<small>Plano selecionado</small>
-
-<b id="modalPlanName">
-VIP
-</b>
-
-</div>
-
-<div class="pix-label">
-Chave PIX
-</div>
-
-<div class="pix-box">
-
-<div class="pix-key">
-f0d0f3b1-8776-4f06-a254-b6ea3686f71a
-</div>
-
-<button
-class="copy-pix"
-onclick="copyPix()"
->
-⧉
-</button>
-
-</div>
-
-<div class="modal-text">
-
-Após efetuar o pagamento,
-envie o comprovante para o suporte
-e seu acesso será liberado imediatamente.
-
-</div>
-
-<a
-href="https://t.me/puxardados5"
-target="_blank"
-class="support-btn"
->
-Já paguei
-</a>
-
-</div>
-
-</div>
 
 </body>
 </html>
