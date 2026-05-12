@@ -26,6 +26,133 @@ export default {
 return new Response("OK")
 }
 
+export default {
+
+async fetch(request){
+
+const url = new URL(request.url);
+
+/* =========================
+MINI APP
+========================= */
+
+if(url.pathname === "/app"){
+
+return new Response(renderMiniApp(),{
+
+headers:{
+"content-type":"text/html;charset=UTF-8"
+}
+
+});
+
+}
+
+/* =========================
+CSS
+========================= */
+
+if(url.pathname === "/style.css"){
+
+return new Response(styleCSS,{
+
+headers:{
+"content-type":"text/css"
+}
+
+});
+
+}
+
+/* =========================
+JS
+========================= */
+
+if(url.pathname === "/app.js"){
+
+return new Response(appJS,{
+
+headers:{
+"content-type":"application/javascript"
+}
+
+});
+
+}
+
+/* =========================
+WEBHOOK BOT
+========================= */
+
+if(request.method === "POST"){
+
+return handleTelegram(request);
+
+}
+
+return new Response("Astro Online");
+
+}
+
+}
+
+function renderMiniApp(){
+
+return `
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0"
+/>
+
+<title>Astro Mini App</title>
+
+<link rel="stylesheet" href="/style.css">
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="app">
+
+<h1>Astro Mini App</h1>
+
+<div class="grid">
+
+<div class="card">
+CPF
+</div>
+
+<div class="card">
+Telefone
+</div>
+
+<div class="card">
+Placa
+</div>
+
+</div>
+
+</div>
+
+<script src="/app.js"></script>
+
+</body>
+</html>
+`;
+
+}
+
 // =========================
 // 🔍 VER RESULTADO
 // =========================
