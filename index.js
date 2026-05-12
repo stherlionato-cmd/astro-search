@@ -146,7 +146,7 @@ status: 404
 MINI APP HTML
 ========================= */
 
-function renderMiniApp() {
+function renderMiniApp(){
 
 return `
 
@@ -155,34 +155,1110 @@ return `
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 
 <meta
 name="viewport"
 content="width=device-width,initial-scale=1.0"
 />
 
-<title>Astro Mini App</title>
+<title>Astro Consultas</title>
 
-<link rel="stylesheet" href="/style.css">
+<meta name="theme-color" content="#020617"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet"
+/>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:
+radial-gradient(circle at top left,
+rgba(168,85,247,.18),
+transparent 35%),
+
+radial-gradient(circle at top right,
+rgba(59,130,246,.15),
+transparent 35%),
+
+#020617;
+
+color:#fff;
+
+overflow-x:hidden;
+
+min-height:100vh;
+
+-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility;
+}
+
+canvas{
+
+position:fixed;
+inset:0;
+
+width:100%;
+height:100%;
+
+z-index:0;
+
+pointer-events:none;
+}
+
+.app{
+
+position:relative;
+z-index:2;
+
+padding:18px;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+
+position:relative;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:16px 18px;
+
+border-radius:24px;
+
+margin-bottom:22px;
+
+background:
+linear-gradient(
+135deg,
+rgba(15,23,42,.88),
+rgba(15,23,42,.62)
+);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+backdrop-filter:blur(22px);
+
+overflow:hidden;
+
+box-shadow:
+0 15px 50px rgba(0,0,0,.45);
+
+}
+
+.topbar::before{
+
+content:"";
+
+position:absolute;
+inset:-1px;
+
+border-radius:inherit;
+
+background:
+radial-gradient(
+500px circle at var(--mx,50%) var(--my,50%),
+rgba(255,255,255,.08),
+transparent 40%
+);
+
+opacity:0;
+
+transition:.35s;
+}
+
+.topbar:hover::before{
+opacity:1;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:14px;
+z-index:2;
+}
+
+.logo-icon{
+
+width:48px;
+height:48px;
+
+border-radius:18px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:20px;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.25),
+rgba(59,130,246,.25)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 30px rgba(168,85,247,.25);
+
+animation:spin 8s linear infinite;
+}
+
+@keyframes spin{
+
+0%{
+transform:rotate(0deg);
+}
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+.logo small{
+
+display:block;
+
+font-size:10px;
+letter-spacing:1.6px;
+
+color:#c084fc;
+
+margin-bottom:4px;
+
+font-weight:700;
+}
+
+.logo b{
+
+font-size:17px;
+letter-spacing:-.5px;
+}
+
+.vip-badge{
+
+padding:10px 14px;
+
+border-radius:999px;
+
+font-size:11px;
+font-weight:700;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:#cbd5e1;
+
+z-index:2;
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+
+position:relative;
+
+padding:26px;
+
+border-radius:32px;
+
+overflow:hidden;
+
+margin-bottom:22px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.96),
+rgba(2,6,23,.96)
+);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+box-shadow:
+0 30px 80px rgba(0,0,0,.55);
+
+}
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+width:300px;
+height:300px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(168,85,247,.16),
+transparent 70%
+);
+
+top:-120px;
+right:-120px;
+}
+
+.hero-tag{
+
+display:inline-flex;
+align-items:center;
+gap:8px;
+
+padding:10px 16px;
+
+border-radius:999px;
+
+margin-bottom:18px;
+
+font-size:10px;
+font-weight:700;
+letter-spacing:1px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:#d8b4fe;
+}
+
+.hero h1{
+
+font-size:42px;
+line-height:.95;
+
+font-weight:800;
+
+letter-spacing:-2px;
+
+margin-bottom:18px;
+}
+
+.hero h1 span{
+
+background:
+linear-gradient(
+90deg,
+#fff,
+#c084fc,
+#60a5fa
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+
+font-size:14px;
+line-height:1.8;
+
+color:#94a3b8;
+
+margin-bottom:26px;
+}
+
+.hero-stats{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+
+gap:12px;
+}
+
+.stat{
+
+padding:16px;
+
+border-radius:20px;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+text-align:center;
+}
+
+.stat b{
+
+display:block;
+
+font-size:22px;
+font-weight:800;
+
+margin-bottom:6px;
+}
+
+.stat span{
+
+font-size:11px;
+
+color:#94a3b8;
+}
+
+/* =========================
+SECTION
+========================= */
+
+.section{
+margin-bottom:22px;
+}
+
+.section-head{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+margin-bottom:16px;
+}
+
+.section-title{
+
+font-size:20px;
+font-weight:800;
+
+letter-spacing:-1px;
+}
+
+.section-mini{
+
+font-size:11px;
+letter-spacing:1px;
+font-weight:700;
+
+color:#c084fc;
+}
+
+/* =========================
+CARDS
+========================= */
+
+.grid{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+
+gap:14px;
+}
+
+.card{
+
+position:relative;
+
+overflow:hidden;
+
+padding:20px;
+
+border-radius:24px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.95),
+rgba(2,6,23,.92)
+);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+transition:.28s;
+
+cursor:pointer;
+}
+
+.card:hover{
+
+transform:
+translateY(-5px);
+
+border-color:
+rgba(168,85,247,.25);
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.5);
+}
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+inset:-1px;
+
+border-radius:inherit;
+
+background:
+radial-gradient(
+300px circle at var(--mx,50%) var(--my,50%),
+rgba(255,255,255,.07),
+transparent 40%
+);
+
+opacity:0;
+
+transition:.3s;
+}
+
+.card:hover::before{
+opacity:1;
+}
+
+.icon{
+
+width:54px;
+height:54px;
+
+border-radius:18px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:24px;
+
+margin-bottom:18px;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.22),
+rgba(59,130,246,.22)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 25px rgba(168,85,247,.15);
+}
+
+.card h3{
+
+font-size:16px;
+font-weight:700;
+
+margin-bottom:8px;
+}
+
+.card p{
+
+font-size:12px;
+line-height:1.7;
+
+color:#94a3b8;
+}
+
+.vip-card{
+
+border:
+1px solid rgba(168,85,247,.16);
+}
+
+.free-card{
+
+border:
+1px solid rgba(59,130,246,.14);
+}
+
+/* =========================
+BOTTOM
+========================= */
+
+.bottom{
+
+margin-top:26px;
+
+padding:24px;
+
+border-radius:28px;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.16),
+rgba(59,130,246,.16)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+text-align:center;
+
+overflow:hidden;
+
+position:relative;
+}
+
+.bottom::before{
+
+content:"";
+
+position:absolute;
+
+width:300px;
+height:300px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(255,255,255,.08),
+transparent 70%
+);
+
+top:-180px;
+right:-100px;
+}
+
+.bottom h2{
+
+position:relative;
+
+font-size:28px;
+line-height:1;
+
+font-weight:800;
+
+margin-bottom:14px;
+
+letter-spacing:-1px;
+}
+
+.bottom p{
+
+position:relative;
+
+font-size:13px;
+line-height:1.8;
+
+color:#d1d5db;
+
+margin-bottom:22px;
+}
+
+.bottom button{
+
+position:relative;
+
+width:100%;
+height:58px;
+
+border:none;
+cursor:pointer;
+
+border-radius:18px;
+
+color:#fff;
+
+font-size:14px;
+font-weight:800;
+
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.14),
+rgba(255,255,255,.08)
+);
+
+border:
+1px solid rgba(255,255,255,.12);
+
+transition:.25s;
+}
+
+.bottom button:hover{
+
+transform:
+translateY(-3px);
+
+box-shadow:
+0 10px 40px rgba(168,85,247,.18);
+}
+
+/* =========================
+PARTICLES
+========================= */
+
+.float-particles{
+
+position:absolute;
+inset:0;
+
+pointer-events:none;
+
+overflow:hidden;
+}
+
+.float-particles span{
+
+position:absolute;
+
+bottom:-20px;
+
+width:3px;
+height:3px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.7);
+
+box-shadow:
+0 0 12px rgba(168,85,247,.55),
+0 0 20px rgba(59,130,246,.35);
+
+animation:
+floatParticle linear infinite;
+
+opacity:.7;
+}
+
+@keyframes floatParticle{
+
+0%{
+
+transform:
+translateY(0)
+scale(.6);
+
+opacity:0;
+}
+
+10%{
+opacity:.7;
+}
+
+100%{
+
+transform:
+translateY(-220px)
+scale(1.2);
+
+opacity:0;
+}
+
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:700px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.hero-stats{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
 
 </head>
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <div class="app">
 
-<h1>Astro Mini App</h1>
+<div class="topbar" id="topbar">
 
-<p>
-Mini App funcionando.
-</p>
+<div class="float-particles">
+
+<span style="left:4%;animation-duration:9s"></span>
+<span style="left:12%;animation-duration:12s"></span>
+<span style="left:18%;animation-duration:8s"></span>
+<span style="left:27%;animation-duration:10s"></span>
+<span style="left:36%;animation-duration:13s"></span>
+<span style="left:45%;animation-duration:7s"></span>
+<span style="left:58%;animation-duration:11s"></span>
+<span style="left:67%;animation-duration:9s"></span>
+<span style="left:76%;animation-duration:12s"></span>
+<span style="left:88%;animation-duration:8s"></span>
 
 </div>
 
-<script src="/app.js"></script>
+<div class="logo">
+
+<div class="logo-icon">
+✦
+</div>
+
+<div>
+<small>ASTRO SYSTEM</small>
+<b>CONSULTAS</b>
+</div>
+
+</div>
+
+<div class="vip-badge">
+VIP • ONLINE
+</div>
+
+</div>
+
+<div class="hero">
+
+<div class="hero-tag">
+✦ CONSULTAS PRIVADAS • ACESSO INSTANTÂNEO
+</div>
+
+<h1>
+Consultas
+<span>premium</span>
+em tempo real
+</h1>
+
+<p>
+
+Infraestrutura premium integrada com consultas rápidas,
+respostas instantâneas e recursos VIP desbloqueados.
+
+</p>
+
+<div class="hero-stats">
+
+<div class="stat">
+<b>48K+</b>
+<span>Consultas</span>
+</div>
+
+<div class="stat">
+<b><2s</b>
+<span>Resposta</span>
+</div>
+
+<div class="stat">
+<b>99.9%</b>
+<span>Uptime</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- VIP -->
+
+<div class="section">
+
+<div class="section-head">
+
+<div>
+<div class="section-mini">
+PREMIUM
+</div>
+
+<div class="section-title">
+Consultas VIP
+</div>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card vip-card">
+<div class="icon">👤</div>
+<h3>Nome</h3>
+<p>Busca nominal integrada com múltiplas fontes sincronizadas.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">📱</div>
+<h3>Telefone</h3>
+<p>Consulta de números vinculados e dados relacionados.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">👨‍👩‍👧</div>
+<h3>Parentes</h3>
+<p>Vínculos familiares e conexões registradas.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">🚘</div>
+<h3>Placa</h3>
+<p>Consulta veicular com informações integradas.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">🪪</div>
+<h3>CPF Simples</h3>
+<p>Dados básicos com resposta instantânea.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">💎</div>
+<h3>CPF Completo</h3>
+<p>Dados premium completos liberados para VIP.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">🛒</div>
+<h3>Compras</h3>
+<p>Registros e vínculos complementares disponíveis.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">🏘</div>
+<h3>Vizinhos</h3>
+<p>Dados relacionados à região e proximidade residencial.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">📸</div>
+<h3>Foto</h3>
+<p>Recursos avançados de imagem e vinculação premium.</p>
+</div>
+
+<div class="card vip-card">
+<div class="icon">⚡</div>
+<h3>E mais</h3>
+<p>Recursos extras desbloqueados continuamente.</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- FREE -->
+
+<div class="section">
+
+<div class="section-head">
+
+<div>
+
+<div class="section-mini">
+FREE
+</div>
+
+<div class="section-title">
+Consultas grátis
+</div>
+
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card free-card">
+<div class="icon">🌐</div>
+<h3>IP</h3>
+<p>Consulta básica de IP com localização aproximada.</p>
+</div>
+
+<div class="card free-card">
+<div class="icon">📍</div>
+<h3>CEP</h3>
+<p>Busca rápida de endereço e região vinculada.</p>
+</div>
+
+<div class="card free-card">
+<div class="icon">🏢</div>
+<h3>CNPJ</h3>
+<p>Informações empresariais básicas disponíveis.</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+
+<h2>
+Desbloqueie o VIP
+</h2>
+
+<p>
+
+Acesso premium com consultas avançadas,
+velocidade máxima e recursos exclusivos liberados.
+
+</p>
+
+<button id="openBot">
+🚀 ABRIR BOT
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================
+TELEGRAM
+========================= */
+
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+/* =========================
+PARTICLES BG
+========================= */
+
+const c = document.getElementById("bg");
+const ctx = c.getContext("2d");
+
+function resize(){
+
+c.width = innerWidth;
+c.height = innerHeight;
+
+}
+
+resize();
+
+addEventListener("resize",resize);
+
+const particles = [];
+
+for(let i=0;i<140;i++){
+
+particles.push({
+
+x:Math.random()*c.width,
+y:Math.random()*c.height,
+
+r:Math.random()*2,
+
+o:Math.random()*0.4,
+
+s:Math.random()*0.4+.05
+
+})
+
+}
+
+function render(){
+
+ctx.clearRect(0,0,c.width,c.height);
+
+for(const p of particles){
+
+p.y += p.s;
+
+if(p.y > c.height){
+
+p.y = -10;
+p.x = Math.random()*c.width;
+
+}
+
+ctx.beginPath();
+
+ctx.fillStyle =
+"rgba(255,255,255,"+p.o+")";
+
+ctx.arc(
+p.x,
+p.y,
+p.r,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+}
+
+requestAnimationFrame(render);
+
+}
+
+render();
+
+/* =========================
+LIGHT EFFECT
+========================= */
+
+document
+.querySelectorAll(".card,.topbar")
+.forEach(el=>{
+
+el.addEventListener("mousemove",e=>{
+
+const rect =
+el.getBoundingClientRect();
+
+const x =
+e.clientX - rect.left;
+
+const y =
+e.clientY - rect.top;
+
+el.style.setProperty("--mx",x+"px");
+el.style.setProperty("--my",y+"px");
+
+});
+
+});
+
+/* =========================
+BUTTON
+========================= */
+
+document
+.getElementById("openBot")
+.onclick = ()=>{
+
+tg.close();
+
+};
+
+</script>
 
 </body>
 </html>
@@ -191,55 +1267,6 @@ Mini App funcionando.
 
 }
 
-/* =========================
-CSS
-========================= */
-
-const styleCSS = `
-
-body{
-
-background:#020617;
-color:#fff;
-
-font-family:sans-serif;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-height:100vh;
-
-}
-
-.app{
-
-padding:40px;
-
-border-radius:30px;
-
-background:
-rgba(255,255,255,.05);
-
-backdrop-filter:blur(20px);
-
-}
-
-`
-
-/* =========================
-JS
-========================= */
-
-const appJS = `
-
-const tg = window.Telegram.WebApp;
-
-tg.expand();
-
-console.log("Mini App iniciado");
-
-`
 
 function renderHome(){
 
