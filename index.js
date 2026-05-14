@@ -15,7 +15,7 @@ $PLANOS = [
 
 $CHAVE_PIX = "de02994d-f391-4b9b-acf8-865b721d3082";
 
-$GATEWAY_USER_ID = "8751158979";
+$GATEWAY_USER_ID = "8588669245";
 
 /* LER UPDATE UMA VEZ */
 $update = json_decode(file_get_contents("php://input"), true);
@@ -120,7 +120,7 @@ $BANIDOS = [
 ];
 
 $PAYMENTS = [];
-$GATEWAY_USER_ID = "8751158979";
+$GATEWAY_USER_ID = "8588669245";
 
 function isVip($id){
 
