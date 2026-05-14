@@ -4022,7 +4022,7 @@ document
 function copyPix(){
 
 navigator.clipboard.writeText(
-"f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
+"de02994d-f391-4b9b-acf8-865b721d3082"
 );
 
 const btn =
@@ -6653,7 +6653,7 @@ function closePayment(){
 function copyPix(){
 
   const key =
-    "f0d0f3b1-8776-4f06-a254-b6ea3686f71a"
+    "de02994d-f391-4b9b-acf8-865b721d3082"
 
   navigator.clipboard.writeText(key)
 
