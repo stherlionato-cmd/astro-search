@@ -3146,18 +3146,7 @@ display:none;
     <div class="astro-logo">
 
       <div class="astro-icon">
-        ✦
-      </div>
-
-      <div class="astro-logo-text">
-
-        <div class="astro-mini">
-          ASTRO SYSTEM
-        </div>
-
-        <div class="astro-title">
-          CONSULTAS PREMIUM
-        </div>
+g
 
       </div>
 
@@ -3566,7 +3555,7 @@ Dados completos carregando em segundos.”
 </div>
 
 <div class="social-user">
-— Rafael M.
+— Caio Barella.
 </div>
 
 </div>
@@ -3578,12 +3567,12 @@ Dados completos carregando em segundos.”
 </div>
 
 <div class="social-text">
-“Melhor plataforma privada que já utilizei.
+“Melhor plataforma privada pprt.
 Interface absurda.”
 </div>
 
 <div class="social-user">
-— Lucas T.
+— Tekomodequatro.
 </div>
 
 </div>
@@ -3595,8 +3584,8 @@ Interface absurda.”
 </div>
 
 <div class="social-text">
-“VIP vale muito.
-Velocidade e recursos premium liberados na hora.”
+“Vale MUito apena.
+Fui atendido na mesma hora e tô achando até os parentes das pessoas.”
 </div>
 
 <div class="social-user">
