@@ -6151,7 +6151,7 @@ pointer-events:none;
   </a>
 
   <a
-    href="https://t.me/consultasdedados_bot"
+    href="https://t.me/consultafree_bot"
     target="_blank"
     class="topbar-btn"
   >
@@ -7449,7 +7449,7 @@ o acesso premium ilimitado.
 <div class="actions">
 
 <a
-href="https://t.me/consultasdedados_bot"
+href="https://t.me/consultafree_bot"
 target="_blank"
 class="btn btn-primary"
 >
