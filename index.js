@@ -3109,6 +3109,217 @@ display:none;
   }
 }
 
+.search-section{
+padding:120px 0;
+}
+
+.search-box{
+
+max-width:900px;
+margin:auto;
+
+background:rgba(255,255,255,.04);
+
+backdrop-filter:blur(25px);
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:28px;
+
+padding:35px;
+
+box-shadow:
+0 0 80px rgba(124,92,255,.15);
+
+}
+
+.search-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:25px;
+
+}
+
+.status{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+font-weight:600;
+
+}
+
+.pulse{
+
+width:10px;
+height:10px;
+
+background:#32ff88;
+
+border-radius:50%;
+
+animation:pulse 1.5s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{box-shadow:0 0 0 0 #32ff88;}
+100%{box-shadow:0 0 0 15px transparent;}
+
+}
+
+.tabs{
+
+display:flex;
+gap:12px;
+
+margin-bottom:25px;
+
+}
+
+.tab{
+
+flex:1;
+
+padding:15px;
+
+background:#171717;
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:14px;
+
+color:white;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.tab:hover{
+
+transform:translateY(-3px);
+
+border-color:#7c5cff;
+
+}
+
+.tab.active{
+
+background:linear-gradient(
+90deg,
+#7c5cff,
+#6f4dff
+);
+
+}
+
+.search-form{
+
+display:flex;
+
+gap:15px;
+
+}
+
+.search-form input{
+
+flex:1;
+
+background:#101010;
+
+border:none;
+
+padding:18px;
+
+border-radius:16px;
+
+color:white;
+
+font-size:16px;
+
+outline:none;
+
+}
+
+.search-form button{
+
+padding:18px 35px;
+
+border:none;
+
+border-radius:16px;
+
+background:linear-gradient(
+90deg,
+#7c5cff,
+#9b7cff
+);
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.search-form button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 15px 40px rgba(124,92,255,.35);
+
+}
+
+.result-box{
+
+margin-top:35px;
+
+background:#0f0f12;
+
+border-radius:20px;
+
+padding:30px;
+
+min-height:220px;
+
+border:1px solid rgba(255,255,255,.05);
+
+}
+
+.placeholder{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:25px;
+
+opacity:.7;
+
+height:160px;
+
+}
+
+.placeholder-icon{
+
+font-size:42px;
+
+color:#7c5cff;
+
+}
+
 </style>
 </head>
 
@@ -6109,6 +6320,110 @@ pointer-events:none;
 
 </div>
 
+<!-- CONSULTA -->
+
+<section class="section search-section" id="consulta">
+
+<div class="section-top">
+
+<div class="section-mini">
+CONSULTA ONLINE
+</div>
+
+<div class="section-title">
+Consultar direto pelo navegador
+</div>
+
+<div class="section-sub">
+Escolha o tipo de consulta, informe os dados e receba o resultado instantaneamente.
+</div>
+
+</div>
+
+<div class="search-box">
+
+<div class="search-header">
+
+<div class="status">
+<span class="pulse"></span>
+Gateway Online
+</div>
+
+<div class="secure">
+🔒 Conexão Segura
+</div>
+
+</div>
+
+<div class="tabs">
+
+<button class="tab active" data-type="cpf">
+🪪 CPF
+</button>
+
+<button class="tab" data-type="nome">
+👤 Nome
+</button>
+
+<button class="tab" data-type="placa">
+🚘 Placa
+</button>
+
+</div>
+
+<div class="search-form">
+
+<input
+id="query"
+placeholder="Digite o CPF..."
+autocomplete="off"
+/>
+
+<button id="consultar">
+Consultar
+</button>
+
+</div>
+
+<div class="search-footer">
+
+<div>
+⚡ Tempo médio:
+<b>1.2s</b>
+</div>
+
+<div>
+✔ Resultado em tempo real
+</div>
+
+</div>
+
+</div>
+
+<div id="resultado" class="result-box">
+
+<div class="placeholder">
+
+<div class="placeholder-icon">
+✦
+</div>
+
+<div>
+
+<h3>Nenhuma consulta realizada</h3>
+
+<p>
+Os resultados aparecerão aqui após a consulta.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
 <div class="topbar-left">
 
   <div class="astro-logo">
@@ -6443,6 +6758,52 @@ function toggleSection(el){
   const section = el.parentElement
   section.classList.toggle("closed")
 }
+
+const input = document.getElementById("query");
+const tabs = document.querySelectorAll(".tab");
+
+let tipo = "cpf";
+
+tabs.forEach(tab => {
+
+tab.onclick = () => {
+
+tabs.forEach(x=>x.classList.remove("active"));
+
+tab.classList.add("active");
+
+tipo = tab.dataset.type;
+
+if(tipo==="cpf")
+input.placeholder="Digite o CPF";
+
+if(tipo==="nome")
+input.placeholder="Digite o nome completo";
+
+if(tipo==="placa")
+input.placeholder="Digite a placa";
+
+};
+
+});
+
+document.getElementById("consultar").onclick=()=>{
+
+const valor=input.value.trim();
+
+if(!valor)return;
+
+document.getElementById("resultado").innerHTML=`
+<div class="loading">
+
+<div class="spinner"></div>
+
+Consultando <b>${tipo.toUpperCase()}</b>...
+
+</div>
+`;
+
+};
 
 const cards = document.querySelectorAll(".card");
 
