@@ -5,7 +5,7 @@ async fetch(request, env) {
 const url = new URL(request.url)
 
 /* =========================
-MINI APP
+APPMINI
 ========================= */
 
 if (url.pathname === "/app") {
@@ -3109,214 +3109,452 @@ display:none;
   }
 }
 
-.search-section{
-padding:120px 0;
+/* =========================================
+🚀 ASTRO CONSULT BOX
+========================================= */
+
+.astro-consult-section{
+
+position:relative;
+
+margin-bottom:100px;
+
+z-index:10;
 }
 
-.search-box{
+.astro-consult-glow{
 
-max-width:900px;
-margin:auto;
+position:absolute;
 
-background:rgba(255,255,255,.04);
+width:600px;
+height:600px;
 
-backdrop-filter:blur(25px);
+left:50%;
+top:50%;
 
-border:1px solid rgba(255,255,255,.08);
+transform:translate(-50%,-50%);
 
-border-radius:28px;
+background:
+radial-gradient(
+circle,
+rgba(168,85,247,.18),
+transparent 70%
+);
 
-padding:35px;
+filter:blur(80px);
+
+pointer-events:none;
+}
+
+.astro-consult-box{
+
+position:relative;
+
+overflow:hidden;
+
+padding:32px;
+
+border-radius:34px;
+
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.92),
+rgba(2,6,23,.98)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(24px);
 
 box-shadow:
-0 0 80px rgba(124,92,255,.15);
+0 30px 120px rgba(0,0,0,.65),
+0 0 80px rgba(168,85,247,.12);
 
 }
 
-.search-header{
+.astro-consult-box::before{
+
+content:"";
+
+position:absolute;
+inset:-1px;
+
+border-radius:inherit;
+
+background:
+radial-gradient(
+500px circle at var(--mx,50%) var(--my,50%),
+rgba(255,255,255,.08),
+transparent 40%
+);
+
+opacity:0;
+transition:.35s;
+}
+
+.astro-consult-box:hover::before{
+opacity:1;
+}
+
+.astro-consult-header{
 
 display:flex;
+align-items:center;
 justify-content:space-between;
-align-items:center;
 
-margin-bottom:25px;
+gap:20px;
 
+margin-bottom:30px;
 }
 
-.status{
+.astro-consult-mini{
+
+font-size:11px;
+font-weight:700;
+letter-spacing:1.5px;
+
+color:#c084fc;
+
+margin-bottom:8px;
+}
+
+.astro-consult-title{
+
+font-size:34px;
+font-weight:800;
+
+letter-spacing:-2px;
+}
+
+.astro-live-badge{
+
+height:42px;
+padding:0 18px;
+
+border-radius:999px;
 
 display:flex;
 align-items:center;
-gap:10px;
+justify-content:center;
 
-font-weight:600;
+font-size:12px;
+font-weight:700;
 
+color:#4ade80;
+
+background:
+rgba(74,222,128,.08);
+
+border:
+1px solid rgba(74,222,128,.18);
 }
 
-.pulse{
+.astro-token-box{
 
-width:10px;
-height:10px;
-
-background:#32ff88;
-
-border-radius:50%;
-
-animation:pulse 1.5s infinite;
-
+margin-bottom:24px;
 }
 
-@keyframes pulse{
+.astro-token-box label{
 
-0%{box-shadow:0 0 0 0 #32ff88;}
-100%{box-shadow:0 0 0 15px transparent;}
+display:block;
 
+font-size:12px;
+font-weight:700;
+
+margin-bottom:12px;
+
+color:#cbd5e1;
 }
 
-.tabs{
+.astro-input-wrap{
+
+display:flex;
+gap:12px;
+}
+
+.astro-input-wrap input,
+.astro-search-box input{
+
+flex:1;
+
+height:58px;
+
+padding:0 18px;
+
+border:none;
+outline:none;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:#fff;
+
+font-size:14px;
+}
+
+.astro-input-wrap input::placeholder,
+.astro-search-box input::placeholder{
+color:#64748b;
+}
+
+.astro-input-wrap button,
+.astro-search-box button{
+
+height:58px;
+
+padding:0 24px;
+
+border:none;
+cursor:pointer;
+
+border-radius:18px;
+
+color:#fff;
+
+font-size:13px;
+font-weight:700;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.35),
+rgba(59,130,246,.35)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+transition:.25s;
+}
+
+.astro-input-wrap button:hover,
+.astro-search-box button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+0 12px 40px rgba(168,85,247,.18);
+}
+
+#tokenStatus{
+
+display:block;
+
+margin-top:10px;
+
+font-size:12px;
+
+color:#64748b;
+}
+
+.astro-consult-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(180px,1fr));
+
+gap:14px;
+
+margin-bottom:24px;
+}
+
+.consult-type{
+
+height:58px;
+
+border:none;
+cursor:pointer;
+
+border-radius:20px;
+
+font-size:13px;
+font-weight:700;
+
+color:#cbd5e1;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+transition:.25s;
+}
+
+.consult-type:hover{
+
+transform:translateY(-3px);
+
+background:
+rgba(255,255,255,.05);
+}
+
+.consult-type.active{
+
+color:#fff;
+
+background:
+linear-gradient(
+135deg,
+rgba(168,85,247,.28),
+rgba(59,130,246,.28)
+);
+
+border:
+1px solid rgba(168,85,247,.25);
+
+box-shadow:
+0 0 30px rgba(168,85,247,.12);
+}
+
+.astro-search-box{
 
 display:flex;
 gap:12px;
 
-margin-bottom:25px;
-
+margin-bottom:24px;
 }
 
-.tab{
+.astro-loading{
 
-flex:1;
+display:none;
 
-padding:15px;
-
-background:#171717;
-
-border:1px solid rgba(255,255,255,.08);
-
-border-radius:14px;
-
-color:white;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.tab:hover{
-
-transform:translateY(-3px);
-
-border-color:#7c5cff;
-
-}
-
-.tab.active{
-
-background:linear-gradient(
-90deg,
-#7c5cff,
-#6f4dff
-);
-
-}
-
-.search-form{
-
-display:flex;
-
-gap:15px;
-
-}
-
-.search-form input{
-
-flex:1;
-
-background:#101010;
-
-border:none;
+align-items:center;
+gap:12px;
 
 padding:18px;
 
-border-radius:16px;
+border-radius:18px;
 
-color:white;
+background:
+rgba(255,255,255,.03);
 
-font-size:16px;
+border:
+1px solid rgba(255,255,255,.06);
 
-outline:none;
+font-size:14px;
 
+margin-bottom:20px;
 }
 
-.search-form button{
+.loader{
 
-padding:18px 35px;
+width:18px;
+height:18px;
 
-border:none;
+border-radius:50%;
 
-border-radius:16px;
+border:
+2px solid rgba(255,255,255,.15);
 
-background:linear-gradient(
-90deg,
-#7c5cff,
-#9b7cff
-);
+border-top:
+2px solid #c084fc;
 
-color:white;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.3s;
-
+animation:spin .7s linear infinite;
 }
 
-.search-form button:hover{
-
-transform:translateY(-2px);
-
-box-shadow:0 15px 40px rgba(124,92,255,.35);
-
+@keyframes spin{
+to{
+transform:rotate(360deg);
+}
 }
 
-.result-box{
+.astro-result{
 
-margin-top:35px;
+padding:24px;
 
-background:#0f0f12;
+border-radius:24px;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+min-height:140px;
+
+font-size:14px;
+line-height:1.8;
+
+color:#d1d5db;
+
+overflow:auto;
+}
+
+.astro-card{
+
+padding:20px;
 
 border-radius:20px;
 
-padding:30px;
+background:
+linear-gradient(
+180deg,
+rgba(15,23,42,.95),
+rgba(2,6,23,.95)
+);
 
-min-height:220px;
+border:
+1px solid rgba(255,255,255,.06);
 
-border:1px solid rgba(255,255,255,.05);
-
+margin-top:16px;
 }
 
-.placeholder{
+.astro-card-title{
+
+font-size:18px;
+font-weight:700;
+
+margin-bottom:16px;
+
+color:#fff;
+}
+
+.astro-line{
 
 display:flex;
+justify-content:space-between;
 
-align-items:center;
+gap:20px;
 
-justify-content:center;
+padding:10px 0;
 
-gap:25px;
-
-opacity:.7;
-
-height:160px;
-
+border-bottom:
+1px solid rgba(255,255,255,.05);
 }
 
-.placeholder-icon{
+.astro-line:last-child{
+border-bottom:none;
+}
 
-font-size:42px;
+.astro-key{
+color:#64748b;
+}
 
-color:#7c5cff;
+.astro-value{
+font-weight:600;
+text-align:right;
+}
+
+@media(max-width:700px){
+
+.astro-input-wrap,
+.astro-search-box{
+
+flex-direction:column;
+}
+
+.astro-consult-title{
+font-size:28px;
+}
 
 }
 
@@ -3426,7 +3664,7 @@ e recursos avançados desbloqueados em segundos.
 <div class="hero-actions">
 
 <a
-href="https://t.me/consultasdedados_bot"
+href="https://t.me/consultafree_bot"
 target="_blank"
 class="btn btn-primary"
 >
@@ -3498,6 +3736,114 @@ Acesso autorizado
 
 </div>
 
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================================
+🚀 ASTRO CONSULT BOX
+COLE ISSO ABAIXO DA HERO
+ANTES DA SECTION STATS
+========================================= -->
+
+<section class="astro-consult-section">
+
+<div class="astro-consult-glow"></div>
+
+<div class="astro-consult-box">
+
+<div class="astro-consult-header">
+
+<div>
+
+<div class="astro-consult-mini">
+✦ ASTRO PRIVATE API
+</div>
+
+<div class="astro-consult-title">
+Painel de Consultas Premium
+</div>
+
+</div>
+
+<div class="astro-live-badge">
+● ONLINE
+</div>
+
+</div>
+
+<div class="astro-token-box">
+
+<label>
+TOKEN PRIVADO
+</label>
+
+<div class="astro-input-wrap">
+
+<input
+type="password"
+id="astroToken"
+placeholder="Insira seu token premium"
+/>
+
+<button onclick="saveToken()">
+VALIDAR
+</button>
+
+</div>
+
+<small id="tokenStatus">
+Seu token não fica salvo no servidor.
+</small>
+
+</div>
+
+<div class="astro-consult-grid">
+
+<button class="consult-type active" data-type="nome">
+👤 CONSULTA NOME
+</button>
+
+<button class="consult-type" data-type="cpf">
+🪪 CONSULTA CPF
+</button>
+
+<button class="consult-type" data-type="telefone">
+📱 CONSULTA TELEFONE
+</button>
+
+<button class="consult-type" data-type="placa">
+🚘 CONSULTA PLACA
+</button>
+
+</div>
+
+<div class="astro-search-box">
+
+<input
+type="text"
+id="astroQuery"
+placeholder="Digite o nome para consultar..."
+/>
+
+<button onclick="consultarAstro()">
+CONSULTAR
+</button>
+
+</div>
+
+<div class="astro-loading" id="astroLoading">
+<div class="loader"></div>
+Consultando base premium...
+</div>
+
+<div
+class="astro-result"
+id="astroResult"
+>
+Nenhuma consulta realizada.
 </div>
 
 </div>
@@ -3773,11 +4119,11 @@ Quem usa recomenda
 
 <div class="social-text">
 “Sistema extremamente rápido.
-Dados completos carregando em segundos.”
+Achei tuuudo das pessoas só pelo telefone delas.”
 </div>
 
 <div class="social-user">
-— Rafael M.
+— Safira.
 </div>
 
 </div>
@@ -3790,11 +4136,11 @@ Dados completos carregando em segundos.”
 
 <div class="social-text">
 “Melhor plataforma privada que já utilizei.
-Interface absurda.”
+Consulta absurda.”
 </div>
 
 <div class="social-user">
-— Lucas T.
+— Blanc.
 </div>
 
 </div>
@@ -3806,8 +4152,8 @@ Interface absurda.”
 </div>
 
 <div class="social-text">
-“VIP vale muito.
-Velocidade e recursos premium liberados na hora.”
+“Vitalício vale muito.
+Velocidade e acesso liberados na hora.”
 </div>
 
 <div class="social-user">
@@ -3824,249 +4170,65 @@ Velocidade e recursos premium liberados na hora.”
 
 <section class="section" id="plans">
 
-<div class="section-top">
-
-<div class="section-mini">
-PLANOS
-</div>
-
-<div class="section-title">
-Escolha seu acesso
-</div>
-
-</div>
+  <div class="section-top">
 
-<div class="plan-box">
-
-<div class="plan">
+    <div class="section-mini">
+      PLANO
+    </div>
 
-<div class="plan-tag">
-ACESSO RÁPIDO
-</div>
+    <div class="section-title">
+      Desbloqueie seu acesso
+    </div>
 
-<div class="plan-title">
-Diário
-</div>
-
-<div class="price">
-<div class="new">
-R$14<small>,90</small>
-</div>
-</div>
-
-<div class="features">
-<div>✦ Acesso por 24 horas</div>
-<div>✦ Consultas básicas</div>
-<div>✦ Liberação imediata</div>
-<div>✦ Suporte rápido</div>
-</div>
-
-<div class="live-buy">
-🔥 12 acessos liberados hoje
-</div>
-
-<div class="stock">
-<div class="stock-fill"></div>
-</div>
+  </div>
 
-<button
-class="plan-btn"
-onclick="openPayment('Plano Diário • R$14,90')"
->
-Desbloquear
-</button>
+  <div class="plan-box">
 
-</div>
+    <div class="plan plan-premium">
 
-<div class="plan">
+      <div class="plan-tag">
+        ILIMITADO
+      </div>
 
-<div class="plan-tag">
-MAIS ESCOLHIDO
-</div>
+      <div class="plan-title">
+        Vitalício
+      </div>
 
-<div class="plan-title">
-Semanal
-</div>
+      <div class="price">
 
-<div class="price">
-<div class="new">
-R$24<small>,90</small>
-</div>
-</div>
+        <div class="new">
+          R$20<small>,00</small>
+        </div>
 
-<div class="features">
-<div>✦ Consultas ilimitadas</div>
-<div>✦ Prioridade máxima</div>
-<div>✦ Recursos premium</div>
-<div>✦ Atualizações liberadas</div>
-</div>
+      </div>
 
-<div class="live-buy">
-🔥 31 acessos liberados hoje
-</div>
+      <div class="features">
+        <div>✦ Acesso ilimitado para sempre</div>
+        <div>✦ Sem limites</div>
+        <div>✦ Tudo desbloqueado</div>
+        <div>✦ Pagamento apenas uma vez</div>
+        <div>✦ Atualizações futuras grátis</div>
+        <div>✦ Prioridade absoluta</div>
+      </div>
 
-<div class="stock">
-<div class="stock-fill"></div>
-</div>
+      <div class="live-buy">
+        🔥 53 desbloqueios hoje
+      </div>
 
-<button
-class="plan-btn"
-onclick="openPayment('Plano Semanal • R$24,90')"
->
-Desbloquear
-</button>
+      <div class="stock">
+        <div class="stock-fill"></div>
+      </div>
 
-</div>
+      <button
+        class="plan-btn"
+        onclick="openPayment('Plano Vitalício • R$20,00')"
+      >
+        🚀 DESBLOQUEAR
+      </button>
 
-<div class="plan plan-premium">
+    </div>
 
-<div class="plan-tag">
-VITALÍCIO
-</div>
-
-<div class="plan-title">
-Premium
-</div>
-
-<div class="price">
-
-<div class="old">
-R$50
-</div>
-
-<div class="new">
-R$20<small>,90</small>
-</div>
-
-</div>
-
-<div class="features">
-<div>✦ Acesso vitalício</div>
-<div>✦ Sem limites</div>
-<div>✦ Tudo desbloqueado</div>
-<div>✦ Recursos premium</div>
-<div>✦ Atualizações futuras grátis</div>
-<div>✦ Prioridade absoluta</div>
-</div>
-
-<div class="live-buy">
-🔥 53 desbloqueios hoje
-</div>
-
-<div class="stock">
-<div class="stock-fill"></div>
-</div>
-
-<button
-class="plan-btn"
-onclick="openPayment('Plano Vitalício • R$20,90')"
->
-🚀 DESBLOQUEAR
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- FAQ -->
-
-<section class="section">
-
-<div class="section-top">
-
-<div class="section-mini">
-FAQ
-</div>
-
-<div class="section-title">
-Dúvidas frequentes
-</div>
-
-</div>
-
-<div class="faq-wrap">
-
-<div class="faq">
-
-<div class="faq-head" onclick="toggleFaq(this)">
-<div class="faq-title">
-O acesso é liberado na hora?
-</div>
-<div>+</div>
-</div>
-
-<div class="faq-body">
-<div class="faq-content">
-Após o envio do comprovante o acesso
-é liberado rapidamente.
-</div>
-</div>
-
-</div>
-
-<div class="faq">
-
-<div class="faq-head" onclick="toggleFaq(this)">
-<div class="faq-title">
-Funciona pelo celular?
-</div>
-<div>+</div>
-</div>
-
-<div class="faq-body">
-<div class="faq-content">
-Sim. O sistema funciona perfeitamente
-em dispositivos móveis.
-</div>
-</div>
-
-</div>
-
-<div class="faq">
-
-<div class="faq-head" onclick="toggleFaq(this)">
-<div class="faq-title">
-O VIP possui limites?
-</div>
-<div>+</div>
-</div>
-
-<div class="faq-body">
-<div class="faq-content">
-Os planos premium possuem recursos
-e consultas liberadas.
-</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CTA -->
-
-<section class="cta">
-
-<div class="cta-title">
-Seu acesso pode ser liberado agora
-</div>
-
-<div class="cta-sub">
-
-Entre no sistema premium e desbloqueie
-todos os recursos disponíveis.
-
-</div>
-
-<a
-href="#plans"
-class="cta-btn"
->
-DESBLOQUEAR ACESSO PREMIUM
-</a>
+  </div>
 
 </section>
 
@@ -4099,7 +4261,7 @@ Chave PIX
 <div class="pix-box">
 
 <div class="pix-key">
-de02994d-f391-4b9b-acf8-865b721d3082
+7bf96d3d-92db-42ce-b5c1-00facbbd3d46
 </div>
 
 <button
@@ -4120,7 +4282,7 @@ e seu acesso será liberado imediatamente.
 </div>
 
 <a
-href="https://t.me/puxardados5"
+href="https://t.me/astrosuporte"
 target="_blank"
 class="support-btn"
 >
@@ -4167,6 +4329,280 @@ o:Math.random()*0.4,
 s:Math.random()*0.4+.05
 
 })
+
+}
+
+/* =========================================
+🚀 ASTRO CONSULT API
+========================================= */
+
+let astroToken = "";
+let currentType = "nome";
+
+document
+.querySelectorAll(".consult-type")
+.forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+document
+.querySelectorAll(".consult-type")
+.forEach(el=>el.classList.remove("active"));
+
+btn.classList.add("active");
+
+currentType = btn.dataset.type;
+
+const input =
+document.getElementById("astroQuery");
+
+if(currentType==="nome"){
+input.placeholder = "Digite o nome...";
+}
+
+if(currentType==="cpf"){
+input.placeholder = "Digite o CPF...";
+}
+
+if(currentType==="telefone"){
+input.placeholder = "Digite o telefone...";
+}
+
+if(currentType==="placa"){
+input.placeholder = "Digite a placa...";
+}
+
+});
+
+});
+
+function saveToken(){
+
+const token =
+document.getElementById("astroToken").value.trim();
+
+const status =
+document.getElementById("tokenStatus");
+
+if(!token){
+
+status.innerHTML =
+"❌ Insira um token válido";
+
+status.style.color = "#f87171";
+
+return;
+}
+
+astroToken = token;
+
+localStorage.setItem(
+"astro_token",
+token
+);
+
+status.innerHTML =
+"✅ Token validado com sucesso";
+
+status.style.color = "#4ade80";
+
+}
+
+window.addEventListener("load",()=>{
+
+const saved =
+localStorage.getItem("astro_token");
+
+if(saved){
+
+astroToken = saved;
+
+document.getElementById("astroToken")
+.value = saved;
+
+document.getElementById("tokenStatus")
+.innerHTML =
+"✅ Token carregado";
+
+document.getElementById("tokenStatus")
+.style.color = "#4ade80";
+
+}
+
+});
+
+async function consultarAstro(){
+
+const query =
+document.getElementById("astroQuery")
+.value.trim();
+
+const result =
+document.getElementById("astroResult");
+
+const loading =
+document.getElementById("astroLoading");
+
+if(!astroToken){
+
+result.innerHTML =
+"❌ Insira seu token privado.";
+
+return;
+}
+
+if(!query){
+
+result.innerHTML =
+"❌ Digite algo para consultar.";
+
+return;
+}
+
+loading.style.display = "flex";
+
+result.innerHTML = "";
+
+try{
+
+let url = "";
+
+if(currentType==="nome"){
+
+url =
+`https://boks.stherlionato.workers.dev/nome?token=${astroToken}&nome=${encodeURIComponent(query)}`;
+
+}
+
+const req = await fetch(url);
+
+const data = await req.json();
+
+loading.style.display = "none";
+
+if(!data.status){
+
+result.innerHTML =
+"❌ Consulta não autorizada.";
+
+return;
+}
+
+const pessoa =
+data?.dados?.resultado?.dados?.pessoas?.[0];
+
+if(!pessoa){
+
+result.innerHTML =
+"⚠ Nenhum resultado encontrado.";
+
+return;
+}
+
+result.innerHTML = `
+
+<div class="astro-card">
+
+<div class="astro-card-title">
+👤 Resultado encontrado
+</div>
+
+<div class="astro-line">
+<div class="astro-key">
+Nome
+</div>
+
+<div class="astro-value">
+${pessoa.nome || "N/A"}
+</div>
+</div>
+
+<div class="astro-line">
+<div class="astro-key">
+CPF
+</div>
+
+<div class="astro-value">
+${pessoa.cpf || "N/A"}
+</div>
+</div>
+
+<div class="astro-line">
+<div class="astro-key">
+Nascimento
+</div>
+
+<div class="astro-value">
+${pessoa.nascimento || "N/A"}
+</div>
+</div>
+
+<div class="astro-line">
+<div class="astro-key">
+Cidade
+</div>
+
+<div class="astro-value">
+${pessoa.cidade || "N/A"}
+</div>
+</div>
+
+<div class="astro-line">
+<div class="astro-key">
+UF
+</div>
+
+<div class="astro-value">
+${pessoa.uf || "N/A"}
+</div>
+</div>
+
+</div>
+
+`;
+
+}catch(err){
+
+loading.style.display = "none";
+
+result.innerHTML = `
+❌ Erro ao consultar API.
+`;
+
+console.error(err);
+
+}
+
+}
+
+/* =========================================
+✨ GLOW EFFECT
+========================================= */
+
+const consultBox =
+document.querySelector(".astro-consult-box");
+
+if(consultBox){
+
+consultBox.addEventListener("mousemove",e=>{
+
+const rect =
+consultBox.getBoundingClientRect();
+
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+consultBox.style.setProperty(
+"--mx",
+x+"px"
+);
+
+consultBox.style.setProperty(
+"--my",
+y+"px"
+);
+
+});
 
 }
 
@@ -4220,20 +4656,38 @@ PAYMENT
 
 function openPayment(plan){
 
-document
-.getElementById("modalPlanName")
-.innerText = plan;
+  const modal =
+    document.getElementById("paymentModal")
 
-document
-.getElementById("paymentModal")
-.classList.add("show");
+  document.getElementById("modalPlanName")
+    .innerText = plan
+
+  modal.classList.add("show")
+
+  // trava body
+  document.body.style.overflow = "hidden"
+
+  // força topo
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  })
+
+  // reset modal
+  modal.scrollTop = 0
+
+  const box = modal.querySelector(".modal-box")
+
+  if(box){
+    box.scrollTop = 0
+  }
 
 }
 
 function copyPix(){
 
 navigator.clipboard.writeText(
-"de02994d-f391-4b9b-acf8-865b721d3082"
+"7bf96d3d-92db-42ce-b5c1-00facbbd3d46"
 );
 
 const btn =
@@ -4305,6 +4759,81 @@ function renderApp(data){
       .replace(/_/g," ")
       .replace(/\b\w/g,l=>l.toUpperCase())
   }
+  
+  function renderNested(data){
+
+  let html = ""
+
+  // ARRAY
+  if(Array.isArray(data)){
+
+    data.forEach(item=>{
+
+      html += `
+      <div class="premium-group">
+      `
+
+      html += renderNested(item)
+
+      html += `
+      </div>
+      `
+    })
+
+    return html
+  }
+
+  // OBJETO
+  if(typeof data === "object" && data !== null){
+
+    Object.entries(data).forEach(([key,value])=>{
+
+      // objeto/array
+      if(typeof value === "object"){
+
+        html += `
+        <div class="premium-subtitle">
+          ${key.replaceAll("_"," ").toUpperCase()}
+        </div>
+        `
+
+        html += renderNested(value)
+
+      }else{
+
+        const valor =
+          String(value || "").trim()
+
+        if(
+          !valor ||
+          valor === "-" ||
+          valor.toLowerCase() === "null" ||
+          valor.toLowerCase() === "undefined"
+        ){
+          return
+        }
+
+        html += `
+        <div class="premium-field">
+
+          <div class="premium-label">
+            ${key}
+          </div>
+
+          <div class="premium-value">
+            ${valor}
+          </div>
+
+        </div>
+        `
+      }
+    })
+
+    return html
+  }
+
+  return html
+}
 
 function renderFields(obj){
 
@@ -4314,6 +4843,10 @@ function renderFields(obj){
     let html = ""
 
     obj.resultado.forEach(secao=>{
+    
+    if(!secao.dados || !secao.dados.length){
+    return
+  }
 
       html += `
       <div class="result-block">
@@ -4325,26 +4858,11 @@ function renderFields(obj){
         <div class="result-lines">
       `
 
-      if(secao.dados && Array.isArray(secao.dados)){
+if(secao.dados){
 
-        secao.dados.forEach(item=>{
+  html += renderNested(secao.dados)
 
-          html += `
-          <div class="premium-field">
-
-            <div class="premium-label">
-              ${item.campo || "INFO"}
-            </div>
-
-            <div class="premium-value">
-              ${item.valor || "NÃO ENCONTRADO"}
-            </div>
-
-          </div>
-          `
-        })
-
-      }
+}
 
       html += `
         </div>
@@ -4938,12 +5456,6 @@ pointer-events:none;
 /* hover */
 
 .plan:hover{
-  transform:
-    perspective(1000px)
-    rotateX(4deg)
-    rotateY(-4deg)
-    translateY(-6px);
-
   border-color:rgba(255,255,255,.12);
 
   box-shadow:
@@ -5268,252 +5780,6 @@ pointer-events:none;
 
 }
 
-/* =========================
-   💳 PAYMENT MODAL
-========================= */
-
-.modal{
-  position:fixed;
-  inset:0;
-
-  background:rgba(2,6,23,.78);
-
-  backdrop-filter:blur(18px);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  padding:18px;
-
-  opacity:0;
-  visibility:hidden;
-
-  transition:.35s ease;
-
-  z-index:9999;
-}
-
-.modal.show{
-  opacity:1;
-  visibility:visible;
-}
-
-.modal-box{
-  position:relative;
-
-  width:100%;
-  max-width:420px;
-
-  border-radius:28px;
-
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(15,23,42,.96),
-      rgba(2,6,23,.98)
-    );
-
-  border:1px solid rgba(255,255,255,.08);
-
-  box-shadow:
-    0 40px 120px rgba(0,0,0,.75),
-    0 0 60px rgba(168,85,247,.18);
-
-  transform:translateY(20px) scale(.94);
-
-  transition:.35s ease;
-}
-
-.modal.show .modal-box{
-  transform:translateY(0) scale(1);
-}
-
-.modal-glow{
-  position:absolute;
-
-  top:-120px;
-  left:-40px;
-
-  width:260px;
-  height:260px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(168,85,247,.28),
-      transparent 70%
-    );
-
-  filter:blur(40px);
-}
-
-.modal-content{
-  position:relative;
-  z-index:2;
-
-  padding:24px;
-}
-
-.modal-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  margin-bottom:18px;
-}
-
-.modal-title{
-  font-size:20px;
-  font-weight:700;
-}
-
-.close-modal{
-  width:34px;
-  height:34px;
-
-  border:none;
-  outline:none;
-
-  border-radius:12px;
-
-  cursor:pointer;
-
-  color:#fff;
-
-  background:rgba(255,255,255,.06);
-
-  transition:.2s;
-}
-
-.close-modal:hover{
-  background:rgba(255,255,255,.12);
-}
-
-.modal-plan{
-  padding:14px;
-  border-radius:18px;
-
-  background:rgba(255,255,255,.04);
-
-  border:1px solid rgba(255,255,255,.05);
-
-  margin-bottom:16px;
-}
-
-.modal-plan small{
-  display:block;
-  opacity:.55;
-  margin-bottom:4px;
-}
-
-.modal-plan b{
-  font-size:18px;
-}
-
-.pix-label{
-  font-size:12px;
-  opacity:.6;
-  margin-bottom:8px;
-}
-
-.pix-box{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  padding:12px;
-
-  border-radius:16px;
-
-  background:rgba(255,255,255,.04);
-
-  border:1px solid rgba(255,255,255,.06);
-
-  margin-bottom:16px;
-}
-
-.pix-key{
-  flex:1;
-
-  font-size:12px;
-  line-height:1.5;
-
-  word-break:break-all;
-
-  color:#f8fafc;
-}
-
-.copy-pix{
-  min-width:42px;
-  height:42px;
-
-  border:none;
-
-  border-radius:14px;
-
-  cursor:pointer;
-
-  color:#fff;
-
-  font-size:16px;
-
-  background:rgba(255,255,255,.06);
-
-  transition:.2s;
-}
-
-.copy-pix:hover{
-  background:rgba(255,255,255,.12);
-  transform:scale(1.04);
-}
-
-.modal-text{
-  font-size:13px;
-  line-height:1.7;
-
-  color:#cbd5e1;
-
-  margin-bottom:18px;
-}
-
-.support-btn{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  width:100%;
-  min-height:54px;
-
-  border-radius:18px;
-
-  text-decoration:none;
-  color:#fff;
-
-  font-weight:600;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(168,85,247,.28),
-      rgba(59,130,246,.28)
-    );
-
-  border:1px solid rgba(255,255,255,.08);
-
-  transition:.25s ease;
-}
-
-.support-btn:hover{
-  transform:translateY(-2px);
-
-  box-shadow:
-    0 10px 30px rgba(168,85,247,.22);
-}
 
 /* =========================
    💎 PREMIUM RESULT
@@ -6288,6 +6554,157 @@ pointer-events:none;
   }
 }
 
+.plan.premium {
+  border: 1px solid rgba(59,130,246,.45);
+  transform: scale(1.03);
+  box-shadow:
+    0 0 30px rgba(59,130,246,.25),
+    0 0 80px rgba(59,130,246,.15);
+}
+
+.plan.premium .btn {
+  background: linear-gradient(90deg,#2563eb,#3b82f6);
+  color: #fff;
+  font-weight: 700;
+}
+
+.tag.basic {
+  background: rgba(255,255,255,.08);
+  color: #cbd5e1;
+}
+
+/* =====================================
+   🚀 PREMIUM SECTION
+===================================== */
+
+.plans-wrapper{
+
+  position:relative;
+
+  margin-top:42px;
+  padding-top:10px;
+}
+
+.plans-head{
+
+  text-align:center;
+
+  margin-bottom:24px;
+}
+
+.plans-mini{
+
+  font-size:11px;
+  font-weight:700;
+
+  letter-spacing:2px;
+
+  color:#a855f7;
+
+  margin-bottom:10px;
+}
+
+.plans-head h2{
+
+  font-size:30px;
+  font-weight:800;
+
+  letter-spacing:-1px;
+
+  color:#fff;
+
+  margin-bottom:10px;
+}
+
+.plans-head p{
+
+  max-width:520px;
+
+  margin:0 auto;
+
+  color:#94a3b8;
+
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* =====================================
+   💳 MODAL FIX
+===================================== */
+
+.modal{
+
+  position:fixed;
+  inset:0;
+
+  overflow-y:auto;
+
+  padding:24px 16px;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+
+  background:rgba(2,6,23,.82);
+
+  backdrop-filter:blur(18px);
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.35s ease;
+
+  z-index:9999;
+}
+
+.modal.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-box{
+
+  width:100%;
+  max-width:420px;
+
+  margin-top:30px;
+  margin-bottom:30px;
+}
+
+/* =====================================
+   👑 PREMIUM PLAN
+===================================== */
+
+.plan.premium {
+
+  border: 1px solid rgba(59,130,246,.45);
+
+  transform: scale(1.03);
+
+  box-shadow:
+    0 0 30px rgba(59,130,246,.25),
+    0 0 80px rgba(59,130,246,.15);
+}
+
+.plan.premium .btn {
+
+  background:
+    linear-gradient(
+      90deg,
+      #2563eb,
+      #3b82f6
+    );
+
+  color:#fff;
+  font-weight:700;
+}
+
+.tag.basic {
+
+  background:rgba(255,255,255,.08);
+  color:#cbd5e1;
+}
+
 </style>
 </head>
 
@@ -6319,110 +6736,6 @@ pointer-events:none;
   <span style="left:92%;animation-duration:9s"></span>
 
 </div>
-
-<!-- CONSULTA -->
-
-<section class="section search-section" id="consulta">
-
-<div class="section-top">
-
-<div class="section-mini">
-CONSULTA ONLINE
-</div>
-
-<div class="section-title">
-Consultar direto pelo navegador
-</div>
-
-<div class="section-sub">
-Escolha o tipo de consulta, informe os dados e receba o resultado instantaneamente.
-</div>
-
-</div>
-
-<div class="search-box">
-
-<div class="search-header">
-
-<div class="status">
-<span class="pulse"></span>
-Gateway Online
-</div>
-
-<div class="secure">
-🔒 Conexão Segura
-</div>
-
-</div>
-
-<div class="tabs">
-
-<button class="tab active" data-type="cpf">
-🪪 CPF
-</button>
-
-<button class="tab" data-type="nome">
-👤 Nome
-</button>
-
-<button class="tab" data-type="placa">
-🚘 Placa
-</button>
-
-</div>
-
-<div class="search-form">
-
-<input
-id="query"
-placeholder="Digite o CPF..."
-autocomplete="off"
-/>
-
-<button id="consultar">
-Consultar
-</button>
-
-</div>
-
-<div class="search-footer">
-
-<div>
-⚡ Tempo médio:
-<b>1.2s</b>
-</div>
-
-<div>
-✔ Resultado em tempo real
-</div>
-
-</div>
-
-</div>
-
-<div id="resultado" class="result-box">
-
-<div class="placeholder">
-
-<div class="placeholder-icon">
-✦
-</div>
-
-<div>
-
-<h3>Nenhuma consulta realizada</h3>
-
-<p>
-Os resultados aparecerão aqui após a consulta.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 <div class="topbar-left">
 
@@ -6503,133 +6816,130 @@ Os resultados aparecerão aqui após a consulta.
 
 </div>
 
-<div class="card">
-  <div class="title">Consulta</div>
+<div class="results-wrapper">
+<div class="title">Consulta</div>
   <div class="muted">
     ${data.tipo || "-"} • ${data.query || "-"}<br>
     ${results.length} resultado(s)
   </div>
 
-  <a class="btn btn-primary" href="https://t.me/consultasdedados_bot" target="_blank">
+<button class="btn btn-primary" id="openBot">
     Abrir no bot
-  </a>
-</div>
-
-${results.map((p,i)=>`
-<div class="card">
-  <div class="result-header">
-    <div class="title">Resultado ${i+1}</div>
-    <div class="copy" onclick="copyCard(this)">Copiar</div>
-  </div>
-
-  <div class="preview-name">${p.nome || "-"}</div>
-  <div class="preview-sub">${p.telefone || "-"} • ${p.cpf || "-"}</div>
-
-  ${renderFields(p)}
-</div>
-`).join("")}
-
-<div class="plan-box" id="plansSection">
-
-  <!-- =========================
-       💎 DIÁRIO
-  ========================= -->
-  <div class="plan">
-  <div class="aurora"></div>
-
-    <div class="plan-particles">
-      <span style="left:8%;animation-duration:7s"></span>
-      <span style="left:18%;animation-duration:11s"></span>
-      <span style="left:32%;animation-duration:9s"></span>
-      <span style="left:48%;animation-duration:13s"></span>
-      <span style="left:66%;animation-duration:8s"></span>
-      <span style="left:82%;animation-duration:10s"></span>
-    </div>
-
-    <div>
-
-      <div class="plan-title">
-        Diário
-      </div>
-
-      <div class="price">
-        <span class="new-price">
-          R$14,90
-        </span>
-      </div>
-
-      <div class="features">
-        <div>✦ Acesso por 24 horas</div>
-        <div>✦ Consultas básicas</div>
-        <div>✦ Liberação imediata</div>
-        <div>✦ Suporte rápido</div>
-      </div>
-
-    </div>
-
-<button class="btn"
-        onclick="openPayment('Plano Diário • R$14,90')">
-  Adquirir
 </button>
 
-  </div>
+${results.map((p,i)=>{
 
-  <!-- =========================
-       🚀 MENSAL
-  ========================= -->
-  <div class="plan highlight">
-  <div class="aurora"></div>
+  let nome = "-"
+  let cpf = "-"
+  let telefone = "-"
 
-    <div class="plan-particles">
-      <span style="left:6%;animation-duration:6s"></span>
-      <span style="left:20%;animation-duration:9s"></span>
-      <span style="left:34%;animation-duration:7s"></span>
-      <span style="left:52%;animation-duration:11s"></span>
-      <span style="left:70%;animation-duration:8s"></span>
-      <span style="left:88%;animation-duration:10s"></span>
+  if(p.resultado){
+
+    p.resultado.forEach(sec=>{
+
+      if(sec.dados){
+
+        sec.dados.forEach(item=>{
+
+          const campo =
+            (item.campo || "").toUpperCase()
+
+          const valor =
+            item.valor || "-"
+
+          if(campo.includes("NOME") && nome === "-"){
+            nome = valor
+          }
+
+          if(campo.includes("CPF") && cpf === "-"){
+            cpf = valor
+          }
+
+          if(
+            (
+              campo.includes("TELEFONE") ||
+              campo.includes("CELULAR")
+            )
+            &&
+            telefone === "-"
+          ){
+            telefone = valor
+          }
+
+        })
+
+      }
+
+    })
+
+  }
+
+  return `
+  <div class="card">
+
+    <div class="result-header">
+      <div class="title">
+        Resultado ${i+1}
+      </div>
+
+      <div class="copy"
+           onclick="copyCard(this)">
+        Copiar
+      </div>
     </div>
 
-    <div>
-
-      <div class="plan-header">
-        <span class="tag best">MAIS VENDIDO</span>
-      </div>
-
-      <div class="plan-title">
-        Semanal
-      </div>
-
-      <div class="price">
-        <span class="new-price">
-          R$24,90
-        </span>
-      </div>
-
-      <div class="features">
-        <div>✦ Consultas ilimitadas</div>
-        <div>✦ Prioridade no sistema</div>
-        <div>✦ Atualizações premium</div>
-      </div>
-
+    <div class="preview-name">
+      ${nome}
     </div>
 
-<button class="btn"
-        onclick="openPayment('Plano Semanal • R$24,90')">
-  Adquirir
-</button>
+    <div class="preview-sub">
+      ${telefone} • ${cpf}
+    </div>
+
+    ${renderFields(p)}
 
   </div>
+  `
+
+}).join("")}
+
+<!-- =====================================
+     🚀 ASTRO PREMIUM SECTION
+===================================== -->
+
+<section class="plans-wrapper">
+
+  <div class="plans-head">
+
+    <div class="plans-mini">
+      ASTRO PREMIUM
+    </div>
+
+    <h2>
+      Desbloqueie acesso ilimitado
+    </h2>
+
+    <p>
+      Consultas premium, acesso vitalício
+      e recursos avançados liberados instantaneamente.
+    </p>
+
+  </div>
+
+  <div class="plan-box" id="plansSection">
 
   <!-- =========================
        👑 VITALÍCIO
   ========================= -->
   <div class="plan premium">
-  <div class="top-stars">
-  <span>✦</span>
-  <span>✧</span>
-  <span>✦</span>
-</div>
-  <div class="aurora"></div>
+
+    <div class="top-stars">
+      <span>✦</span>
+      <span>✧</span>
+      <span>✦</span>
+    </div>
+
+    <div class="aurora"></div>
 
     <div class="plan-particles">
       <span style="left:5%;animation-duration:8s"></span>
@@ -6644,8 +6954,13 @@ ${results.map((p,i)=>`
     <div>
 
       <div class="plan-header">
-        <span class="tag offer">OFERTA</span>
-        <span class="tag lifetime">ILIMITADO</span>
+        <span class="tag offer">
+          SÓ HOJE!
+        </span>
+
+        <span class="tag lifetime">
+          ILIMITADO
+        </span>
       </div>
 
       <div class="plan-title">
@@ -6653,18 +6968,15 @@ ${results.map((p,i)=>`
       </div>
 
       <div class="price">
-        <span class="old-price">R$50</span>
-
         <span class="new-price">
-          R$20,90
+          R$20,00
         </span>
       </div>
 
       <div class="features">
-        <div>✦ Acesso vitalício</div>
+        <div>✦ Acesso ilimitado para sempre</div>
         <div>✦ Tudo desbloqueado</div>
-        <div>✦ Sem limites</div>
-        <div>✦ Acesso aos códigos</div>
+        <div>✦ Sem limites de consultas</div>
         <div>✦ Recursos premium</div>
         <div>✦ Prioridade máxima</div>
         <div>✦ Atualizações futuras grátis</div>
@@ -6672,14 +6984,19 @@ ${results.map((p,i)=>`
 
     </div>
 
-<button class="btn"
-        onclick="openPayment('Plano Vitalício • R$20,90')">
-  🚀 Desbloquear
-</button>
+    <button class="btn"
+            onclick="openPayment('Plano Vitalício • R$20,00')">
+      🚀 Desbloquear ilimitado
+    </button>
 
   </div>
 
 </div>
+</section>
+
+<!-- =====================================
+     💳 PAYMENT MODAL
+===================================== -->
 
 <div class="modal" id="paymentModal">
 
@@ -6704,7 +7021,9 @@ ${results.map((p,i)=>`
 
       <div class="modal-plan">
 
-        <small>Plano selecionado</small>
+        <small>
+          Plano selecionado
+        </small>
 
         <b id="modalPlanName">
           VIP
@@ -6719,7 +7038,7 @@ ${results.map((p,i)=>`
       <div class="pix-box">
 
         <div class="pix-key" id="pixKey">
-          de02994d-f391-4b9b-acf8-865b721d3082
+          7bf96d3d-92db-42ce-b5c1-00facbbd3d46
         </div>
 
         <button class="copy-pix"
@@ -6731,8 +7050,7 @@ ${results.map((p,i)=>`
 
       <div class="modal-text">
         Após efetuar o pagamento, envie o comprovante
-        para o suporte e seu acesso será liberado
-        imediatamente.
+        para o suporte e seu acesso será liberado imediatamente.
       </div>
 
       <a href="https://t.me/astrosuporte"
@@ -6747,6 +7065,368 @@ ${results.map((p,i)=>`
 
 </div>
 
+<style>
+
+/* =====================================
+   💳 MODAL FIX DEFINITIVO
+===================================== */
+
+.modal{
+
+  position:fixed;
+  inset:0;
+
+  z-index:9999999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:16px;
+
+  overflow-y:auto;
+
+  background:rgba(2,6,23,.86);
+
+  backdrop-filter:blur(18px);
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.35s ease;
+
+  pointer-events:auto;
+
+  transform:translateZ(9999px);
+
+  -webkit-overflow-scrolling:touch;
+}
+
+.modal.show{
+
+  opacity:1;
+  visibility:visible;
+  display:flex;
+}
+
+.modal-box{
+
+  position:relative;
+  z-index:1000001;
+
+  width:100%;
+  max-width:420px;
+
+  max-height:90vh;
+
+  overflow-y:auto;
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15,23,42,.98),
+      rgba(2,6,23,.99)
+    );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.75),
+    0 0 60px rgba(168,85,247,.18);
+
+  transform:translateY(0) scale(1);
+
+  -webkit-overflow-scrolling:touch;
+}
+
+.modal-glow{
+  position:absolute;
+
+  top:-120px;
+  left:-40px;
+
+  width:260px;
+  height:260px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.28),
+      transparent 70%
+    );
+
+  filter:blur(40px);
+}
+
+.modal-content{
+  position:relative;
+  z-index:2;
+
+  padding:24px;
+}
+
+.modal-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:18px;
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:700;
+}
+
+.close-modal{
+
+  width:34px;
+  height:34px;
+
+  border:none;
+  outline:none;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  color:#fff;
+
+  background:rgba(255,255,255,.06);
+
+  transition:.2s;
+}
+
+.close-modal:hover{
+  background:rgba(255,255,255,.12);
+}
+
+.modal-plan{
+
+  padding:14px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  margin-bottom:16px;
+}
+
+.modal-plan small{
+  display:block;
+  opacity:.55;
+  margin-bottom:4px;
+}
+
+.modal-plan b{
+  font-size:18px;
+}
+
+.pix-label{
+  font-size:12px;
+  opacity:.6;
+  margin-bottom:8px;
+}
+
+.pix-box{
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:12px;
+
+  border-radius:16px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  margin-bottom:16px;
+}
+
+.pix-key{
+
+  flex:1;
+
+  font-size:12px;
+  line-height:1.5;
+
+  word-break:break-all;
+
+  color:#f8fafc;
+}
+
+.copy-pix{
+
+  min-width:42px;
+  height:42px;
+
+  border:none;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  color:#fff;
+
+  font-size:16px;
+
+  background:rgba(255,255,255,.06);
+
+  transition:.2s;
+}
+
+.copy-pix:hover{
+  background:rgba(255,255,255,.12);
+  transform:scale(1.04);
+}
+
+.modal-text{
+
+  font-size:13px;
+  line-height:1.7;
+
+  color:#cbd5e1;
+
+  margin-bottom:18px;
+}
+
+.support-btn{
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:100%;
+  min-height:54px;
+
+  border-radius:18px;
+
+  text-decoration:none;
+  color:#fff;
+
+  font-weight:600;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.28),
+      rgba(59,130,246,.28)
+    );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  transition:.25s ease;
+}
+
+.support-btn:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 10px 30px rgba(168,85,247,.22);
+}
+
+</style>
+
+<script>
+
+/* =====================================
+   💳 PAYMENT SYSTEM FIX
+===================================== */
+
+function openPayment(plan){
+
+  const modal =
+    document.getElementById("paymentModal")
+
+  document.getElementById("modalPlanName")
+    .innerText = plan
+
+  modal.classList.add("show")
+
+  document.body.style.overflow = "hidden"
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  })
+
+  modal.scrollTop = 0
+
+  const box =
+    modal.querySelector(".modal-box")
+
+  if(box){
+    box.scrollTop = 0
+  }
+
+}
+
+function closePayment(){
+
+  const modal =
+    document.getElementById("paymentModal")
+
+  modal.classList.remove("show")
+
+  document.body.style.overflow = ""
+}
+
+function copyPix(){
+
+  const key =
+    "7bf96d3d-92db-42ce-b5c1-00facbbd3d46"
+    
+  navigator.clipboard
+    .writeText(key)
+
+  const btn =
+    document.querySelector(".copy-pix")
+
+  btn.innerText = "✓"
+
+  setTimeout(()=>{
+    btn.innerText = "⧉"
+  },1400)
+}
+
+/* CLICK FORA FECHA */
+
+document
+.getElementById("paymentModal")
+.addEventListener("click", e=>{
+
+  if(e.target.id === "paymentModal"){
+    closePayment()
+  }
+
+})
+
+/* ESC FECHA */
+
+document.addEventListener("keydown",e=>{
+
+  if(
+    e.key === "Escape" &&
+    document
+      .getElementById("paymentModal")
+      .classList.contains("show")
+  ){
+    closePayment()
+  }
+
+})
+
+</script>
+
 <script>
 function copyCard(el){
   navigator.clipboard.writeText(el.closest(".card").innerText).catch(()=>{})
@@ -6759,49 +7439,13 @@ function toggleSection(el){
   section.classList.toggle("closed")
 }
 
-const input = document.getElementById("query");
-const tabs = document.querySelectorAll(".tab");
+document
+.getElementById("openBot")
+.onclick = () => {
 
-let tipo = "cpf";
-
-tabs.forEach(tab => {
-
-tab.onclick = () => {
-
-tabs.forEach(x=>x.classList.remove("active"));
-
-tab.classList.add("active");
-
-tipo = tab.dataset.type;
-
-if(tipo==="cpf")
-input.placeholder="Digite o CPF";
-
-if(tipo==="nome")
-input.placeholder="Digite o nome completo";
-
-if(tipo==="placa")
-input.placeholder="Digite a placa";
-
-};
-
-});
-
-document.getElementById("consultar").onclick=()=>{
-
-const valor=input.value.trim();
-
-if(!valor)return;
-
-document.getElementById("resultado").innerHTML=`
-<div class="loading">
-
-<div class="spinner"></div>
-
-Consultando <b>${tipo.toUpperCase()}</b>...
-
-</div>
-`;
+    Telegram.WebApp.openTelegramLink(
+        "https://t.me/consultafree_bot"
+    );
 
 };
 
@@ -6959,82 +7603,6 @@ function render(){
 }
 
 render();
-
-// 💎 PLANS 3D EFFECT
-
-document.querySelectorAll(".plan").forEach(card=>{
-
-  card.addEventListener("mousemove", e=>{
-
-    const rect = card.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    card.style.setProperty("--mx", x + "px");
-    card.style.setProperty("--my", y + "px");
-
-    const rotateY = ((x / rect.width) - 0.5) * 10;
-    const rotateX = ((y / rect.height) - 0.5) * -10;
-
-    card.style.transform =
-  "perspective(1200px) " +
-  "rotateX(" + rotateX + "deg) " +
-  "rotateY(" + rotateY + "deg) " +
-  "translateY(-8px)";
-
-  });
-
-  card.addEventListener("mouseleave", ()=>{
-
-    card.style.transform =
-  "perspective(1200px) " +
-  "rotateX(0deg) " +
-  "rotateY(0deg) " +
-  "translateY(0px)";
-  });
-
-});
-
-function openPayment(plan){
-
-  document.getElementById("modalPlanName")
-    .innerText = plan
-
-  document.getElementById("paymentModal")
-    .classList.add("show")
-}
-
-function closePayment(){
-
-  document.getElementById("paymentModal")
-    .classList.remove("show")
-}
-
-function copyPix(){
-
-  const key =
-    "de02994d-f391-4b9b-acf8-865b721d3082"
-
-  navigator.clipboard.writeText(key)
-
-  const btn = document.querySelector(".copy-pix")
-
-  btn.innerText = "✓"
-
-  setTimeout(()=>{
-    btn.innerText = "⧉"
-  },1400)
-}
-
-document.getElementById("paymentModal")
-.addEventListener("click", e=>{
-
-  if(e.target.id === "paymentModal"){
-    closePayment()
-  }
-
-})
 
 </script>
 
@@ -7836,67 +8404,23 @@ PLANOS PREMIUM
 
 <div class="plan">
 
-<div class="plan-top">
+  <div class="plan-top">
 
-<div class="plan-name">
-Diário
-</div>
+    <div class="plan-name">
+      Vitalício
+    </div>
 
-<div class="plan-price">
-R$14<small>,90</small>
-</div>
+    <div class="plan-price">
+      R$20<small>,00</small>
+    </div>
 
-</div>
+  </div>
 
-<div class="plan-features">
-✦ 24h de acesso<br>
-✦ Liberação imediata<br>
-✦ Consultas rápidas
-</div>
-
-</div>
-
-<div class="plan">
-
-<div class="plan-top">
-
-<div class="plan-name">
-Semanal
-</div>
-
-<div class="plan-price">
-R$24<small>,90</small>
-</div>
-
-</div>
-
-<div class="plan-features">
-✦ Consultas ilimitadas<br>
-✦ Prioridade máxima<br>
-✦ Recursos premium
-</div>
-
-</div>
-
-<div class="plan">
-
-<div class="plan-top">
-
-<div class="plan-name">
-Vitalício
-</div>
-
-<div class="plan-price">
-R$20<small>,90</small>
-</div>
-
-</div>
-
-<div class="plan-features">
-✦ Sem limites<br>
-✦ Tudo desbloqueado<br>
-✦ Atualizações futuras grátis
-</div>
+  <div class="plan-features">
+    ✦ Sem limites<br>
+    ✦ Tudo desbloqueado<br>
+    ✦ Atualizações futuras grátis
+  </div>
 
 </div>
 
@@ -7906,17 +8430,17 @@ R$20<small>,90</small>
 
 <div class="footer">
 
-<div>
-Astro.app • Sistema premium online
-</div>
+  <div>
+    Astro • Sistema premium online
+  </div>
 
-<div class="online">
+  <div class="online">
 
-<div class="dot"></div>
+    <div class="dot"></div>
 
-Online
+    Online
 
-</div>
+  </div>
 
 </div>
 
