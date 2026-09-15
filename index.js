@@ -4320,11 +4320,11 @@ Desbloquear
 <div class="plan plan-premium">
 
 <div class="plan-tag">
-ILIMITADO
+VITALÍCIO
 </div>
 
 <div class="plan-title">
-Premium
+ILIMITADO
 </div>
 
 <div class="price">
