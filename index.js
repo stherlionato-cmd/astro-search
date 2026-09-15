@@ -158,8 +158,8 @@ return `
 <meta charset="UTF-8"/>
 
 <meta
-name="viewport"
-content="width=device-width,initial-scale=1.0"
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover"
 />
 
 <title>Astro Consultas</title>
@@ -877,6 +877,8 @@ scale(1.2);
 opacity:0;
 }
 
+
+
 }
 
 /* =========================
@@ -895,6 +897,201 @@ font-size:34px;
 
 .hero-stats{
 grid-template-columns:1fr;
+}
+
+/* =========================================
+   🔒 VIEWPORT FIXO / SEM SCROLL LATERAL
+========================================= */
+
+html,
+body{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+
+    margin:0;
+    padding:0;
+
+    overflow-x:hidden;
+
+    overscroll-behavior-x:none;
+
+    touch-action:pan-y;
+
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+}
+
+/* Impede elementos de estourarem a tela */
+
+*,
+*::before,
+*::after{
+    max-width:100%;
+}
+
+/* Containers nunca ultrapassam a viewport */
+
+.container,
+.app{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* Imagens, vídeos e canvas */
+
+img,
+video,
+svg,
+canvas{
+    max-width:100%;
+}
+
+/* Grids */
+
+.grid,
+.features-grid,
+.social-grid,
+.plan-box,
+.stats{
+    width:100%;
+    min-width:0;
+}
+
+/* Cards */
+
+.card,
+.feature,
+.plan,
+.stat,
+.social,
+.astro-consult-box,
+.mockup,
+.topbar,
+.hero,
+.cta{
+    min-width:0;
+    max-width:100%;
+}
+
+/* Textos longos não criam largura extra */
+
+h1,
+h2,
+h3,
+p,
+div,
+span{
+    overflow-wrap:anywhere;
+}
+
+/* Tabela continua podendo rolar apenas dentro dela */
+
+.compare{
+    width:100%;
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+}
+
+/* O conteúdo interno da tabela não força o BODY */
+
+.compare table{
+    min-width:700px;
+}
+
+/* Inputs nunca passam da tela */
+
+input,
+button,
+textarea,
+select{
+    max-width:100%;
+}
+
+/* Evita zoom automático em inputs no celular */
+
+input,
+textarea,
+select{
+    font-size:16px;
+}
+
+/* =========================================
+   📱 MOBILE
+========================================= */
+
+@media(max-width:700px){
+
+    html,
+    body{
+        width:100%;
+        overflow-x:hidden;
+    }
+
+    .container{
+        width:100%;
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    .hero{
+        width:100%;
+        max-width:100%;
+    }
+
+    .hero-title{
+        max-width:100%;
+        word-break:normal;
+    }
+
+    .hero-side{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+    }
+
+    .mockup{
+        width:100%;
+        max-width:100%;
+    }
+
+    .terminal{
+        width:100%;
+        max-width:100%;
+        overflow:hidden;
+    }
+
+    .float-card{
+        max-width:calc(100% - 20px);
+    }
+
+    .astro-consult-box{
+        width:100%;
+        max-width:100%;
+    }
+
+    .astro-search-box,
+    .astro-input-wrap{
+        width:100%;
+        max-width:100%;
+    }
+
+    .astro-search-box input,
+    .astro-input-wrap input{
+        width:100%;
+        min-width:0;
+    }
+
+    .topbar{
+        width:100%;
+        max-width:100%;
+    }
+
 }
 
 }
@@ -1276,7 +1473,10 @@ return `
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover"
+/>
 
 <title>Astro • Sistema Premium</title>
 
@@ -2001,8 +2201,10 @@ COMPARISON
 ========================= */
 
 .compare{
-
-overflow:auto;
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+}
 
 border-radius:26px;
 
@@ -3740,116 +3942,6 @@ Acesso autorizado
 
 </div>
 
-</section>
-
-<!-- =========================================
-🚀 ASTRO CONSULT BOX
-COLE ISSO ABAIXO DA HERO
-ANTES DA SECTION STATS
-========================================= -->
-
-<section class="astro-consult-section">
-
-<div class="astro-consult-glow"></div>
-
-<div class="astro-consult-box">
-
-<div class="astro-consult-header">
-
-<div>
-
-<div class="astro-consult-mini">
-✦ ASTRO PRIVATE API
-</div>
-
-<div class="astro-consult-title">
-Painel de Consultas Premium
-</div>
-
-</div>
-
-<div class="astro-live-badge">
-● ONLINE
-</div>
-
-</div>
-
-<div class="astro-token-box">
-
-<label>
-TOKEN PRIVADO
-</label>
-
-<div class="astro-input-wrap">
-
-<input
-type="password"
-id="astroToken"
-placeholder="Insira seu token premium"
-/>
-
-<button onclick="saveToken()">
-VALIDAR
-</button>
-
-</div>
-
-<small id="tokenStatus">
-Seu token não fica salvo no servidor.
-</small>
-
-</div>
-
-<div class="astro-consult-grid">
-
-<button class="consult-type active" data-type="nome">
-👤 CONSULTA NOME
-</button>
-
-<button class="consult-type" data-type="cpf">
-🪪 CONSULTA CPF
-</button>
-
-<button class="consult-type" data-type="telefone">
-📱 CONSULTA TELEFONE
-</button>
-
-<button class="consult-type" data-type="placa">
-🚘 CONSULTA PLACA
-</button>
-
-</div>
-
-<div class="astro-search-box">
-
-<input
-type="text"
-id="astroQuery"
-placeholder="Digite o nome para consultar..."
-/>
-
-<button onclick="consultarAstro()">
-CONSULTAR
-</button>
-
-</div>
-
-<div class="astro-loading" id="astroLoading">
-<div class="loader"></div>
-Consultando base premium...
-</div>
-
-<div
-class="astro-result"
-id="astroResult"
->
-Nenhuma consulta realizada.
-</div>
-
-</div>
-
-</section>
-
 <!-- STATS -->
 
 <section class="stats">
@@ -4170,65 +4262,210 @@ Velocidade e acesso liberados na hora.”
 
 <section class="section" id="plans">
 
-  <div class="section-top">
+<div class="section-top">
 
-    <div class="section-mini">
-      PLANO
-    </div>
+<div class="section-mini">
+PLANOS
+</div>
 
-    <div class="section-title">
-      Desbloqueie seu acesso
-    </div>
+<div class="section-title">
+Escolha seu acesso
+</div>
 
-  </div>
+</div>
 
-  <div class="plan-box">
+<div class="plan-box">
 
-    <div class="plan plan-premium">
+<div class="plan">
 
-      <div class="plan-tag">
-        ILIMITADO
-      </div>
+<div class="plan-tag">
+ACESSO RÁPIDO
+</div>
 
-      <div class="plan-title">
-        Vitalício
-      </div>
+<div class="plan-title">
+Mensal
+</div>
 
-      <div class="price">
+<div class="price">
 
-        <div class="new">
-          R$20<small>,00</small>
-        </div>
+<div class="new">
+R$35<small>,00</small>
+</div>
+</div>
 
-      </div>
+<div class="features">
+<div>✦ Acesso por um mês</div>
+<div>✦ Consultas completas</div>
+<div>✦ Liberação imediata</div>
+<div>✦ Suporte rápido</div>
+</div>
 
-      <div class="features">
-        <div>✦ Acesso ilimitado para sempre</div>
-        <div>✦ Sem limites</div>
-        <div>✦ Tudo desbloqueado</div>
-        <div>✦ Pagamento apenas uma vez</div>
-        <div>✦ Atualizações futuras grátis</div>
-        <div>✦ Prioridade absoluta</div>
-      </div>
+<div class="live-buy">
+🔥 12 acessos liberados hoje
+</div>
 
-      <div class="live-buy">
-        🔥 53 desbloqueios hoje
-      </div>
+<div class="stock">
+<div class="stock-fill"></div>
+</div>
 
-      <div class="stock">
-        <div class="stock-fill"></div>
-      </div>
+<button
+class="plan-btn"
+onclick="openPayment('Plano mensal • R$35,00')"
+>
+Desbloquear
+</button>
 
-      <button
-        class="plan-btn"
-        onclick="openPayment('Plano Vitalício • R$20,00')"
-      >
-        🚀 DESBLOQUEAR
-      </button>
+</div>
 
-    </div>
+<div class="plan plan-premium">
 
-  </div>
+<div class="plan-tag">
+ILIMITADO
+</div>
+
+<div class="plan-title">
+Premium
+</div>
+
+<div class="price">
+
+<div class="old">
+R$99
+</div>
+
+<div class="new">
+R$50<small>,00</small>
+</div>
+
+</div>
+
+<div class="features">
+<div>✦ Acesso ilimitado para sempre</div>
+<div>✦ Sem limites</div>
+<div>✦ Tudo desbloqueado</div>
+<div>✦ Pagamento apenas uma vez</div>
+<div>✦ Atualizações futuras grátis</div>
+<div>✦ Prioridade absoluta</div>
+</div>
+
+<div class="live-buy">
+🔥 53 desbloqueios hoje
+</div>
+
+<div class="stock">
+<div class="stock-fill"></div>
+</div>
+
+<button
+class="plan-btn"
+onclick="openPayment('Plano Vitalício • R$50,00')"
+>
+🚀 DESBLOQUEAR
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FAQ -->
+
+<section class="section">
+
+<div class="section-top">
+
+<div class="section-mini">
+FAQ
+</div>
+
+<div class="section-title">
+Dúvidas frequentes
+</div>
+
+</div>
+
+<div class="faq-wrap">
+
+<div class="faq">
+
+<div class="faq-head" onclick="toggleFaq(this)">
+<div class="faq-title">
+O acesso é liberado na hora?
+</div>
+<div>+</div>
+</div>
+
+<div class="faq-body">
+<div class="faq-content">
+Após o envio do comprovante o acesso
+é liberado rapidamente.
+</div>
+</div>
+
+</div>
+
+<div class="faq">
+
+<div class="faq-head" onclick="toggleFaq(this)">
+<div class="faq-title">
+Funciona pelo celular?
+</div>
+<div>+</div>
+</div>
+
+<div class="faq-body">
+<div class="faq-content">
+Sim. O sistema funciona perfeitamente
+em dispositivos móveis.
+</div>
+</div>
+
+</div>
+
+<div class="faq">
+
+<div class="faq-head" onclick="toggleFaq(this)">
+<div class="faq-title">
+O VIP possui limites?
+</div>
+<div>+</div>
+</div>
+
+<div class="faq-body">
+<div class="faq-content">
+Os planos premium possuem recursos
+e consultas liberadas.
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+
+<div class="cta-title">
+Seu acesso pode ser liberado agora
+</div>
+
+<div class="cta-sub">
+
+Entre no sistema premium e desbloqueie
+todos os recursos disponíveis.
+
+</div>
+
+<a
+href="#plans"
+class="cta-btn"
+>
+DESBLOQUEAR ACESSO PREMIUM
+</a>
 
 </section>
 
@@ -4282,7 +4519,7 @@ e seu acesso será liberado imediatamente.
 </div>
 
 <a
-href="https://t.me/astrosuporte"
+href="https://t.me/puxadas71"
 target="_blank"
 class="support-btn"
 >
@@ -4430,150 +4667,6 @@ document.getElementById("tokenStatus")
 }
 
 });
-
-async function consultarAstro(){
-
-const query =
-document.getElementById("astroQuery")
-.value.trim();
-
-const result =
-document.getElementById("astroResult");
-
-const loading =
-document.getElementById("astroLoading");
-
-if(!astroToken){
-
-result.innerHTML =
-"❌ Insira seu token privado.";
-
-return;
-}
-
-if(!query){
-
-result.innerHTML =
-"❌ Digite algo para consultar.";
-
-return;
-}
-
-loading.style.display = "flex";
-
-result.innerHTML = "";
-
-try{
-
-let url = "";
-
-if(currentType==="nome"){
-
-url =
-`https://boks.stherlionato.workers.dev/nome?token=${astroToken}&nome=${encodeURIComponent(query)}`;
-
-}
-
-const req = await fetch(url);
-
-const data = await req.json();
-
-loading.style.display = "none";
-
-if(!data.status){
-
-result.innerHTML =
-"❌ Consulta não autorizada.";
-
-return;
-}
-
-const pessoa =
-data?.dados?.resultado?.dados?.pessoas?.[0];
-
-if(!pessoa){
-
-result.innerHTML =
-"⚠ Nenhum resultado encontrado.";
-
-return;
-}
-
-result.innerHTML = `
-
-<div class="astro-card">
-
-<div class="astro-card-title">
-👤 Resultado encontrado
-</div>
-
-<div class="astro-line">
-<div class="astro-key">
-Nome
-</div>
-
-<div class="astro-value">
-${pessoa.nome || "N/A"}
-</div>
-</div>
-
-<div class="astro-line">
-<div class="astro-key">
-CPF
-</div>
-
-<div class="astro-value">
-${pessoa.cpf || "N/A"}
-</div>
-</div>
-
-<div class="astro-line">
-<div class="astro-key">
-Nascimento
-</div>
-
-<div class="astro-value">
-${pessoa.nascimento || "N/A"}
-</div>
-</div>
-
-<div class="astro-line">
-<div class="astro-key">
-Cidade
-</div>
-
-<div class="astro-value">
-${pessoa.cidade || "N/A"}
-</div>
-</div>
-
-<div class="astro-line">
-<div class="astro-key">
-UF
-</div>
-
-<div class="astro-value">
-${pessoa.uf || "N/A"}
-</div>
-</div>
-
-</div>
-
-`;
-
-}catch(err){
-
-loading.style.display = "none";
-
-result.innerHTML = `
-❌ Erro ao consultar API.
-`;
-
-console.error(err);
-
-}
-
-}
 
 /* =========================================
 ✨ GLOW EFFECT
@@ -6928,70 +7021,127 @@ ${results.map((p,i)=>{
 
   <div class="plan-box" id="plansSection">
 
-  <!-- =========================
-       👑 VITALÍCIO
-  ========================= -->
-  <div class="plan premium">
+    <!-- =========================
+         💎 Mensal
+    ========================= -->
+    <div class="plan">
 
-    <div class="top-stars">
-      <span>✦</span>
-      <span>✧</span>
-      <span>✦</span>
-    </div>
+      <div class="aurora"></div>
 
-    <div class="aurora"></div>
-
-    <div class="plan-particles">
-      <span style="left:5%;animation-duration:8s"></span>
-      <span style="left:16%;animation-duration:12s"></span>
-      <span style="left:28%;animation-duration:7s"></span>
-      <span style="left:44%;animation-duration:10s"></span>
-      <span style="left:58%;animation-duration:9s"></span>
-      <span style="left:74%;animation-duration:13s"></span>
-      <span style="left:90%;animation-duration:8s"></span>
-    </div>
-
-    <div>
-
-      <div class="plan-header">
-        <span class="tag offer">
-          SÓ HOJE!
-        </span>
-
-        <span class="tag lifetime">
-          ILIMITADO
-        </span>
+      <div class="plan-particles">
+        <span style="left:8%;animation-duration:7s"></span>
+        <span style="left:18%;animation-duration:11s"></span>
+        <span style="left:32%;animation-duration:9s"></span>
+        <span style="left:48%;animation-duration:13s"></span>
+        <span style="left:66%;animation-duration:8s"></span>
+        <span style="left:82%;animation-duration:10s"></span>
       </div>
 
-      <div class="plan-title">
-        Vitalício
+      <div>
+
+        <div class="plan-header">
+          <span class="tag basic">
+            CUSTO BENEFÍCIO
+          </span>
+        </div>
+
+        <div class="plan-title">
+          Mensal
+        </div>
+
+        <div class="price">
+          <span class="new-price">
+            R$35,00
+          </span>
+        </div>
+
+        <div class="features">
+          <div>✦ Acesso por um mês</div>
+          <div>✦ Consultas essenciais</div>
+          <div>✦ Liberação imediata</div>
+          <div>✦ Suporte rápido</div>
+        </div>
+
       </div>
 
-      <div class="price">
-        <span class="new-price">
-          R$20,00
-        </span>
-      </div>
-
-      <div class="features">
-        <div>✦ Acesso ilimitado para sempre</div>
-        <div>✦ Tudo desbloqueado</div>
-        <div>✦ Sem limites de consultas</div>
-        <div>✦ Recursos premium</div>
-        <div>✦ Prioridade máxima</div>
-        <div>✦ Atualizações futuras grátis</div>
-      </div>
+      <button class="btn"
+              onclick="openPayment('Plano Mensal • R$35,00')">
+        Adquirir acesso
+      </button>
 
     </div>
 
-    <button class="btn"
-            onclick="openPayment('Plano Vitalício • R$20,00')">
-      🚀 Desbloquear ilimitado
-    </button>
+    <!-- =========================
+         👑 VITALÍCIO
+    ========================= -->
+    <div class="plan premium">
+
+      <div class="top-stars">
+        <span>✦</span>
+        <span>✧</span>
+        <span>✦</span>
+      </div>
+
+      <div class="aurora"></div>
+
+      <div class="plan-particles">
+        <span style="left:5%;animation-duration:8s"></span>
+        <span style="left:16%;animation-duration:12s"></span>
+        <span style="left:28%;animation-duration:7s"></span>
+        <span style="left:44%;animation-duration:10s"></span>
+        <span style="left:58%;animation-duration:9s"></span>
+        <span style="left:74%;animation-duration:13s"></span>
+        <span style="left:90%;animation-duration:8s"></span>
+      </div>
+
+      <div>
+
+        <div class="plan-header">
+          <span class="tag offer">
+            SÓ HOJE!
+          </span>
+
+          <span class="tag lifetime">
+            ILIMITADO
+          </span>
+        </div>
+
+        <div class="plan-title">
+          Vitalício
+        </div>
+
+        <div class="price">
+
+          <span class="old-price">
+            R$99
+          </span>
+
+          <span class="new-price">
+            R$50,00
+          </span>
+
+        </div>
+
+        <div class="features">
+          <div>✦ Acesso ilimitado para sempre</div>
+          <div>✦ Tudo desbloqueado</div>
+          <div>✦ Sem limites de consultas</div>
+          <div>✦ Recursos premium</div>
+          <div>✦ Prioridade máxima</div>
+          <div>✦ Atualizações futuras grátis</div>
+        </div>
+
+      </div>
+
+      <button class="btn"
+              onclick="openPayment('Plano Vitalício • R$50,00')">
+        🚀 Desbloquear ilimitado
+      </button>
+
+    </div>
 
   </div>
 
-</div>
 </section>
 
 <!-- =====================================
@@ -7053,7 +7203,7 @@ ${results.map((p,i)=>{
         para o suporte e seu acesso será liberado imediatamente.
       </div>
 
-      <a href="https://t.me/astrosuporte"
+      <a href="https://t.me/puxadas71"
          target="_blank"
          class="support-btn">
         Já paguei
@@ -7384,7 +7534,7 @@ function copyPix(){
 
   const key =
     "7bf96d3d-92db-42ce-b5c1-00facbbd3d46"
-    
+
   navigator.clipboard
     .writeText(key)
 
@@ -8404,23 +8554,45 @@ PLANOS PREMIUM
 
 <div class="plan">
 
-  <div class="plan-top">
+<div class="plan-top">
 
-    <div class="plan-name">
-      Vitalício
-    </div>
+<div class="plan-name">
+Mensal
+</div>
 
-    <div class="plan-price">
-      R$20<small>,00</small>
-    </div>
+<div class="plan-price">
+R$35<small>,00</small>
+</div>
 
-  </div>
+</div>
 
-  <div class="plan-features">
-    ✦ Sem limites<br>
-    ✦ Tudo desbloqueado<br>
-    ✦ Atualizações futuras grátis
-  </div>
+<div class="plan-features">
+✦ 24h de acesso<br>
+✦ Liberação imediata<br>
+✦ Consultas rápidas
+</div>
+
+</div>
+
+<div class="plan">
+
+<div class="plan-top">
+
+<div class="plan-name">
+Vitalício
+</div>
+
+<div class="plan-price">
+R$50<small>,00</small>
+</div>
+
+</div>
+
+<div class="plan-features">
+✦ Sem limites<br>
+✦ Tudo desbloqueado<br>
+✦ Atualizações futuras grátis
+</div>
 
 </div>
 
@@ -8430,17 +8602,17 @@ PLANOS PREMIUM
 
 <div class="footer">
 
-  <div>
-    Astro • Sistema premium online
-  </div>
+<div>
+Astro • Sistema premium online
+</div>
 
-  <div class="online">
+<div class="online">
 
-    <div class="dot"></div>
+<div class="dot"></div>
 
-    Online
+Online
 
-  </div>
+</div>
 
 </div>
 
