@@ -4498,7 +4498,7 @@ Chave PIX
 <div class="pix-box">
 
 <div class="pix-key">
-7bf96d3d-92db-42ce-b5c1-00facbbd3d46
+de02994d-f391-4b9b-acf8-865b721d3082
 </div>
 
 <button
@@ -4780,7 +4780,7 @@ function openPayment(plan){
 function copyPix(){
 
 navigator.clipboard.writeText(
-"7bf96d3d-92db-42ce-b5c1-00facbbd3d46"
+"de02994d-f391-4b9b-acf8-865b721d3082"
 );
 
 const btn =
@@ -7188,7 +7188,7 @@ ${results.map((p,i)=>{
       <div class="pix-box">
 
         <div class="pix-key" id="pixKey">
-          7bf96d3d-92db-42ce-b5c1-00facbbd3d46
+          de02994d-f391-4b9b-acf8-865b721d3082
         </div>
 
         <button class="copy-pix"
@@ -7533,7 +7533,7 @@ function closePayment(){
 function copyPix(){
 
   const key =
-    "7bf96d3d-92db-42ce-b5c1-00facbbd3d46"
+    "de02994d-f391-4b9b-acf8-865b721d3082"
 
   navigator.clipboard
     .writeText(key)
