@@ -4334,7 +4334,7 @@ R$99
 </div>
 
 <div class="new">
-R$50<small>,00</small>
+R$25<small>,00</small>
 </div>
 
 </div>
