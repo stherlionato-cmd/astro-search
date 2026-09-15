@@ -4310,7 +4310,7 @@ R$35<small>,00</small>
 
 <button
 class="plan-btn"
-onclick="openPayment('Plano mensal • R$35,00')"
+onclick="openPayment('Plano mensal • R$20,00')"
 >
 Desbloquear
 </button>
@@ -4358,7 +4358,7 @@ R$50<small>,00</small>
 
 <button
 class="plan-btn"
-onclick="openPayment('Plano Vitalício • R$50,00')"
+onclick="openPayment('Plano Vitalício • R$25,00')"
 >
 🚀 DESBLOQUEAR
 </button>
@@ -7051,7 +7051,7 @@ ${results.map((p,i)=>{
 
         <div class="price">
           <span class="new-price">
-            R$35,00
+            R$20,00
           </span>
         </div>
 
@@ -7065,7 +7065,7 @@ ${results.map((p,i)=>{
       </div>
 
       <button class="btn"
-              onclick="openPayment('Plano Mensal • R$35,00')">
+              onclick="openPayment('Plano Mensal • R$20,00')">
         Adquirir acesso
       </button>
 
@@ -7117,7 +7117,7 @@ ${results.map((p,i)=>{
           </span>
 
           <span class="new-price">
-            R$50,00
+            R$25,00
           </span>
 
         </div>
@@ -7134,7 +7134,7 @@ ${results.map((p,i)=>{
       </div>
 
       <button class="btn"
-              onclick="openPayment('Plano Vitalício • R$50,00')">
+              onclick="openPayment('Plano Vitalício • R$25,00')">
         🚀 Desbloquear ilimitado
       </button>
 
@@ -8561,7 +8561,7 @@ Mensal
 </div>
 
 <div class="plan-price">
-R$35<small>,00</small>
+R$20<small>,00</small>
 </div>
 
 </div>
@@ -8583,7 +8583,7 @@ Vitalício
 </div>
 
 <div class="plan-price">
-R$50<small>,00</small>
+R$25<small>,00</small>
 </div>
 
 </div>
